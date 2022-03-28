@@ -2,7 +2,6 @@ const express = require('express');
 const User2 = require('../model/userschema');
 const router = express.Router();
 const app=express();
-require('../db/conn');
 
 app.get('/' , (req, res)=> {
     res.send("this works");
