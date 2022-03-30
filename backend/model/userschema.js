@@ -1,14 +1,19 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
-const UserSchema= mongoose.Schema({
-    name:{
-        type:String,
-        recquired:true
+const userSchema = mongoose.Schema({
+    username: String,
+    password: String,
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
-    password:{
-        type:String,
-        recquired:true
+    name: String,
+    phoneNumber: String,
+    acType: {
+        type: String,
+        enum: ['ADMIN','IN', 'NGO'],
+        default: 'IN'
     }
-})
- const User= mongoose.model('USERS', UserSchema);
- module.exports=User;
+}, {timestamps: true});
+
+module.exports = mongoose.model('User', userSchema);
