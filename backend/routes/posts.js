@@ -1,12 +1,11 @@
 const express = require('express');
 const User2 = require('../model/userschema');
 const router = express.Router();
-const app=express();
 
-app.get('/' , (req, res)=> {
+router.get('/' , (req, res)=> {
     res.send("this works");
 });
-app.get('/about', (req,res)=>{
+router.get('/about', (req,res)=>{
       res.send("about page");
 });
 router.get('/dashboard', (req,res)=>{
@@ -32,7 +31,5 @@ router.get('/dashboard', (req,res)=>{
 router.get('/companies', (req,res)=>{
     res.send("companies");
 });
-
- 
 
 module.exports=router;
