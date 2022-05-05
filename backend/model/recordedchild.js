@@ -15,8 +15,7 @@ const recordedchild = mongoose.Schema
             type : Boolean,
             default: true
         }
-    }
-
+    },
     {timestamps: true}
 );
 module.exports = mongoose.model('child', recordedchild);
