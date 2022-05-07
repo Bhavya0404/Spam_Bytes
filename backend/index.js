@@ -17,7 +17,6 @@ const MONGO_URL =
   "mongodb+srv://sihuser:sihuser@cluster0.iytwb.mongodb.net/sih?retryWrites=true&w=majority";
 mongoose.connect(
   MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
   () => {
     console.log("Database Connected");
     app.listen(PORT, () => {
