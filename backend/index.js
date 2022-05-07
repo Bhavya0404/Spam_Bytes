@@ -11,16 +11,17 @@ app.use(cors());
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 // const MONGO_URL = 'mongodb+srv://MeenalPrakash:meenal2003@cluster0.wwhtx.mongodb.net/ProjectPayRoll?retryWrites=true&w=majority';
 const MONGO_URL =
   "mongodb+srv://sihuser:sihuser@cluster0.iytwb.mongodb.net/sih?retryWrites=true&w=majority";
+  mongoose.set('bufferCommands', false);
 mongoose.connect(
   MONGO_URL,
   () => {
     console.log("Database Connected");
     app.listen(PORT, () => {
-      console.log("server is running at port 3000");
+      console.log("server is running at port 5000");
     });
   }
 );

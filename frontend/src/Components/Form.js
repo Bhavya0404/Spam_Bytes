@@ -1,92 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
+
 
 function Form() {
-    return (
+const [username,setusername]= useState('')
+const [password,setpassword]= useState(0)
+
+
+const handleclick=(event)=>{
+event.preventDefault()
+console.log(username,password)
+const payload={
+    username:username,
+    password:password,
+    
+}
+axios.post('/login',payload)
+.then(()=>{console.log("done")})
+.catch(()=>{console.log(" not done")})
+}
+ return (
         <form>
-            <section1>
-                <heading>
-                    <h2>Child Labour/Adolescent Child Details</h2>
-                </heading>
-
-                <info>
-                    <label>
-                        Name
-                        <input type="text" name= "childName" /> <br></br> <br></br>
-                    </label>
-
-                    <label>
-                        Description
-                        <textarea name="description"></textarea> <br></br> <br></br>
-                    </label>
-
-                    <label>
-                        Photo of Child
-                        <input type="file" name="childImage" /> <br></br> <br></br>
-                    </label>
-                </info>
-            </section1>
-
-            <srction2>
-                <heading>
-                    <h2>Address where child found</h2>
-                </heading>
-
-                <info>
-                    <label>
-                        House No
-                        <input type="text" name="houseNo" /> <br></br> <br></br>
-                    </label>
-
-                    <label>
-                        Village/Mohalla
-                        <input type="text" name="village" /> &nbsp; &nbsp;
-                    </label>
-
-                    <label>
-                        Ward/Panchayat
-                        <input type="text" name="ward" /> <br></br> <br></br>
-                    </label>
-
-                    <label>
-                        Taluk/Block
-                        <input type="text" name="block" /> &nbsp; &nbsp;
-                    </label>
-
-                    <label>
-                        Teshil/Subdistrict
-                        <input type="text" name="subdistrict" /> <br></br> <br></br>
-                    </label>
-
-                    <label>
-                        Landmark
-                        <input type="text" name="Landmark" /> <br></br> <br></br>
-                    </label>
-                </info>
-            </srction2>
-
-            <section3>
-                <heading>
-                    <h2>Reporting Person Details</h2>
-                </heading>
-
-                <info>
-
-                <label>
-                    Name
-                    <input type="text" name= "userName" /> <br></br> <br></br>
-                </label>
-
-                <label>
-                    Mobile Number
-                    <input type="tel" name="mno" /> <br></br> <br></br>
-                </label>
-
-                <label>
-                    Email-id
-                    <input type="email" name="emailid" /> <br></br> <br></br>
-                </label>
-                </info>
-            </section3>
+            <div>
+                <label htmlFor="username">Name :</label>
+                <input name="username" value={username} type="text" id="username" onChange={(e)=>{setusername(e.target.value)}}></input>
+            </div>
+            <div>
+            <label htmlFor="password">Quantity :</label>
+            <input name="password" value={password} type="text" id="password" onChange={(e)=>{setpassword(e.target.value)}}></input>
+        </div>
+       
+    <div>
+        <button onClick={handleclick}>Submit</button>
+    </div>
         </form>
     );
 }

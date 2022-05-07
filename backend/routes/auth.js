@@ -9,6 +9,7 @@ const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
+
 router.post('/login', async (req, res) => {
     const body = req.body;
 
@@ -19,6 +20,7 @@ router.post('/login', async (req, res) => {
 
     try {
         const user = await userModel.findOne({username: username}).exec();
+        console.log(username);
         if (!user) return res.status(403).send({error: "Invalid Username", code: 403});
 
         const password_hash = user?.password;
