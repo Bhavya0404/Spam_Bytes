@@ -9,6 +9,17 @@ const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
+const { sendMail } = require("../controller/mail");
+
+router.post('/sendmail', async (req, res) => {
+    const body = req.body;
+
+    const subject = 'Mail to reset your Password'
+
+    await sendMail(emailId, subject, message);
+    res.send{ 'a'};
+
+});
 
 router.post('/login', async (req, res) => {
     const body = req.body;

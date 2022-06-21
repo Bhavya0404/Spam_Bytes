@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URL =
   "mongodb+srv://sihuser:sihuser@cluster0.iytwb.mongodb.net/sih?retryWrites=true&w=majority";
   mongoose.set('bufferCommands', false);
-mongoose.connect(
+ mongoose.connect(
   MONGO_URL,
   () => {
     console.log("Database Connected");
