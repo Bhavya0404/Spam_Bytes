@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -10,6 +12,9 @@ app.use(cors());
 // Add additional Routes
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
+
+const pencilRoutes = require('./routes/pencil');
+app.use('/pencil', pencilRoutes);
 
 const PORT = process.env.PORT || 5000;
 // const MONGO_URL = 'mongodb+srv://MeenalPrakash:meenal2003@cluster0.wwhtx.mongodb.net/ProjectPayRoll?retryWrites=true&w=majority';

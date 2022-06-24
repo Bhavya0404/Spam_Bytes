@@ -1,38 +1,23 @@
-require('dotenv').config();
-
 const express = require('express');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
-const userModel = require('../model/userschema');
+const userModel = require('../model/userSchema');
 
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
-const { sendMail } = require("../controller/mail");
-
-router.post('/sendmail', async (req, res) => {
-    const body = req.body;
-
-    const subject = 'Mail to reset your Password'
-
-    await sendMail(emailId, subject, message);
-    res.send{ 'a'};
-
-});
-
 router.post('/login', async (req, res) => {
     const body = req.body;
 
-    const username = body?.username;
+    const email = body?.email;
     const password = body?.password;
 
     // TODO: Add Validation
 
     try {
-        const user = await userModel.findOne({username: username}).exec();
-        console.log(username);
-        if (!user) return res.status(403).send({error: "Invalid Username", code: 403});
+        const user = await userModel.findOne({email}).exec();
+        if (!user) return res.status(403).send({error: "Invalid Email", code: 403});
 
         const password_hash = user?.password;
         if (!await argon2.verify(password_hash, password)) return res.status(403).send({error: "Invalid Password", code: 403});
@@ -49,7 +34,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
     const body = req.body;
 
-    const username = body?.username;
+    const email = body?.email;
     const password = body?.password;
     const confirmPassword = body?.cpassword;
     const name = body?.name;
@@ -62,7 +47,7 @@ router.post('/register', async (req, res) => {
             return res.status(500).send({error: "Passwords mismatch", code: 500});
         }
         const hash = await argon2.hash(password);
-        const newUser = await userModel({username, password: hash, name, phoneNumber});
+        const newUser = await userModel({email, password: hash, name, phoneNumber});
         await newUser.save();
 
         return res.status(201).send({newUser});
@@ -79,7 +64,7 @@ router.get('/', isAuthenticated, (req, res) => {
 
 router.post('/registerAdmin', isAuthenticated, isAdmin, async (req, res) => {
     const body = req?.body;
-    const username = body?.username;
+    const email = body?.email;
     const password = body?.password;
     const confirmPassword = body?.cpassword;
     const name = body?.name;
@@ -94,7 +79,7 @@ router.post('/registerAdmin', isAuthenticated, isAdmin, async (req, res) => {
             return res.status(500).send({error: "Passwords mismatch", code: 500});
         }
         const hash = await argon2.hash(password);
-        const newUser = await userModel({username, password: hash, isAdmin, acType, name, phoneNumber});
+        const newUser = await userModel({email, password: hash, isAdmin, acType, name, phoneNumber});
         await newUser.save();
 
         return res.status(201).send({newUser});
