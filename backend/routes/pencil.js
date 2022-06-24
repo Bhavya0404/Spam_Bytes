@@ -1,20 +1,21 @@
 const express = require('express');
-const { isAdmin } = require('../middleware/auth');
+const { isAdmin, isAuthenticated } = require('../middleware/auth');
 const recordedChild = require('../model/recordedChild');
 const foundChild = require('../model/foundChild');
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/report', isAuthenticated, async (req, res) => {
     const body = req?.body;
     const name = body?.name;
     const description = body?.description;
-    const img = req?.files?.img;
+    const img = body?.img;
+    console.log(img)
     const address = body?.address;
     const state = body?.state;
     const district = body?.district;
     const lastKnownLocation = [body?.lat, body?.lng];
 
-    const data = {name, description, img, address, state, district, lastKnownLocation};
+    const data = {name, description, img, address, state, district, lastKnownLocation, reportedBy: req?.user?._id};
     const newFoundChild = new foundChild(data);
     await newFoundChild.save();
     return res.status(201).send({newFoundChild});

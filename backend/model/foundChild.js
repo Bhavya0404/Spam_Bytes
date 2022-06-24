@@ -7,10 +7,7 @@ const foundchild = mongoose.Schema(
       default: 'N/A'
     },
     description: String,
-    img: {
-      data: Buffer,
-      contentType: String,
-    },
+    img: String,
     address: String,
     state: String,
     district: String,
