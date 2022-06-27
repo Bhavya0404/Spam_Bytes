@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,29 +31,63 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={handleLogin}>Login</button>
-      </div>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        "& > :not(style)": {
+          m: 1,
+          mt: 7,
+          width: "60%",
+          height: "60vh",
+        },
+      }}
+    >
+      <Paper>
+        <Grid container spacing={2}>
+          <Grid item sm={6} xs={12}>
+            <TextField
+              label="Email"
+              placeholder="Enter Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+
+            <TextField 
+              label="Password"
+              placeholder="Enter Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <Button 
+              variant="contained"
+              onClick={handleLogin}
+              sx = {{
+                backgroundColor: 'black',
+              }}>
+              Contained</Button>
+              
+          </Grid>
+
+
+          <Grid
+            item
+            xs={6}
+            sx={
+              {
+                // backgroundColor: 'orange',
+              }
+            }
+          >
+            {/* <Typography variant="h1" component="div">Hello</Typography> */}
+          </Grid>
+        </Grid>
+      </Paper>
+    </Box>
   );
 };
 

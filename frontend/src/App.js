@@ -1,17 +1,14 @@
 import './App.css';
-import Login from './components/Login';
+import Login from './components/Login2';
 import Register from './components/Register';
 import ReportChild from './components/ReportChild';
+import Navbar from './components/Navbar'
 
 function App() {
   return (
     <div>
-      <h2>Register</h2>
-      <Register />
-      <h2>Login</h2>
+    <Navbar />
       <Login />
-      <h2>Report Child</h2>
-      <ReportChild />
     </div>
   );
 }
