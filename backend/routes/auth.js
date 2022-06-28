@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const userModel = require('../model/userSchema');
 
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
+const { middleware } = require('../middleware/simple');
 
 const router = express.Router();
 
@@ -86,6 +87,36 @@ router.post('/registerAdmin', isAuthenticated, isAdmin, async (req, res) => {
     } catch (err) {
         console.error(err);
         return res.status(500).send({error: err, code: 500});
+    }
+})
+router.post('/confirmationNodal',middleware, async (req,res) => {
+    const body = req?.body;
+    const _id= body?._id;
+    const c=body?.c;
+
+    try{
+         if(c==1)
+         {
+            const user = await userModel.findOne({_id}).exec();
+             if (!user) return res.status(403).send({error: "Invalid Email", code: 403});
+
+             var newvalues = { $set: { isVerified: true } };
+            userModel.updateOne({_id:_id} , newvalues, function(err, res) {
+                if (err) throw err;
+                console.log("1 document updated");
+               // db.close();
+              })
+           // return res.status(201).send("The confirmation of nodal officer");
+         }
+         else{
+
+         }
+    }
+    catch(err)
+    {
+        console.error(err);
+        return res.status(500).send({error: err, code: 500});
+
     }
 })
 

@@ -1,6 +1,6 @@
 const express = require('express');
 const { isAdmin, isAuthenticated } = require('../middleware/auth');
-const recordedChild = require('../model/recordedChild');
+//const recordedChild = require('../model/recordedChild');
 const foundChild = require('../model/foundChild');
 const router = express.Router();
 

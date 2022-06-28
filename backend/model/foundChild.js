@@ -15,6 +15,7 @@ const foundchild = mongoose.Schema(
       type: Array,
       default: [0.0, 0.0],
     },
+    isVerified: Boolean,
     reportedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
