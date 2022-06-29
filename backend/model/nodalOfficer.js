@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 
 const nodalOfficer = mongoose.Schema(
   {
-    name: String,
-    phoneNumber: String,
-    email: String,
+    user: {},
     state: String,
     district: String,
+    officeLocation: {type: Array, default: [0.0, 0.0]}
   },
   { timestamps: true }
 );
