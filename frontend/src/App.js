@@ -15,6 +15,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reportchild" element={<ReportChild/>}/>
         <Route path="/users" element={<AllUser/>} />
         <Route path='user/:userId' element={<UserDashBord/>}/>
       </Routes>
