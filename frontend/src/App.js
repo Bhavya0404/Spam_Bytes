@@ -1,20 +1,26 @@
-import './App.css';
-import Login from './components/Login';
-import MapView from './components/MapView';
-import Register from './components/Register';
-import ReportChild from './components/ReportChild';
+import "./App.css";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import ReportChild from "./components/ReportChild";
+import Navbar from "./components/Navbar";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./components/HomePage";
+import VerificationPage from "./components/VerificationPage";
+import UserDashBord from "./features/users/UserDashBord";
+import AllUser from "./features/users/AllUser";
 
 function App() {
   return (
     <div>
-      <h2>Register</h2>
-      <Register />
-      <h2>Login</h2>
-      <Login />
-      <h2>Report Child</h2>
-      <ReportChild />
-      <h2>Map View</h2>
-      <MapView childLocation={[77.3830179, 28.5712296]} officeLocation={[77.3395, 28.5898]} />
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reportchild" element={<ReportChild/>}/>
+        <Route path="/users" element={<AllUser/>} />
+        <Route path='user/:userId' element={<UserDashBord/>}/>
+      </Routes>
     </div>
   );
 }
