@@ -1,0 +1,19 @@
+[
+    {
+        "name": "BJP",
+        "address":"Delhi",
+        "isVerified": true
+    },
+
+    {
+        "name": "AAP",
+        "address":"Delhi",
+        "isVerified": true
+    },
+
+    {
+        "name": "SHP",
+        "address":"Delhi",
+        "isVerified": true
+    }
+]
