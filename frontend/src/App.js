@@ -8,6 +8,8 @@ import HomePage from "./components/HomePage";
 import VerificationPage from "./components/VerificationPage";
 import UserDashBord from "./features/users/UserDashBord";
 import AllUser from "./features/users/AllUser";
+import AllNgo from './features/ngo/AllNgo'
+import NgoDashboard from './features/ngo/NgoDashboard'
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/reportchild" element={<ReportChild/>}/>
         <Route path="/users" element={<AllUser/>} />
         <Route path='user/:userId' element={<UserDashBord/>}/>
+        <Route path='/ngo/:ngoId' element={<NgoDashboard />} />
+        <Route exact path='/ngo' element={<AllNgo />} />
       </Routes>
     </div>
   );
