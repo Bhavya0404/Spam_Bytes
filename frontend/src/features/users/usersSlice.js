@@ -57,4 +57,7 @@ export const getUsersStatus = (state) => state.users.status
 export const getUsersError = (state) => state.users.error
 export const selectUserById = (state, userId) =>
   state.users.users.find((user) => user._id === userId)
+
+export const selectuserByEmail = (state,emailId)=>
+  state.users.users.find((user)=>user.email===emailId)
 export default userSlice.reducer

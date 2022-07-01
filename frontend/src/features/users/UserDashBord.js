@@ -1,11 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectUserById } from './usersSlice';
+import { selectuserByEmail, selectUserById } from './usersSlice';
 const UserDashBord = () => {
     const userId = useParams();
     // console.log(userId);
-    const user = useSelector((state)=>selectUserById(state,userId.userId))
+    const user = useSelector((state)=>selectuserByEmail(state,userId.userId))
     // console.log(user);
     if(!user){
         return (<section>
