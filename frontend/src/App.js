@@ -17,16 +17,10 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-<<<<<<< HEAD
         <Route path="/reportchild" element={<ReportChild />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         <Route path="/users" element={<AllUser />} />
         <Route path="user/:userId" element={<UserDashBord />} />
-=======
-        <Route path="/reportchild" element={<ReportChild/>}/>
-        <Route path="/users" element={<AllUser/>} />
-        <Route path='user/:userId' element={<UserDashBord/>}/>
->>>>>>> 0b9fc0ffe313cb6eaacdd7e671449b8d14e69328
       </Routes>
     </div>
   );
