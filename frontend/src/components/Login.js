@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -6,17 +6,25 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-// import "../login.css";
 import Container from "@mui/material/Container";
+import { useSelector } from "react-redux";
+import { selectuserByEmail } from "../features/users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const data = { email, password };
+  
+
+  
+  
 
   const handleLogin = async () => {
-    const data = { email, password };
+    
 
     setEmailError(false);
     setPasswordError(false);
@@ -35,6 +43,7 @@ const Login = () => {
       if (resp.status === 200) {
         localStorage.setItem("token", resp.data.token);
         console.log(resp.data.token);
+        navigate(`/user/${email}`)
       } else {
         alert("Failure");
         console.log(resp);
@@ -44,6 +53,7 @@ const Login = () => {
     } finally {
       setEmail("");
       setPassword("");
+      
     }
   };
 
