@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const { isAdmin, isAuthenticated } = require('../middleware/auth');
 //const recordedChild = require('../model/recordedChild');
 const foundChild = require('../model/foundChild');
@@ -21,7 +22,16 @@ router.post("/report", isAuthenticated, async (req, res) => {
     const newFoundChild = new foundChild(data);
     await newFoundChild.save();
      
-    Mail();
+    const sendContactMail = async () => {
+       
+    
+       
+        let tot = ('meenalprakash03@gmail.com');
+        
+        await sendMail( tot);
+    }
+
+    sendContactMail();
 
    return res.status(201).send({newFoundChild});
 })
