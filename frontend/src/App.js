@@ -21,6 +21,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/reportchild" element={<ReportChild/>}/>
         <Route path="/users" element={<AllUser/>} />
+        <Route path="/verificationpage" element={<VerificationPage />} />
         <Route path='user/:userId' element={<UserDashBord/>}/>
         <Route path='/ngo/:ngoId' element={<NgoDashboard />} />
         <Route exact path='/ngo' element={<AllNgo />} />
