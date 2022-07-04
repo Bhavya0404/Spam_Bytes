@@ -3,16 +3,18 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const POST_URL = "http://localhost:5000/ngo"
 
-export const fetchNgo = createAsyncThunk('ngo/fetchNgo', async () => {
-    const responce = await axios.get(POST_URL)
-    return responce.data
-})
-
 const initialState = {
   ngoData: [],
   status: "idle",
   error: null,
 };
+
+export const fetchNgo = createAsyncThunk('ngo/fetchNgo', async () => {
+    const responce = await axios.get(POST_URL)
+    return responce.data
+})
+
+
 
 const ngoSlice = createSlice({
   name: "ngo",

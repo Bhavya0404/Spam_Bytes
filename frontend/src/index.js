@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './app/store'
 import { fetchUsers } from './features/users/usersSlice'
+import { fetchNgo } from './features/ngo/ngoSlice'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 store.dispatch(fetchUsers())
+store.dispatch(fetchNgo())
 
 root.render(
   <React.StrictMode>
