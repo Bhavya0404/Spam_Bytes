@@ -1,9 +1,8 @@
 const express = require("express");
 const { isAdmin, isAuthenticated } = require("../middleware/auth");
-//const recordedChild = require('../model/recordedChild');
 const foundChild = require("../model/foundChild");
 const nodalOfficer = require("../model/nodalOfficer");
-const { sendMail, Mail } = require("../controller/mail");
+const { sendMail } = require("../controller/mail");
 const router = express.Router();
 
 router.post("/report", isAuthenticated, async (req, res) => {
@@ -31,9 +30,8 @@ router.post("/report", isAuthenticated, async (req, res) => {
   const newFoundChild = new foundChild(data);
   await newFoundChild.save();
   const user = await nodalOfficer.findOne({ district }).exec();
-  const email=user.email;
-  sendMail(email);
-
+  const email=user.email; 
+  await sendMail(email, newFoundChild._id);
   return res.status(201).send({ newFoundChild });
 });
 
