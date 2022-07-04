@@ -8,21 +8,23 @@ const AllNgo = () => {
   const error = useSelector(getNgoError);
   let content;
 
-  useEffect(() => {
-    console.log(status);
+  // useEffect(() => {
+    
+  // }, [status]);
+
+  // console.log(status);
     if (status === "Loading") {
-      content = <p>Loading</p>;
+      return <p>Loading</p>;
     } else if (status === "Succeeded") {
-      content = ngo.map((n) => {
+      return ngo.map((n) => {
         console.log(n);
         return <h1>{n.name}</h1>;
       });
     } else if (status === "failed") {
-      content = <p>{error}</p>;
+      return <p>{error}</p>;
     }
-  }, [status]);
 
-  return <div>{content}</div>;
+  // return <div>{content}</div>;
 };
 
 export default AllNgo;
