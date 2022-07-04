@@ -1,0 +1,13 @@
+[
+    {
+        "state": "Delhi",
+        "district": "Noida",
+        "officeLocation": "xyz"
+    },
+
+    {
+        "state": "Maharashta",
+        "district": "Mumbai",
+        "officeLocation": "goa"
+    }
+]
