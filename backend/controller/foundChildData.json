@@ -1,0 +1,25 @@
+[
+    {
+       "name" : "Raj",
+       "description": "poor",
+       "img": "dsed",
+       "address": "jp",
+       "state": "delhi",
+       "district": "noida",
+       "lastKnownLocation": [77.2177, 28.6304],
+       "isVerified": "No",
+       "reportedBy": "Rahul"
+    },
+
+    {
+        "name" : "Rahul",
+        "description": "poor",
+        "img": "dsed",
+        "address": "jp",
+        "state": "Maharashta",
+        "district": "noida",
+        "lastKnownLocation": [77.2177, 28.6304],
+        "isVerified": "No",
+        "reportedBy": "Rahul"
+     }
+]

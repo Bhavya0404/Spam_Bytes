@@ -2,12 +2,12 @@
     {
         "state": "Delhi",
         "district": "Noida",
-        "officeLocation": "xyz"
+        "officeLocation": [77.2082, 28.6172]
     },
 
     {
         "state": "Maharashta",
         "district": "Mumbai",
-        "officeLocation": "goa"
+        "officeLocation": [77.2082, 28.6172]
     }
 ]
