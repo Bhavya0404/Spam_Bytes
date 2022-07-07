@@ -8,6 +8,12 @@ const ngo = mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    state: String,
+    district: String,
+    user: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User'
+    }
   },
   { timestamps: true }
 );
