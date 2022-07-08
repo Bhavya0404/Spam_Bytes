@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectNgoById } from './ngoSlice'
@@ -7,7 +7,7 @@ import { selectNgoById } from './ngoSlice'
 const NgoDashboard = () => {
     const id = useParams();
 
-    const ngo = useSelector((state) => selectNgoById(state, id.ngoId))
+    const ngo = useSelector((state) => selectNgoById(state, parseInt(id.ngoId)))
 
     if(!ngo){
         return (
