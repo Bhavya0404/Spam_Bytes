@@ -1,0 +1,13 @@
+[
+    {
+        "state": "Delhi",
+        "district": "Noida",
+        "officeLocation": [77.2082, 28.6172]
+    },
+
+    {
+        "state": "Maharashta",
+        "district": "Mumbai",
+        "officeLocation": [77.2082, 28.6172]
+    }
+]

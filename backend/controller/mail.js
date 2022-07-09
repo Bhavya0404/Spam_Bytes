@@ -1,6 +1,6 @@
 var nodemailer = require("nodemailer");
 
-exports.sendMail = async (tot) => {
+ const sendMail = async ( tot, id, subject) => {
   var transporter = nodemailer.createTransport({
     service: "yahoo",
     auth: {
@@ -9,11 +9,12 @@ exports.sendMail = async (tot) => {
     },
   });
 
+ 
   var mailOptions = {
     from: "avichal_tripathi@yahoo.com",
     to: tot,
-    subject: "Sending Email using Node.js",
-    text: "That was easy!",
+    subject: `${subject}`,
+    text: `That was easy! Complaint ID ${id}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -24,3 +25,8 @@ exports.sendMail = async (tot) => {
     }
   });
 };
+
+
+
+
+module.exports = {sendMail}
