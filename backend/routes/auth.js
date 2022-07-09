@@ -3,6 +3,11 @@ const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 const userModel = require("../model/userSchema");
 const childModel = require("../model/foundChild");
+const ngo = require("../model/ngo");
+const foundChild = require("../model/foundChild");
+var nodemailer = require("nodemailer");
+const { sendMail } = require("../controller/mail");
+
 
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 const { middleware } = require("../middleware/simple");
@@ -78,6 +83,7 @@ router.get("/", isAuthenticated, (req, res) => {
   return res.status(200).send({ user });
 });
 
+
 router.post("/registerAdmin", isAuthenticated, isAdmin, async (req, res) => {
   const body = req?.body;
   const email = body?.email;
@@ -119,14 +125,20 @@ router.post("/confirmationNodal", middleware, async (req, res) => {
   try {
     if (c == 1) {
       await childModel
-        .findByIdAndUpdate(_id, { isVerified: true }, function (err, res) {
+        .findByIdAndUpdate(_id, { isVerified: true }, function (err, res)  {
           if (err) {
             // console.log(err);
           } else {
+            
             console.log("Updated User : ");
+            
           }
         })
-        .exec();
+      
+
+        const user = await ngo.find({ district }).exec();
+        const email = user.email;
+         sendMail(  email, newFoundChild._id,"A child has been reported in Your Area");
     } else {
     }
   } catch (err) {

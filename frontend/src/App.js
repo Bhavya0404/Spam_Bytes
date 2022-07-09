@@ -11,6 +11,8 @@ import AllUser from "./features/users/AllUser";
 import AllNgo from './features/ngo/AllNgo'
 import NgoDashboard from './features/ngo/NgoDashboard'
 import AllNodal from "./features/nodal/AllNodal";
+import AllFoundChild from "./features/foundchild/AllFoundChild";
+import NodalDashboard from "./features/nodal/NodalDashboard";
 
 function App() {
   return (
@@ -21,12 +23,15 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reportchild" element={<ReportChild/>}/>
+        <Route path="/verificationpage" element={<VerificationPage />} />
         <Route path="/users" element={<AllUser/>} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         <Route path='user/:userId' element={<UserDashBord/>}/>
         <Route path='/ngo/:ngoId' element={<NgoDashboard />} />
         <Route exact path='/ngo' element={<AllNgo />} />
         <Route path="/nodal" element={<AllNodal />} />
+        <Route path="/foundchild" element={<AllFoundChild />} />
+        <Route path="/nodal/dashboard" element={<NodalDashboard />} />
       </Routes>
     </div>
   );
