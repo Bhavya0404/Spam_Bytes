@@ -8,8 +8,22 @@
        "district": "noida",
        "lastKnownLocation": [77.2177, 28.6304],
        "isVerified": "No",
+       "isAccepted": "Yes",
        "reportedBy": "Rahul"
     },
+
+    {
+      "name" : "Jia",
+      "description": "poor",
+      "img": "dsed",
+      "address": "jp",
+      "state": "Bihar",
+      "district": "abc",
+      "lastKnownLocation": [77.2177, 28.6304],
+      "isVerified": "Yes",
+      "isAccepted": "No",
+      "reportedBy": "Rahul"
+   },
 
     {
         "name" : "Rahul",
@@ -20,6 +34,7 @@
         "district": "noida",
         "lastKnownLocation": [77.2177, 28.6304],
         "isVerified": "No",
+        "isAccepted": "No",
         "reportedBy": "Rahul"
      }
 ]
