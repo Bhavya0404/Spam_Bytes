@@ -16,7 +16,12 @@ const NgoDashboard = () => {
   }
   let childState
   childState = childs.map((child) => {
-    if (child.district === ngo.district && child.isVerified === 'Yes')
+    console.log(child.isVerified)
+
+    if (
+      child.district.toLowerCase() === ngo.district.toLowerCase() &&
+      child.isVerified && !child.isAccepted
+    )
       return <FoundChild data={child} />
   })
 
