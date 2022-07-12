@@ -16,11 +16,16 @@ const foundchild = mongoose.Schema(
       default: [0.0, 0.0],
     },
     isVerified: Boolean,
+    isAccepted: {
+      type: Boolean,
+      default: false,
+    },
     reportedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    rzp_customerId: String
+    rzp_customerId: String,
+    rzp_virtualAcId: String
   },
   { timestamps: true }
 );

@@ -31,7 +31,7 @@ router.post("/report", isAuthenticated, async (req, res) => {
   await newFoundChild.save();
   const user = await nodalOfficer.findOne({ district }).exec();
   const email=user.email; 
-  await sendMail(email, newFoundChild._id);
+  await sendMail(email, newFoundChild._id, "Sending mail to nodal officer");
   return res.status(201).send({ newFoundChild });
 });
 

@@ -1,5 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from 'react-redux'
+import { getFoundChildStatus, selectFoundChild } from "../features/foundchild/FoundChildSlice";
+
+
 
 const ReportChild = () => {
   const [name, setName] = useState("");
@@ -10,8 +14,15 @@ const ReportChild = () => {
   const [district, setDistrict] = useState("");
   const [lat, setLat] = useState(0.0);
   const [lng, setLng] = useState(0.0);
+  const [compID, setcompID] = useState("");
 
-  useEffect(() => {
+  const status = useSelector(getFoundChildStatus)
+  const foundChildData = useSelector(selectFoundChild)
+
+   useEffect(() => {
+   
+
+    
     if ("geolocation" in navigator) {
       console.log("Geolocation Available");
     } else {
@@ -20,6 +31,15 @@ const ReportChild = () => {
   }, []);
 
   const handleReportChild = async () => {
+    
+    
+
+    if (status === 'Succeeded'){
+      return foundChildData.map((e) => {
+          console.log(e);
+          return compID = e._id;
+      })
+  } 
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Access-Control-Allow-Origin": "*",
@@ -39,6 +59,7 @@ const ReportChild = () => {
       district,
       lat,
       lng,
+      compID,
     };
 
     try {
@@ -57,6 +78,8 @@ const ReportChild = () => {
     } catch (err) {
       console.error(err);
     } finally {
+      
+      alert('Your complaint ID is : ' + compID + "  " + name + ". You may track your reported child using this ID");
       setName("");
       setAddress("");
       setDescription("");
@@ -65,6 +88,7 @@ const ReportChild = () => {
       setLng(0.0);
       setState("");
       setDistrict("");
+      setcompID("")
     }
   };
   return (
@@ -74,6 +98,7 @@ const ReportChild = () => {
         <input
           id="name"
           type="text"
+          value = {name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
