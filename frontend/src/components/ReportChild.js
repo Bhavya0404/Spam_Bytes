@@ -14,7 +14,7 @@ const ReportChild = () => {
   const [district, setDistrict] = useState("");
   const [lat, setLat] = useState(0.0);
   const [lng, setLng] = useState(0.0);
-  const [compID, setcompID] = useState("");
+
 
   const status = useSelector(getFoundChildStatus)
   const foundChildData = useSelector(selectFoundChild)
@@ -33,13 +33,7 @@ const ReportChild = () => {
   const handleReportChild = async () => {
     
     
-
-    if (status === 'Succeeded'){
-      return foundChildData.map((e) => {
-          console.log(e);
-          return compID = e._id;
-      })
-  } 
+    
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Access-Control-Allow-Origin": "*",
@@ -59,7 +53,6 @@ const ReportChild = () => {
       district,
       lat,
       lng,
-      compID,
     };
 
     try {
@@ -78,8 +71,16 @@ const ReportChild = () => {
     } catch (err) {
       console.error(err);
     } finally {
-      
-      alert('Your complaint ID is : ' + compID + "  " + name + ". You may track your reported child using this ID");
+    
+      if (status === 'Succeeded'){
+        return foundChildData.map((e, i, row) => {
+            console.log(e);
+            if(i+1 === row.length){
+              return alert('Your complaint ID is : ' + (e._id) + "  " + name + ". You may track your reported child using this ID");
+            }
+            
+        })
+    } 
       setName("");
       setAddress("");
       setDescription("");
@@ -88,7 +89,7 @@ const ReportChild = () => {
       setLng(0.0);
       setState("");
       setDistrict("");
-      setcompID("")
+   
     }
   };
   return (
