@@ -1,36 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import {
   selectFoundChild,
   getFoundChildStatus,
   getFoundChildError,
-} from "../foundchild/FoundChildSlice";
-import { getNodalData, getNodalError, getNodalStatus } from "./NodalSlice";
-import MapView from "../../components/MapView";
+} from '../foundchild/FoundChildSlice'
+import {
+  getNodalById,
+  getNodalData,
+  getNodalError,
+  getNodalStatus,
+} from './NodalSlice'
+import MapView from '../../components/MapView'
+import { useParams } from 'react-router-dom'
 
 const NodalDashboard = () => {
-  const statusFoundChild = useSelector(getFoundChildStatus);
-  const foundChildData = useSelector(selectFoundChild);
-  const errorFoundChild = useSelector(getFoundChildError);
+  const id = useParams()
 
-  const statusNodal = useSelector(getNodalStatus);
-  const nodalData = useSelector(getNodalData);
-  const errorNodal = useSelector(getNodalError);
+  const statusFoundChild = useSelector(getFoundChildStatus)
+  const foundChildData = useSelector(selectFoundChild)
+  const errorFoundChild = useSelector(getFoundChildError)
 
-  const [childData, setChildData] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentChild, setCurrentChild] = useState({});
+  const statusNodal = useSelector(getNodalStatus)
+  const nodalData = useSelector((state) => getNodalById(state, id.adminId))
+  const errorNodal = useSelector(getNodalError)
+
+  const [childData, setChildData] = useState([])
+  const [isVisible, setIsVisible] = useState(false)
+  const [currentChild, setCurrentChild] = useState({})
   useEffect(() => {
-    if (statusFoundChild === "Succeeded" && statusNodal === "Succeeded") {
+    if (statusFoundChild === 'Succeeded' && statusNodal === 'Succeeded') {
       setChildData(
         foundChildData.filter(
           (child) =>
-            child.state.toLowerCase() === nodalData[0].state.toLowerCase() &&
-            child.district.toLowerCase() === nodalData[0].district.toLowerCase()
-        )
-      );
+            child.state.toLowerCase() === nodalData.state.toLowerCase() &&
+            child.district.toLowerCase() === nodalData.district.toLowerCase(),
+        ),
+      )
     }
-  }, [statusFoundChild, statusNodal]);
+  }, [statusFoundChild, statusNodal])
   return (
     <div>
       {childData.map((child) => (
@@ -38,11 +46,11 @@ const NodalDashboard = () => {
           <p
             onClick={() => {
               if (isVisible) {
-                setCurrentChild({});
-                setIsVisible(false);
+                setCurrentChild({})
+                setIsVisible(false)
               } else {
-                setCurrentChild(child);
-                setIsVisible(true);
+                setCurrentChild(child)
+                setIsVisible(true)
               }
             }}
           >
@@ -60,7 +68,7 @@ const NodalDashboard = () => {
         </>
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default NodalDashboard;
+export default NodalDashboard
