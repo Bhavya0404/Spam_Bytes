@@ -1,9 +1,9 @@
-// const nodalData = require('../model/nodalOfficer')
-const nodal = require('./nodalData.json')
+const nodalData = require('../model/nodalOfficer')
+
 
 const getNodal = async (req, res) => {
     try {
-        // const nodal = await nodalData.find();
+        const nodal = await nodalData.find();
         res.status(200).json(nodal);
     } catch (error){
         console.log(nodal);
