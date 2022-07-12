@@ -138,7 +138,7 @@ router.post("/confirmationNodal", middleware, async (req, res) => {
 
         const user = await ngo.find({ district }).exec();
         const email = user.email;
-         sendMail(  email, newFoundChild._id,"A child has been reported in Your Area");
+         sendMail(  email,"A child has been reported in Your Area");
     } else {
     }
   } catch (err) {
