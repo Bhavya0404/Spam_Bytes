@@ -10,6 +10,7 @@ const { sendMail } = require('../controller/mail')
 
 const { isAuthenticated, isAdmin } = require('../middleware/auth')
 const { middleware } = require('../middleware/simple')
+const { findByIdAndUpdate, findById } = require('../model/userSchema')
 
 const router = express.Router()
 
@@ -119,6 +120,7 @@ router.post('/registerAdmin', isAuthenticated, isAdmin, async (req, res) => {
 router.post('/confirmationNodal', middleware, async (req, res) => {
   const body = req?.body
   const _id = body?._id
+  // const district = body?.district;
   const c = 1
 
   try {
@@ -133,14 +135,18 @@ router.post('/confirmationNodal', middleware, async (req, res) => {
           console.log('Updated User : ')
         }
       })
-
-      const user = await ngo.find({ district }).exec()
-      const email = user.email
+      const udit = await foundChild.findById(_id).exec();
+      const district = udit.district;
+      const user = await ngo.find({ 'district' : [district] }).exec()
+      if(user){
+        const email = user.email
       sendMail(
         email,
         newFoundChild._id,
         'A child has been reported in Your Area',
       )
+      }
+      
     } else {
     }
   } catch (err) {
