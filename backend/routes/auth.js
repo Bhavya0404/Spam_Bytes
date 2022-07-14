@@ -117,42 +117,43 @@ router.post('/registerAdmin', isAuthenticated, isAdmin, async (req, res) => {
     return res.status(500).send({ error: err, code: 500 })
   }
 })
-router.post('/confirmationNodal', middleware, async (req, res) => {
-  const body = req?.body
-  const _id = body?._id
-  // const district = body?.district;
-  const c = 1
 
-  try {
-    if (c == 1) {
-      await childModel.findByIdAndUpdate(_id, { isVerified: true }, function (
-        err,
-        res,
-      ) {
-        if (err) {
-          // console.log(err);
-        } else {
-          console.log('Updated User : ')
-        }
-      })
-      const udit = await foundChild.findById(_id).exec();
-      const district = udit.district;
-      const user = await ngo.find({ 'district' : [district] }).exec()
-      if(user){
-        const email = user.email
-      sendMail(
-        email,
-        newFoundChild._id,
-        'A child has been reported in Your Area',
-      )
-      }
+// router.post('/confirmationNodal', middleware, async (req, res) => {
+//   const body = req?.body
+//   const _id = body?._id
+//   // const district = body?.district;
+//   const c = 1
+
+//   try {
+//     if (c == 1) {
+//       await childModel.findByIdAndUpdate(_id, { isVerified: true }, function (
+//         err,
+//         res,
+//       ) {
+//         if (err) {
+//           // console.log(err);
+//         } else {
+//           console.log('Updated User : ')
+//         }
+//       })
+//       const udit = await foundChild.findById(_id).exec();
+//       const district = udit.district;
+//       const user = await ngo.find({ 'district' : [district] }).exec()
+//       if(user){
+//         const email = user.email
+//       sendMail(
+//         email,
+//         newFoundChild._id,
+//         'A child has been reported in Your Area',
+//       )
+//       }
       
-    } else {
-    }
-  } catch (err) {
-    // console.error(err);
-    return res.status(500).send({ error: err, code: 500 })
-  }
-})
+//     } else {
+//     }
+//   } catch (err) {
+//     // console.error(err);
+//     return res.status(500).send({ error: err, code: 500 })
+//   }
+// })
 
 module.exports = router
