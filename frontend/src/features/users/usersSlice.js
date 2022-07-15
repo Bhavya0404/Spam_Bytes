@@ -43,6 +43,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = 'Succeeded'
+
         const loadedUser = action.payload.map((post) => post)
         state.users = state.users.concat(loadedUser)
       })

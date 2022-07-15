@@ -13,6 +13,8 @@ import NgoDashboard from './features/ngo/NgoDashboard'
 import AllNodal from './features/nodal/AllNodal'
 import AllFoundChild from './features/foundchild/AllFoundChild'
 import NodalDashboard from './features/nodal/NodalDashboard'
+import Account from './components/Account'
+import Payment from './components/Payment'
 
 function App() {
   return (
@@ -27,11 +29,12 @@ function App() {
         <Route path="/users" element={<AllUser />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         <Route path="IN/:userId" element={<UserDashBord />} />
-        <Route path="/NGO/:ngoId" element={<NgoDashboard />} />
+        <Route path="/ngo/:ngoId" element={<NgoDashboard />} />
         <Route exact path="/ngo" element={<AllNgo />} />
-        <Route path="/ADMIN" element={<AllNodal />} />
+        <Route path="/admin" element={<AllNodal />} />
         <Route path="/foundchild" element={<AllFoundChild />} />
-        <Route path="/ADMIN/:adminId" element={<NodalDashboard />} />
+        <Route path="/admin/:adminId" element={<NodalDashboard />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </div>
   )
