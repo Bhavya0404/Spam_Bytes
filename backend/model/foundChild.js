@@ -25,7 +25,11 @@ const foundchild = mongoose.Schema(
       ref: "User",
     },
     rzp_contactId: String,
-    rzp_fundAcId: String
+    rzp_fundAcId: String,
+    payouts: {
+      type: Array,
+      default: []
+    }
   },
   { timestamps: true }
 );
