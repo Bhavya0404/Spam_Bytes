@@ -6,7 +6,7 @@ const { createContact, addBankDetails, processPayout, getPayoutStatus } = requir
 const router = express.Router();
 
 router.get("/", getNodal);
-router.put("/verify/:id", isAuthenticated, verifyChild);
+router.put("/verify/:id", verifyChild);
 router.post("/createContact", createContact);
 router.post("/addBankAc", addBankDetails);
 router.post("/processPayout", processPayout);
