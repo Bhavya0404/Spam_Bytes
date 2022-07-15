@@ -1,12 +1,9 @@
-const Razorpay = require("razorpay");
 const foundChild = require("../model/foundChild");
-var instance = new Razorpay({
-  key_id: process.env.RAZORPAY_TEST_KEYID,
-  key_secret: process.env.RAZORPAY_TEST_SECRET,
-});
+const RZP_API_KEY = process.env.RZP_API_KEY;
+const RZP_API_SECRET = process.env.RZP_API_SECRET;
 
-const addDetails = async (req, res) => {
-  const childId = req.body?._id;
+const createContact = async (req, res) => {
+  const childId = req.body?.id;
   const child = await foundChild.findById(childId).exec();
   if (!child) {
     return res.status(404).send({ error: "Invalid Child" });
@@ -16,17 +13,34 @@ const addDetails = async (req, res) => {
       .status(400)
       .send({ error: "Child is not verified by the nodal officer" });
   }
-  const customer = instance.customers.create({
+  const contact = {
     name: child?.name,
+    type: "customer",
+    reference_id: `A/c for child w/ id ${child?._id}`,
+  };
+
+  const headers = new Headers();
+  headers.append(
+    "Authorization",
+    "Basic " +
+      Buffer.from(RZP_API_KEY + ":" + RZP_API_SECRET).toString("base64")
+  );
+
+  const response = await fetch("https://api.razorpay.com/v1/contacts", {
+    method: "POST",
+    headers,
+    body: contact,
   });
-  child.rzp_customerId = customer?.id
+  const json = await response.json();
+  const contactId = json?.id;
+  child.rzp_contactId = contactId;
   await child.save();
-  instance.virtualAccounts.create({
-    recievers: {
-        types: ["bank-account"]
-    },
-    description: `Virtual Account for PENCIL Child ${child?.name}`,
-    customer_id: customer?.id
-  })
-  return res.status(201).send({message: "Customer Details Saved Successfully", child})
+  return res
+    .status(201)
+    .send({ message: "Customer Details Saved Successfully", child });
 };
+
+
+const addBankDetails = async (req, res) => {}
+
+module.exports = {createContact, addBankDetails}
