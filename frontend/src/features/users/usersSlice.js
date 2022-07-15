@@ -44,7 +44,7 @@ const userSlice = createSlice({
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.status = 'Succeeded'
 
-        const loadedUser = action.payload.map((post) => post)
+        const loadedUser = action.payload;
         state.users = state.users.concat(loadedUser)
       })
       .addCase(fetchUsers.rejected, (state, action) => {

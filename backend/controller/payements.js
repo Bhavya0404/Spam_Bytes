@@ -43,6 +43,7 @@ const createContact = async (req, res) => {
         .send({ message: "Customer Details Saved Successfully", child });
     })
     .catch((err) => {
+      console.error(err);
       return res.status(500).json({ message: err?.response?.data.error });
     });
 };
@@ -58,6 +59,9 @@ const addBankDetails = async (req, res) => {
       .status(400)
       .send({ error: "Child is not verified by the nodal officer" });
   }
+  // if (!child?.rzp_contactId) {
+  //   await createContact(req, res);
+  // }
   const bankData = JSON.stringify({
     contact_id: child?.rzp_contactId,
     account_type: "bank_account",
@@ -107,7 +111,7 @@ const processPayout = async (req, res) => {
   const data = JSON.stringify({
     account_number: process.env.BANK_AC,
     fund_account_id: child?.rzp_fundAcId,
-    amount: 1500000,
+    amount: parseInt(req?.body?.amount)*100,
     currency: "INR",
     mode: "IMPS",
     purpose: "payout",
@@ -138,7 +142,7 @@ const processPayout = async (req, res) => {
         child.payouts = arr;
       }
       await child.save();
-      return res.status(201).json({ message: "Payout of INR 15000 sent" });
+      return res.status(201).json({ message: `Payout of INR ${req?.body?.amount} sent` });
     })
     .catch((err) => {
       console.error(err?.response?.data.error);
