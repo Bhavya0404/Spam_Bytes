@@ -15,8 +15,23 @@ const foundchild = mongoose.Schema(
       type: Array,
       default: [0.0, 0.0],
     },
-    isVerified: Boolean,
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     isAccepted: {
+      type: Boolean,
+      default: false,
+    },
+    hasHousing: {
+      type: Boolean,
+      default: false,
+    },
+    inSchool: {
+      type: Boolean,
+      default: false,
+    },
+    compCompleted: {
       type: Boolean,
       default: false,
     },
