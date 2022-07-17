@@ -34,9 +34,14 @@ const foundChildSlice = createSlice({
         district,
         lastKnownLocation,
         isVerified,
+        isAccepted,
+        hasHousing,
+        inSchool,
+        compCompleted,
         reportedBy,
         rzp_contactId,
         rzp_fundAcId,
+        payouts,
       ) {
         return {
           payload: {
@@ -48,9 +53,14 @@ const foundChildSlice = createSlice({
             district,
             lastKnownLocation,
             isVerified,
+            isAccepted,
+            hasHousing,
+            inSchool,
+            compCompleted,
             reportedBy,
             rzp_contactId,
             rzp_fundAcId,
+            payouts,
           },
         }
       },

@@ -27,7 +27,7 @@ const steps = [
 ];
 const ComplaintStatus = () => {
     
-  const status = useSelector(getFoundChildStatus)
+    const statusChild = useSelector(getFoundChildStatus)
     const foundChildData = useSelector(selectFoundChild)
     const error = useSelector(getFoundChildError)
 
@@ -36,49 +36,42 @@ const ComplaintStatus = () => {
       status: "approved" // change transfer status to progress bar
     };
   
-    const getStepPosition = (transferStatus) => {
+    const getStepPosition = (transferStatus, e) => {
       
-      foundChildData.map((e) => {
-        console.log(e);
-        if(e.isVerified === 'true'){
-          return steps.findIndex(({ status }) => status === transferStatus) + 3;
+        if(e.isVerified){
+          console.log(e.isVerified);
+          return  steps.findIndex(({ status }) => status === transferStatus) + 3;
         } 
-        if (e.isAccepted === 'true' ){
-          return steps.findIndex(({ status }) => status === transferStatus) + 4;
+        if (e.isAccepted){
+          console.log(e.isAccepted);
+          return  steps.findIndex(({ status }) => status === transferStatus) + 4;
         }
-        if (e.hasHousing === 'true' ){
-          return steps.findIndex(({ status }) => status === transferStatus) + 5;
+        if (e.hasHousing ){
+          return  steps.findIndex(({ status }) => status === transferStatus) + 5;
         }
-        if (e.inSchool === 'true' ){
-          return steps.findIndex(({ status }) => status === transferStatus) + 6;
+        if (e.inSchool ){
+          return  steps.findIndex(({ status }) => status === transferStatus) + 6;
         }
-        if (e.compCompleted === 'true' ){
-          return steps.findIndex(({ status }) => status === transferStatus) + 7;
+        if (e.compCompleted ){
+          return  steps.findIndex(({ status }) => status === transferStatus) + 7;
         }
-        
 
-
-      })
-      
-      return steps.findIndex(({ status }) => status === transferStatus) + 2;
-      
-      
     };
-
-    if(status === 'Loading'){
+    
+    if(statusChild === 'Loading'){
         return <p>Loading</p>
-    } else if (status === 'Succeeded'){
+    } else if (statusChild === 'Succeeded'){
         return( 
-          foundChildData.map((e) => {
-            console.log(e);
-
+          
+          foundChildData.map((e) => {           
             return (
               <React.Fragment>
             <div>
+           
             <h4> {e._id}  : {e.name}</h4>  
             <ProgressBar
           width={750}
-          percent={100 * (getStepPosition(transfer.status) / steps.length)}
+          percent={100 * (getStepPosition(transfer.status, e) / steps.length)}
           filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
         >
           {steps.map((step, index, arr) => {
