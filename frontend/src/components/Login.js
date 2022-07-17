@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
@@ -7,9 +7,6 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-
-import { useSelector } from "react-redux";
-import { selectuserByEmail } from "../features/users/usersSlice";
 import { useNavigate } from "react-router-dom";
 import {
   FormControl,
@@ -68,26 +65,6 @@ const Login = ({ onChange }) => {
     } finally {
       setEmail("");
       setPassword("");
-    }
-  };
-
-  const ForgotPassword = async () => {
-    try {
-      console.log(email);
-      const resp = await axios.post(
-        `http://localhost:5000/auth/forgotpassword`,
-        email
-      );
-
-      if (resp.status === 200) {
-        console.log(resp.data);
-        alert(resp?.data?.message);
-      } else {
-        alert("Error");
-        console.error(resp);
-      }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -201,7 +178,7 @@ const Login = ({ onChange }) => {
                   />
                 </RadioGroup>
               </FormControl>
-              <Button onClick={ForgotPassword}>
+              <Button onClick={() => navigate('/forgotpassword')}>
                 Forgot Password or Change password
               </Button>
               <Button
