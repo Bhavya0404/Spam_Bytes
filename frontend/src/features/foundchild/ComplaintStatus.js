@@ -1,7 +1,6 @@
 import "react-step-progress-bar/styles.css";
 import * as React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { combineReducers } from 'redux';
+import { useSelector } from "react-redux";
 import { selectFoundChild, getFoundChildStatus, getFoundChildError } from './FoundChildSlice'
 import { ProgressBar, Step } from "react-step-progress-bar";
 
@@ -37,7 +36,6 @@ const ComplaintStatus = () => {
     };
   
     const getStepPosition = (transferStatus, e) => {
-      
         if(e.isVerified){
           console.log(e.isVerified);
           return  steps.findIndex(({ status }) => status === transferStatus) + 3;
@@ -62,7 +60,6 @@ const ComplaintStatus = () => {
         return <p>Loading</p>
     } else if (statusChild === 'Succeeded'){
         return( 
-          
           foundChildData.map((e) => {           
             return (
               <React.Fragment>
