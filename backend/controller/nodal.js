@@ -55,4 +55,4 @@ const updateChild = async (req, res) => {
   }
 }
 
-module.exports = { getNodal, verifyChild };
+module.exports = { getNodal, verifyChild, updateChild };
