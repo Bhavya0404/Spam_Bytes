@@ -39,4 +39,20 @@ const verifyChild = async (req, res) => {
   return res.status(200).json({ message: `Verified Child with id ${id}` });
 };
 
-module.exports = { getNodal, verifyChild };
+const updateChild = async (req, res) => {
+  const id = req?.params?.id;
+  const exists = await foundChild.findById(id).exec();
+  if (!exists) {
+    return res.status(400).json({ message: "Child not found" });
+  }
+  try {
+    const body = req?.body;
+  await foundChild.updateOne({_id: id}, body).exec();
+  return res.status(200).json({message: `Child w/ id ${id} updated successfully`});
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({message: 'Error occurred'});
+  }
+}
+
+module.exports = { getNodal, verifyChild, updateChild };
