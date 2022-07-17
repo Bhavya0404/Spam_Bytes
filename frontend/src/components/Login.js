@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import sendMail from 'axios'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -193,6 +194,9 @@ const Login = ({ onChange }) => {
               >
                 LOGIN
               </Button>
+              <button
+                 onClick={sendMail}
+              >Forgot Password</button>
             </Container>
           </Grid>
 
