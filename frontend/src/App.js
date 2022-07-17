@@ -15,6 +15,7 @@ import AllFoundChild from './features/foundchild/AllFoundChild'
 import ComplaintStatus from './features/foundchild/ComplaintStatus'
 import NodalDashboard from './features/nodal/NodalDashboard'
 import ChildDetails from './components/ChildDetails'
+import ChangePassword from './components/ChangePassword'
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
         <Route path="/complaintstatus" element={<ComplaintStatus />} />
         <Route path="/admin/:adminId" element={<NodalDashboard />} />
         <Route path="/child/:childId" element={<ChildDetails />} />
+        <Route path="/changepassword" element={<ChangePassword />} />
+      
       </Routes>
     </div>
   )
