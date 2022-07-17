@@ -7,18 +7,17 @@ const VerificationPage = () => {
   const [_id, set_id] = useState("");
   const Verification = async () => {
     // const c = 1;
-    const data = { _id };
     try {
-      const resp = await axios.post(
-        "http://localhost:5000/auth/confirmationNodal",
-        data
+      const resp = await axios.put(
+        `http://localhost:5000/nodal/verify/${_id}`
       );
 
-      if (resp.status === 201) {
+      if (resp.status === 200) {
         console.log(resp.data);
+        alert(resp?.data?.message);
       } else {
         alert("Error");
-        //  console.error(resp);
+         console.error(resp);
       }
     } catch (err) {
       // console.error(err);

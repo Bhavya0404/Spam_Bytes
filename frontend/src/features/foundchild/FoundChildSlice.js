@@ -35,6 +35,8 @@ const foundChildSlice = createSlice({
         lastKnownLocation,
         isVerified,
         reportedBy,
+        rzp_contactId,
+        rzp_fundAcId,
       ) {
         return {
           payload: {
@@ -47,6 +49,8 @@ const foundChildSlice = createSlice({
             lastKnownLocation,
             isVerified,
             reportedBy,
+            rzp_contactId,
+            rzp_fundAcId,
           },
         }
       },
@@ -78,5 +82,9 @@ export const selectFoundChildByState = (state, State) => {
 export const getFoundChildStatus = (state) => state.foundchild.status
 
 export const getFoundChildError = (state) => state.foundchild.error
+
+export const getFoundChildById = (state, foundChildID) => {
+  state.foundchild.foundChilData.find((id) => id.user === foundChildID)
+}
 
 export default foundChildSlice.reducer

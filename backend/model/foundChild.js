@@ -15,8 +15,23 @@ const foundchild = mongoose.Schema(
       type: Array,
       default: [0.0, 0.0],
     },
-    isVerified: Boolean,
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     isAccepted: {
+      type: Boolean,
+      default: false,
+    },
+    hasHousing: {
+      type: Boolean,
+      default: false,
+    },
+    inSchool: {
+      type: Boolean,
+      default: false,
+    },
+    compCompleted: {
       type: Boolean,
       default: false,
     },
@@ -24,8 +39,12 @@ const foundchild = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    rzp_customerId: String,
-    rzp_virtualAcId: String
+    rzp_contactId: String,
+    rzp_fundAcId: String,
+    payouts: {
+      type: Array,
+      default: []
+    }
   },
   { timestamps: true }
 );
