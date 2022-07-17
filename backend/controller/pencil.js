@@ -7,7 +7,7 @@ const reportChild = async (req, res) => {
   const name = body?.name;
   const description = body?.description;
   const img = body?.img;
-  console.log(img);
+ 
   const address = body?.address;
   const state = body?.state;
   const district = body?.district;
@@ -26,8 +26,12 @@ const reportChild = async (req, res) => {
   const newFoundChild = new foundChild(data);
   await newFoundChild.save();
   const user = await nodalOfficer.findOne({ district }).exec();
+  if(user){
   const email = user.email;
+  if(email){
   await sendMail(email, newFoundChild._id, "Sending mail to nodal officer");
+  }
+}
   return res.status(201).send({ newFoundChild });
 };
 
