@@ -1,4 +1,4 @@
-
+import "react-step-progress-bar/styles.css";
 import * as React from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { combineReducers } from 'redux';
@@ -16,13 +16,13 @@ const steps = [
     status: "Accepted"
   },
   {
-    status: "House"
+    status: "Has Housing"
   },
   {
-    status: "School"
+    status: "In School"
   },
   {
-    status: "complete"
+    status: "Complaint Completed"
   }
 ];
 const ComplaintStatus = () => {
@@ -37,7 +37,32 @@ const ComplaintStatus = () => {
     };
   
     const getStepPosition = (transferStatus) => {
-      return steps.findIndex(({ status }) => status === transferStatus) + 1;
+      
+      foundChildData.map((e) => {
+        console.log(e);
+        if(e.isVerified === 'true'){
+          return steps.findIndex(({ status }) => status === transferStatus) + 3;
+        } 
+        if (e.isAccepted === 'true' ){
+          return steps.findIndex(({ status }) => status === transferStatus) + 4;
+        }
+        if (e.hasHousing === 'true' ){
+          return steps.findIndex(({ status }) => status === transferStatus) + 5;
+        }
+        if (e.inSchool === 'true' ){
+          return steps.findIndex(({ status }) => status === transferStatus) + 6;
+        }
+        if (e.compCompleted === 'true' ){
+          return steps.findIndex(({ status }) => status === transferStatus) + 7;
+        }
+        
+
+
+      })
+      
+      return steps.findIndex(({ status }) => status === transferStatus) + 2;
+      
+      
     };
 
     if(status === 'Loading'){
@@ -49,7 +74,7 @@ const ComplaintStatus = () => {
 
             return (
               <React.Fragment>
-            
+            <div>
             <h4> {e._id}  : {e.name}</h4>  
             <ProgressBar
           width={750}
@@ -70,17 +95,28 @@ const ComplaintStatus = () => {
                       borderRadius: "50%",
                       width: 20,
                       height: 20,
-                      color: "white",
+                      color: "black",
                       backgroundColor: accomplished ? "green" : "gray"
                     }}
                   >
-                    {index + 1}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    {step.status}
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                   </div>
                 )}
               />
             );
           })}
         </ProgressBar>
+        <br />
+        </div>
             </React.Fragment>
             )
 

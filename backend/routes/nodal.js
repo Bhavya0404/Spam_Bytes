@@ -1,4 +1,4 @@
-const { getNodal, verifyChild } = require("../controller/nodal");
+const { getNodal, verifyChild, updateChild } = require("../controller/nodal");
 const express = require("express");
 const { isAuthenticated } = require("../middleware/auth");
 const { createContact, addBankDetails, processPayout, getPayoutStatus } = require("../controller/payements");
@@ -11,4 +11,6 @@ router.post("/createContact", createContact);
 router.post("/addBankAc", addBankDetails);
 router.post("/processPayout", processPayout);
 router.get('/payoutStatus/:id', getPayoutStatus);
+router.put('/child/:id', updateChild);
+
 module.exports = router;
