@@ -22,7 +22,7 @@ import ForgotPassword from "./components/ForgotPassword";
 function App() {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />

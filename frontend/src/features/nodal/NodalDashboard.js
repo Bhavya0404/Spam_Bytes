@@ -21,7 +21,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Button, Hidden } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -30,6 +30,8 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
+import SideBar from "../../components/SideBar";
+import Container from '@mui/material/Container';
 
 const NodalDashboard = () => {
   const id = useParams();
@@ -114,8 +116,30 @@ const NodalDashboard = () => {
   }, [statusFoundChild, statusNodal]);
   return (
     <div>
-      <TableContainer>
-        <Table sx={{ minWidth: 650 }} component={Paper}>
+    
+    <SideBar />
+    
+    <Box sx = {{
+      display: "flex",
+      justifyContent: 'center',
+      // width: {xs: "100%",  md: "75%", lg: "81%", xl: "100%" },
+      width: {xs: "100%" , md: "85%"},
+      position: "absolute",
+
+      left: {md: "240px"},
+      
+      // ml: {xs: "0", md: "240px"}
+    }}>
+    <Container maxWidth="false" sx = {{
+      mr: {xs: "10px", md: "120px", lg: "50px"},
+      ml: {xs: "10px"},
+      width: {md: "89%", lg: "100%"}
+    }} >
+      <TableContainer sx = {{
+        overflowX: {xl: 'hidden'},
+
+      }}>
+        <Table sx={{}} component={Paper}>
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
@@ -241,6 +265,8 @@ const NodalDashboard = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      </Container>
+      </Box>
     </div>
   );
 };
