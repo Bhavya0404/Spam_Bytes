@@ -25,7 +25,7 @@ import {
 } from "../foundchild/FoundChildSlice";
 
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const steps = [
   { status: "Reported" },
@@ -37,16 +37,16 @@ const steps = [
 ];
 
 const uTypes = {
-  'IN': "Individual",
-  'ADMIN': "Nodal Officer",
-  'NGO': 'NGO'
-}
+  IN: "Individual",
+  ADMIN: "Nodal Officer",
+  NGO: "NGO",
+};
 
 const UserDashBord = () => {
   const user = useSelector((state) => getUser(state));
   const [complaintNo, setComplaintNo] = useState("");
 
-  const statusChild = useSelector(getFoundChildStatus);
+  // const statusChild = useSelector(getFoundChildStatus);
 
   const foundChildData = useSelector(selectFoundChild);
   const childByUser = useSelector((state) =>
@@ -55,7 +55,7 @@ const UserDashBord = () => {
   const [cdHidden, setCdHidden] = useState(true);
   const [childData, setChildData] = useState({});
 
-  const error = useSelector(getFoundChildError);
+  // const error = useSelector(getFoundChildError);
 
   const getChildData = () => {
     setChildData(foundChildData.find((child) => child._id === complaintNo));
@@ -93,7 +93,7 @@ const UserDashBord = () => {
     <Box display="flex" flexDirection="row">
       <UserSidebar />
       <Container sx={{ paddingTop: "20px" }}>
-        <Card sx={{ minWidth: 275 }}>
+        <Card sx={{ minWidth: 275, marginTop: '60px' }}>
           <CardContent
             sx={{
               display: "flex",
@@ -110,30 +110,34 @@ const UserDashBord = () => {
                 backgroundColor: "#F3F3F3",
                 display: "flex",
                 justifyContent: "space-between",
-                minWidth: "200px",
                 alignItems: "center",
-                padding: '10px'
+                padding: "10px",
+                width: {lg: '200px'}
               }}
             >
               <AccountCircleIcon
-                sx={{ color: "blueviolet" }}
-                fontSize="medium"
+                sx={{ color: "blueviolet", display: {xs: 'none', lg: 'inline'} }}
+                fontSize="large"
               />
-              <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                <Typography sx={{fontSize: 16}}>{user?.name}</Typography>
-                <Typography sx={{fontSize: 12, color: 'gray'}}>{uTypes[user?.acType]}</Typography>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography sx={{ fontSize: 14, display: {xs: 'none', lg: 'inline'}, color: "gray" }}>Account Type</Typography>
+                <Typography sx={{ fontSize: 14, display: {xs: 'none', lg: 'inline'} }}>
+                  {uTypes[user?.acType]}
+                </Typography>
               </Box>
-              <LogoutIcon sx={{color: 'red'}} fontSize="medium" />
+              <LogoutIcon sx={{ color: "red" }} fontSize="medium" />
             </Box>
           </CardContent>
         </Card>
         <Box
-          display="flex"
-          flexDirection="row"
-          sx={{ paddingTop: "20px" }}
-          justifyContent="space-between"
+          sx={{
+            paddingTop: "20px",
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            justifyContent: "space-between",
+          }}
         >
-          <Card sx={{ backgroundColor: "purple", color: "white" }}>
+          <Card sx={{ backgroundColor: "purple", color: "white", marginBottom: "10px" }}>
             <CardContent>
               <Typography sx={{ fontSize: 24 }} gutterBottom>
                 Children Reported
@@ -143,7 +147,7 @@ const UserDashBord = () => {
               </Typography>
             </CardContent>
           </Card>
-          <Card sx={{ backgroundColor: "yellow", color: "black" }}>
+          <Card sx={{ backgroundColor: "yellow", color: "black", marginBottom: "10px" }}>
             <CardContent>
               <Typography sx={{ fontSize: 24 }} gutterBottom>
                 Complaints Resolved
@@ -183,15 +187,15 @@ const UserDashBord = () => {
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
+                    borderRadius: {xs: '100px'}
                   }}
                 >
                   <AddIcon />
-                  <Typography variant="span">Report a Child</Typography>
+                  <Typography variant="span" sx={{display: {xs: 'none', lg: 'inline'}}}>Report a Child</Typography>
                 </Button>
               </Box>
               <Box
-                display="flex"
-                flexDirection="row"
+                sx={{display: 'flex', flexDirection: {xs: 'column', lg: 'row'}}}
                 alignItems="center"
                 marginTop="20px"
               >
@@ -208,7 +212,7 @@ const UserDashBord = () => {
                 <Button
                   onClick={getChildData}
                   variant="outlined"
-                  sx={{ minWidth: 120, marginLeft: "10px" }}
+                  sx={{ minWidth: 180, marginLeft: "10px", marginTop: {xs: '10px', lg: '0'} }}
                 >
                   Get Status
                 </Button>

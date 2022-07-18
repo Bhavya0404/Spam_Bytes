@@ -14,6 +14,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { useSelector } from "react-redux";
 import { getUser } from "../features/users/usersSlice";
 import { Typography } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
 
 const drawerWidth = 250;
 
@@ -36,12 +39,14 @@ const usSection2 = [
 
 const UserSidebar = ({ window }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerClose = () => setMobileOpen(false);
+  const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
     <div>
-      <Toolbar sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Typography sx={{textAlign: 'center', fontSize: 20}}>
-            <strong>PENCIL</strong>
+      <Toolbar
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <Typography sx={{ textAlign: "center", fontSize: 20 }}>
+          <strong>PENCIL</strong>
         </Typography>
       </Toolbar>
       <Divider />
@@ -76,35 +81,66 @@ const UserSidebar = ({ window }) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-      aria-label="nav sidebar"
-    >
-      <Drawer
-        container={container}
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerClose}
-        ModalProps={{ keepMounted: true }}
+    <>
+      <AppBar
+        position="fixed"
         sx={{
-          display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          backgroundColor: 'white'
         }}
       >
-        {drawer}
-      </Drawer>
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-        }}
-        open
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerClose}
+            sx={{ mr: 2, display: { sm: "none" }, color: 'black' }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div" color="black">
+            User Dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="nav sidebar"
       >
-        {drawer}
-      </Drawer>
-    </Box>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerClose}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+    </>
   );
 };
 
