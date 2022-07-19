@@ -30,8 +30,11 @@ import Modal from "@mui/material/Modal";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import SideBar from "../../components/SideBar";
-import Container from '@mui/material/Container';
+import SideBar from "../../components/Sidebar";
+import Container from "@mui/material/Container";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
 
 const NodalDashboard = () => {
   const id = useParams();
@@ -71,6 +74,20 @@ const NodalDashboard = () => {
     boxShadow: 24,
     p: 4,
   };
+
+  {
+    /* {isVisible && (
+                  <>
+                    <span>Map Location of child {currentChild.name}</span>
+                    <MapView
+                      childLocation={currentChild.lastKnownLocation}
+                      officeLocation={nodalData.officeLocation}
+                    />
+
+                    
+                  </>
+                )} */
+  }
 
   const createFundAcHandler = async (childId) => {
     const data = { id: childId, ac_no: accountNumber, ifsc };
@@ -116,156 +133,221 @@ const NodalDashboard = () => {
   }, [statusFoundChild, statusNodal]);
   return (
     <div>
-    
-    <SideBar />
-    
-    <Box sx = {{
-      display: "flex",
-      justifyContent: 'center',
-      // width: {xs: "100%",  md: "75%", lg: "81%", xl: "100%" },
-      width: {xs: "100%" , md: "85%"},
-      position: "absolute",
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <SideBar />
 
-      left: {md: "240px"},
-      
-      // ml: {xs: "0", md: "240px"}
-    }}>
-    <Container maxWidth="false" sx = {{
-      mr: {xs: "10px", md: "120px", lg: "50px"},
-      ml: {xs: "10px"},
-      width: {md: "89%", lg: "100%"}
-    }} >
-      <TableContainer sx = {{
-        overflowX: {xl: 'hidden'},
+        {/* <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            "& > :not(style)": {
+              m: 1,
+              width: 1650,
+              height: "50vh",
+              mt: "100px",
+            },
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={
+              {
+                // width: "100%",
+              }
+            } */}
+        {/* > */}
 
-      }}>
-        <Table sx={{}} component={Paper}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>State</TableCell>
-              <TableCell>District</TableCell>
-              <TableCell>Contact ID</TableCell>
-              <TableCell>Account ID</TableCell>
-              <TableCell>Actions</TableCell>
-              <TableCell>Is Accepted</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {childData.map((child) => (
+        <TableContainer
+          sx={{
+            overflowX: { lg: "hidden" },
+            mx: "20px",
+            mt: "100px",
+            maxHeight: "500px",
+          }}
+        >
+          <Table sx={{}} stickyHeader component={Paper}>
+            <TableHead>
               <TableRow>
-                <TableCell>
-                  <Link to={`/child/${child?._id}`}>{child?.name}</Link>
-                </TableCell>
-
-                {/* {isVisible && (
-                  <>
-                    <span>Map Location of child {currentChild.name}</span>
-                    <MapView
-                      childLocation={currentChild.lastKnownLocation}
-                      officeLocation={nodalData.officeLocation}
-                    />
-
-                    
-                  </>
-                )} */}
-                <TableCell>{child?.state}</TableCell>
-                <TableCell>{child?.district}</TableCell>
-                <TableCell>{child?.rzp_contactId}</TableCell>
-                <TableCell>{child?.rzp_fundAcId}</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>State</TableCell>
+                <TableCell>District</TableCell>
                 <TableCell
                   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyItems: "space-between",
+                    display: {
+                      xs: "none",
+                      lg: { display: "flex", },
+                    },
                   }}
                 >
-                  <Button
-                    disabled={child?.rzp_fundAcId}
-                    onClick={() => setAccountVisible(true)}
-                    variant="contained"
-                  >
-                    Create Fund Account
-                  </Button>
-                  <Button
-                    onClick={() => setPayoutVisible(true)}
-                    variant="contained"
-                  >
-                    Process Payout
-                  </Button>
-                  <Button variant="contained">Get Status</Button>
+                  Contact ID
+                </TableCell>
+                <TableCell
+                  sx={{
+                    display: {
+                      xs: "none",
+                      lg: { display: "flex",  },
+                    },
+                  }}
+                >
+                  Account ID
+                </TableCell>
+                <TableCell>Is Accepted</TableCell>
+                <TableCell
+                  sx={{
+                    display: {
+                      xs: "none",
+                      lg: { display: "flex",},
+                    },
+                  }}
+                >
+                  Actions
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {childData.map((child) => (
+                <TableRow>
+                  <TableCell>{child?.name}</TableCell>
 
-                  <Modal
-                    open={accountVisible}
-                    onClose={handleCloseAV}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
+                  <TableCell>{child?.state}</TableCell>
+                  <TableCell>{child?.district}</TableCell>
+                  <TableCell
+                    sx={{
+                      display: {
+                        xs: "none",
+                        lg: { display: "flex",  },
+                      },
+                    }}
                   >
-                    <Box sx={style}>
-                      <div>
-                        <label htmlFor="ifsc">IFSC Code </label>
-                        <input
-                          type="text"
-                          id="ifsc"
-                          placeholder="Enter IFSC code"
-                          value={ifsc}
-                          onChange={(e) => setIfsc(e.target.value)}
-                          // {ifscError && onChange = {(e) => setIfsc(e.target.value)}}
-                        />{" "}
-                        <br></br>
-                        <label htmlFor="accNo">Account Number </label>
-                        <input
-                          type="number"
-                          id="accNo"
-                          placeholder="Enter Account Number"
-                          value={accountNumber}
-                          onChange={(e) => setAccountNumber(e.target.value)}
-                        />{" "}
-                        <br></br>
-                        <Button
-                          onClick={() => createFundAcHandler(child?._id)}
-                          variant="outline"
-                        >
-                          Add Account
-                        </Button>
-                      </div>
-                    </Box>
-                  </Modal>
-                  <Modal
-                    open={payoutVisible}
-                    onClose={handleClosePM}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
+                    {child?.rzp_contactId}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      display: {
+                        xs: "none",
+                        lg: { display: "flex",  },
+                      },
+                    }}
                   >
-                    <Box sx={style}>
-                      <div>
-                        <label htmlFor="amount">Amount </label>
-                        <input
-                          type="number"
-                          id="amount"
-                          placeholder="Enter Amount"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                        />{" "}
-                        <br></br>
+                    {child?.rzp_fundAcId}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      display: {
+                        xs: "none",
+                        lg: { display: "flex", },
+                      },
+                    }}
+                  >
+                    {child?.isAccepted ? "True" : "False"}
+                  </TableCell>
+                  <TableCell>
+                    <Link to={`/child/${child?._id}`}>
+                      <Button variant="contained">View Details</Button>
+                    </Link>
+                  </TableCell>
+
+                  {/* <TableCell
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyItems: "space-between",
+                        }}
+                      >
                         <Button
+                          disabled={child?.rzp_fundAcId}
+                          onClick={() => setAccountVisible(true)}
                           variant="contained"
-                          onClick={() => processPayoutForChild(child?._id)}
+                        >
+                          Create Fund Account
+                        </Button>
+                        <Button
+                          onClick={() => setPayoutVisible(true)}
+                          variant="contained"
                         >
                           Process Payout
                         </Button>
-                      </div>
-                    </Box>
-                  </Modal>
-                </TableCell>
-                <TableCell>{child?.isAccepted ? "True" : "False"}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      </Container>
+                        <Button variant="contained">Get Status</Button>
+
+                        <Modal
+                          open={accountVisible}
+                          onClose={handleCloseAV}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                            <div>
+                              <label htmlFor="ifsc">IFSC Code </label>
+                              <input
+                                type="text"
+                                id="ifsc"
+                                placeholder="Enter IFSC code"
+                                value={ifsc}
+                                onChange={(e) => setIfsc(e.target.value)}
+                              />{" "}
+                              <br></br>
+                              <label htmlFor="accNo">Account Number </label>
+                              <input
+                                type="number"
+                                id="accNo"
+                                placeholder="Enter Account Number"
+                                value={accountNumber}
+                                onChange={(e) =>
+                                  setAccountNumber(e.target.value)
+                                }
+                              />{" "}
+                              <br></br>
+                              <Button
+                                onClick={() => createFundAcHandler(child?._id)}
+                                variant="outline"
+                              >
+                                Add Account
+                              </Button>
+                            </div>
+                          </Box>
+                        </Modal>
+                        <Modal
+                          open={payoutVisible}
+                          onClose={handleClosePM}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                            <div>
+                              <label htmlFor="amount">Amount </label>
+                              <input
+                                type="number"
+                                id="amount"
+                                placeholder="Enter Amount"
+                                value={amount}
+                                onChange={(e) => setAmount(e.target.value)}
+                              />{" "}
+                              <br></br>
+                              <Button
+                                variant="contained"
+                                onClick={() =>
+                                  processPayoutForChild(child?._id)
+                                }
+                              >
+                                Process Payout
+                              </Button>
+                            </div>
+                          </Box>
+                        </Modal>
+                      </TableCell> */}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {/* </Paper>
+        </Box> */}
       </Box>
     </div>
   );

@@ -6,8 +6,8 @@ import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import VerificationPage from "./components/VerificationPage";
-import UserDashBord from "./features/users/UserDashBord";
-import AllUser from "./features/users/AllUser";
+import UserDashboard from "./features/users/UserDashboard";
+// import AllUser from "./features/users/AllUser";
 import AllNgo from "./features/ngo/AllNgo";
 import NgoDashboard from "./features/ngo/NgoDashboard";
 import AllNodal from "./features/nodal/AllNodal";
@@ -21,7 +21,7 @@ import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   return (
-    <div>
+    <div style={{flexDirection: 'column', display: 'flex'}}>
       {/* <Navbar /> */}
       <Routes>
         <Route exact path="/" element={<HomePage />} />
@@ -29,8 +29,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/reportchild" element={<ReportChild />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
-        <Route path="/users" element={<AllUser />} />
-        <Route path="IN/:userId" element={<UserDashBord />} />
+        {/* <Route path="/users" element={<AllUser />} /> */}
+        <Route path="IN/:userId" element={<UserDashboard />} />
         <Route path="/ngo/:ngoId" element={<NgoDashboard />} />
         <Route exact path="/ngo" element={<AllNgo />} />
         <Route path="/admin" element={<AllNodal />} />

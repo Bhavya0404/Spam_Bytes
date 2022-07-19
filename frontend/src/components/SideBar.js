@@ -1,75 +1,93 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+import React, { useState } from "react";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
+import Box from "@mui/material/Box";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { useSelector } from "react-redux";
+import { getUser } from "../features/users/usersSlice";
+import { Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import AppBar from "@mui/material/AppBar";
+import IconButton from "@mui/material/IconButton";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
-function ResponsiveDrawer(props) {
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+const usSection1 = [
+  {
+    label: "All Reported Children",
+    Icon: FormatListNumberedIcon,
+  },
+  {
+    label: "User Profile",
+    Icon: AccountCircleIcon,
+  },
+];
+const usSection2 = [
+  {
+    label: "Settings",
+    Icon: SettingsIcon,
+  },
+];
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
+const Sidebar = ({ window, nSections, sectionList }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <Typography sx={{ textAlign: "center", fontSize: 20 }}>
+          <strong>PENCIL</strong>
+        </Typography>
+      </Toolbar>
       <Divider />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {usSection1.map(({ label, Icon }, index) => (
+          <ListItem key={label} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <Icon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={label} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {usSection2.map(({ label, Icon }, index) => (
+          <ListItem key={label} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <Icon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={label} />
             </ListItemButton>
           </ListItem>
         ))}
+        <Divider />
       </List>
     </div>
   );
-
-  const container = window !== undefined ? () => window().document.body : undefined;
-
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
+    <>
       <AppBar
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
-          backgroundColor: "#FFFF"
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+          backgroundColor: 'white'
         }}
       >
         <Toolbar>
@@ -77,34 +95,33 @@ function ResponsiveDrawer(props) {
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' }, color: "black" }}
+            onClick={handleDrawerClose}
+            sx={{ mr: 2, display: { sm: "none" }, color: 'black' }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" color="black">
-            Responsive drawer
+            User Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+        aria-label="nav sidebar"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
+          onClose={handleDrawerClose}
+          ModalProps={{ keepMounted: true }}
           sx={{
-            display: { xs: 'block', md: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-            
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -112,31 +129,19 @@ function ResponsiveDrawer(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', md: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
           open
         >
           {drawer}
         </Drawer>
       </Box>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
-        <Toolbar />
-        
-      </Box>
-    </Box>
+    </>
   );
-}
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
 };
 
-export default ResponsiveDrawer;
+export default Sidebar;
