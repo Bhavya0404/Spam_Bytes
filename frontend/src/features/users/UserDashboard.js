@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { getUser } from "./usersSlice";
 import Box from "@mui/material/Box";
-import UserSidebar from "../../components/UserSidebar";
+import Sidebar from "../../components/Sidebar";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Card,
@@ -91,7 +91,7 @@ const UserDashBord = () => {
   }
   return (
     <Box display="flex" flexDirection="row">
-      <UserSidebar />
+      <Sidebar />
       <Container sx={{ paddingTop: "20px" }}>
         <Card sx={{ minWidth: 275, marginTop: '60px' }}>
           <CardContent

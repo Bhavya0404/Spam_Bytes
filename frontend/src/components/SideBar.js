@@ -37,7 +37,7 @@ const usSection2 = [
   },
 ];
 
-const UserSidebar = ({ window }) => {
+const Sidebar = ({ window, nSections, sectionList }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
@@ -144,4 +144,4 @@ const UserSidebar = ({ window }) => {
   );
 };
 
-export default UserSidebar;
+export default Sidebar;
