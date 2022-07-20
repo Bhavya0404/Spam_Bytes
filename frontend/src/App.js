@@ -12,7 +12,7 @@ import AllNgo from "./features/ngo/AllNgo";
 import NgoDashboard from "./features/ngo/NgoDashboard";
 import AllNodal from "./features/nodal/AllNodal";
 import AllFoundChild from "./features/foundchild/AllFoundChild";
-import ComplaintStatus from "./features/foundchild/ComplaintStatus";
+import ComplaintStatusPage from "./features/foundchild/ComplaintStatusPage";
 import NodalDashboard from "./features/nodal/NodalDashboard";
 import ChildDetails from "./components/ChildDetails";
 import ChangePassword from "./components/ChangePassword";
@@ -35,7 +35,7 @@ function App() {
         <Route exact path="/ngo" element={<AllNgo />} />
         <Route path="/admin" element={<AllNodal />} />
         <Route path="/foundchild" element={<AllFoundChild />} />
-        <Route path="/complaintstatus" element={<ComplaintStatus />} />
+        <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
         <Route path="/admin/:adminId" element={<NodalDashboard />} />
         <Route path="/child/:childId" element={<ChildDetails />} />
         <Route path="/changepassword" element={<ChangePassword />} />

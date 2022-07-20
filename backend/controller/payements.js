@@ -111,7 +111,7 @@ const processPayout = async (req, res) => {
   const data = JSON.stringify({
     account_number: process.env.BANK_AC,
     fund_account_id: child?.rzp_fundAcId,
-    amount: parseInt(req?.body?.amount)*100,
+    amount: parseInt(req?.body?.amount) * 100,
     currency: "INR",
     mode: "IMPS",
     purpose: "payout",
@@ -142,7 +142,9 @@ const processPayout = async (req, res) => {
         child.payouts = arr;
       }
       await child.save();
-      return res.status(201).json({ message: `Payout of INR ${req?.body?.amount} sent` });
+      return res
+        .status(201)
+        .json({ message: `Payout of INR ${req?.body?.amount} sent` });
     })
     .catch((err) => {
       console.error(err?.response?.data.error);
@@ -164,7 +166,14 @@ const getPayoutStatus = async (req, res) => {
 
   await axios(config)
     .then((resp) => {
-      return res.status(200).json({status: resp?.data?.status, utr: resp?.data?.utr, amount: resp?.data?.amount/100});
+      return res
+        .status(200)
+        .json({
+          status: resp?.data?.status,
+          utr: resp?.data?.utr,
+          amount: resp?.data?.amount / 100,
+          created_at: new Date(resp?.data?.created_at).toDateString(),
+        });
     })
     .catch((err) => {
       console.error(err?.response?.data.error);
@@ -172,4 +181,9 @@ const getPayoutStatus = async (req, res) => {
     });
 };
 
-module.exports = { createContact, addBankDetails, processPayout, getPayoutStatus };
+module.exports = {
+  createContact,
+  addBankDetails,
+  processPayout,
+  getPayoutStatus,
+};

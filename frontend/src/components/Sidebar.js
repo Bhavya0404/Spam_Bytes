@@ -11,33 +11,14 @@ import Box from "@mui/material/Box";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useSelector } from "react-redux";
-import { getUser } from "../features/users/usersSlice";
 import { Typography } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 
 const drawerWidth = 250;
 
-const usSection1 = [
-  {
-    label: "All Reported Children",
-    Icon: FormatListNumberedIcon,
-  },
-  {
-    label: "User Profile",
-    Icon: AccountCircleIcon,
-  },
-];
-const usSection2 = [
-  {
-    label: "Settings",
-    Icon: SettingsIcon,
-  },
-];
-
-const Sidebar = ({ window, nSections, sectionList }) => {
+const Sidebar = ({ window, nSections, sectionList, header }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
@@ -50,32 +31,24 @@ const Sidebar = ({ window, nSections, sectionList }) => {
         </Typography>
       </Toolbar>
       <Divider />
-      <List>
-        {usSection1.map(({ label, Icon }, index) => (
-          <ListItem key={label} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {[...Array(nSections).keys()].map((i) => (
+        <>
+          <List>
+            {sectionList[i].map(({ label, Icon }) => (
+              <ListItem key={label} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Icon />
+                  </ListItemIcon>
+                  <ListItemText primary={label} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+        </>
+      ))}
       <Divider />
-      <List>
-        {usSection2.map(({ label, Icon }, index) => (
-          <ListItem key={label} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Icon />
-              </ListItemIcon>
-              <ListItemText primary={label} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-        <Divider />
-      </List>
     </div>
   );
   const container =
@@ -85,9 +58,9 @@ const Sidebar = ({ window, nSections, sectionList }) => {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          backgroundColor: 'white'
+          width: { md: `calc(100% - ${drawerWidth}px)` },
+          ml: { md: `${drawerWidth}px` },
+          backgroundColor: "white",
         }}
       >
         <Toolbar>
@@ -96,18 +69,18 @@ const Sidebar = ({ window, nSections, sectionList }) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerClose}
-            sx={{ mr: 2, display: { sm: "none" }, color: 'black' }}
+            sx={{ mr: 2, display: { md: "none" }, color: "black" }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" color="black">
-            User Dashboard
+            {header}
           </Typography>
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
         aria-label="nav sidebar"
       >
         <Drawer
@@ -117,7 +90,7 @@ const Sidebar = ({ window, nSections, sectionList }) => {
           onClose={handleDrawerClose}
           ModalProps={{ keepMounted: true }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -129,7 +102,7 @@ const Sidebar = ({ window, nSections, sectionList }) => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
