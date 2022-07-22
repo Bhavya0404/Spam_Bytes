@@ -8,13 +8,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Box from "@mui/material/Box";
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 250;
 
@@ -33,15 +31,15 @@ const Sidebar = ({ window, nSections, sectionList, header }) => {
       <Divider />
       {[...Array(nSections).keys()].map((i) => (
         <>
-          <List>
-            {sectionList[i].map(({ label, Icon }) => (
+          <List key={i}>
+            {sectionList[i].map(({ label, Icon, link }) => (
               <ListItem key={label} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Icon />
-                  </ListItemIcon>
-                  <ListItemText primary={label} />
-                </ListItemButton>
+                  <ListItemButton component={Link} to={link}>
+                    <ListItemIcon>
+                      <Icon />
+                    </ListItemIcon>
+                    <ListItemText primary={label} />
+                  </ListItemButton>
               </ListItem>
             ))}
           </List>

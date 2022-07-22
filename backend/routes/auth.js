@@ -1,7 +1,15 @@
 const express = require("express");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
 const { middleware } = require("../middleware/simple");
-const { forgotPassword, resetPassword, changePassword, registerAdmin, registerUser, login } = require("../controller/auth");
+const {
+  forgotPassword,
+  resetPassword,
+  changePassword,
+  registerAdmin,
+  registerUser,
+  login,
+  modifyProfile,
+} = require("../controller/auth");
 
 const router = express.Router();
 router.post("/login", login);
@@ -13,6 +21,7 @@ router.post("/register", registerUser);
 router.post("/registerAdmin", isAuthenticated, isAdmin, registerAdmin);
 router.post("/forgotpassword", forgotPassword);
 router.post("/resetpassword", resetPassword);
-router.post("/changepassword", middleware, changePassword);
+router.put("/changepassword", isAuthenticated, changePassword);
+router.put("/modifyprofile", isAuthenticated, modifyProfile);
 
 module.exports = router;

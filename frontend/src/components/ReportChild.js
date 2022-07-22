@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux'
-import { getFoundChildStatus, selectFoundChild } from "../features/foundchild/FoundChildSlice";
-
-
+import { useSelector } from "react-redux";
+import {
+  getFoundChildStatus,
+  selectFoundChild,
+} from "../features/foundchild/FoundChildSlice";
 
 const ReportChild = () => {
   const [name, setName] = useState("");
@@ -15,14 +16,10 @@ const ReportChild = () => {
   const [lat, setLat] = useState(0.0);
   const [lng, setLng] = useState(0.0);
 
+  const status = useSelector(getFoundChildStatus);
+  const foundChildData = useSelector(selectFoundChild);
 
-  const status = useSelector(getFoundChildStatus)
-  const foundChildData = useSelector(selectFoundChild)
-
-   useEffect(() => {
-   
-
-    
+  useEffect(() => {
     if ("geolocation" in navigator) {
       console.log("Geolocation Available");
     } else {
@@ -31,9 +28,6 @@ const ReportChild = () => {
   }, []);
 
   const handleReportChild = async () => {
-    
-    
-    
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Access-Control-Allow-Origin": "*",
@@ -71,16 +65,20 @@ const ReportChild = () => {
     } catch (err) {
       console.error(err);
     } finally {
-    
-      if (status === 'Succeeded'){
-        return foundChildData.map((e, i, row) => {
-            console.log(e);
-            if(i+1 === row.length){
-              return alert('Your complaint ID is : ' + (e._id) + "  " + name + ". You may track your reported child using this ID");
-            }
-            
-        })
-    } 
+      if (status === "Succeeded") {
+        return foundChildData.forEach((e, i, row) => {
+          console.log(e);
+          if (i + 1 === row.length) {
+            alert(
+              "Your complaint ID is : " +
+                e._id +
+                "  " +
+                name +
+                ". You may track your reported child using this ID"
+            );
+          }
+        });
+      }
       setName("");
       setAddress("");
       setDescription("");
@@ -89,7 +87,6 @@ const ReportChild = () => {
       setLng(0.0);
       setState("");
       setDistrict("");
-   
     }
   };
   return (
@@ -99,7 +96,7 @@ const ReportChild = () => {
         <input
           id="name"
           type="text"
-          value = {name}
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>

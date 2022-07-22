@@ -10,7 +10,6 @@ import UserDashboard from "./features/users/UserDashboard";
 // import AllUser from "./features/users/AllUser";
 import AllNgo from "./features/ngo/AllNgo";
 import NgoDashboard from "./features/ngo/NgoDashboard";
-import AllNodal from "./features/nodal/AllNodal";
 import AllFoundChild from "./features/foundchild/AllFoundChild";
 import ComplaintStatusPage from "./features/foundchild/ComplaintStatusPage";
 import NodalDashboard from "./features/nodal/NodalDashboard";
@@ -18,10 +17,12 @@ import ChildDetails from "./components/ChildDetails";
 import ChangePassword from "./components/ChangePassword";
 import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./components/ForgotPassword";
+import NodalProfile from "./components/NodalProfile";
+import Logout from "./components/Logout";
 
 function App() {
   return (
-    <div style={{flexDirection: 'column', display: 'flex'}}>
+    <div style={{ flexDirection: "column", display: "flex" }}>
       {/* <Navbar /> */}
       <Routes>
         <Route exact path="/" element={<HomePage />} />
@@ -30,13 +31,15 @@ function App() {
         <Route path="/reportchild" element={<ReportChild />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         {/* <Route path="/users" element={<AllUser />} /> */}
-        <Route path="IN/:userId" element={<UserDashboard />} />
+        <Route path="IN/" element={<UserDashboard />} />
         <Route path="/ngo/:ngoId" element={<NgoDashboard />} />
         <Route exact path="/ngo" element={<AllNgo />} />
-        <Route path="/admin" element={<AllNodal />} />
+        <Route path="/admin" element={<NodalDashboard />} />
+        <Route path="/admin/profile" element={<NodalProfile />} />
+        <Route path="/logout" element={<Logout />} />
         <Route path="/foundchild" element={<AllFoundChild />} />
         <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
-        <Route path="/admin/:adminId" element={<NodalDashboard />} />
+        {/* <Route path="/admin/:adminId" element={<NodalDashboard />} /> */}
         <Route path="/child/:childId" element={<ChildDetails />} />
         <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />

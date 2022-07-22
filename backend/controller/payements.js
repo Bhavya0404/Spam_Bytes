@@ -169,10 +169,11 @@ const getPayoutStatus = async (req, res) => {
       return res
         .status(200)
         .json({
+          id,
           status: resp?.data?.status,
           utr: resp?.data?.utr,
           amount: resp?.data?.amount / 100,
-          created_at: new Date(resp?.data?.created_at).toDateString(),
+          created_at: resp?.data?.created_at,
         });
     })
     .catch((err) => {

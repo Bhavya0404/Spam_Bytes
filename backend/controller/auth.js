@@ -52,33 +52,59 @@ const resetPassword = async (req, res) => {
       .status(403)
       .json({ message: "Token Invalid or Expired (isValid Error)" });
   }
-  const hash = await argon2.hash(newPassword);
-  await userModel.updateOne({ _id: userId }, { $set: { password: hash } });
+  await userModel.updateOne(
+    { _id: userId },
+    { $set: { password: newPassword } }
+  );
   await passwordResetToken.deleteOne();
   return res.status(200).json({ message: "Password Reset Successful" });
 };
 
 const changePassword = async (req, res) => {
   const body = req?.body;
-  const email = body?.email;
+  const id = req?.user?._id;
   const newpassword = body?.password;
   const confirmPassword = body?.cpassword;
+  const oldPassword = body?.oldpassword;
 
   try {
     if (newpassword !== confirmPassword) {
-      return res.status(500).send({ error: "Passwords mismatch", code: 500 });
+      return res.status(500).json({ message: "Passwords mismatch" });
     }
-    const hash = await argon2.hash(newpassword);
-    const user = await userModel.findOne({ email }).exec();
-    //console.log("a");
+    const user = await userModel.findById(id).exec();
+
     if (!user) {
-      return res.status(403).send({ error: "Invalid Email", code: 403 });
+      return res.status(403).json({ message: "Invalid ID" });
     }
-    user.password = hash;
+    const valid = await argon2.verify(user.password, oldPassword);
+    if (!valid) {
+      return res.status(403).json({ message: "Old Password mismatch" });
+    }
+    user.password = newpassword;
     await user.save();
   } catch (err) {
     console.error(err);
-    return res.status(500).send({ error: err, code: 500 });
+    return res.status(500).json({ message: err });
+  }
+};
+
+const modifyProfile = async (req, res) => {
+  const body = req?.body;
+  const id = req?.user?._id;
+
+  try {
+    let user = await userModel.findById(id).exec();
+
+    if (!user) {
+      return res.status(404).json({ message: "Invalid ID" });
+    }
+    await userModel.updateOne({ _id: id }, body).exec();
+    return res
+      .status(200)
+      .json({ message: `User w/ id ${id} Updated Successfully` });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: err });
   }
 };
 
@@ -98,10 +124,9 @@ const registerAdmin = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
-    const hash = await argon2.hash(password);
     const newUser = await userModel({
       email,
-      password: hash,
+      password,
       isAdmin,
       acType,
       name,
@@ -131,10 +156,9 @@ const registerUser = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
-    const hash = await argon2.hash(password);
     const newUser = await userModel({
       email,
-      password: hash,
+      password,
       name,
       phoneNumber,
       acType,
@@ -185,6 +209,7 @@ module.exports = {
   forgotPassword,
   resetPassword,
   changePassword,
+  modifyProfile,
   registerAdmin,
   registerUser,
   login,

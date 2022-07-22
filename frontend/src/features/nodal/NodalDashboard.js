@@ -3,16 +3,16 @@ import { useSelector } from "react-redux";
 import {
   selectFoundChild,
   getFoundChildStatus,
-  getFoundChildError,
+  // getFoundChildError,
 } from "../foundchild/FoundChildSlice";
 import {
-  getNodalById,
-  getNodalData,
-  getNodalError,
+  getNodal,
+  // getNodalData,
+  // getNodalError,
   getNodalStatus,
 } from "./NodalSlice";
-import MapView from "../../components/MapView";
-import { useNavigate, useParams } from "react-router-dom";
+// import MapView from "../../components/MapView";
+import { useNavigate } from "react-router-dom";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -26,8 +26,6 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // import Modal from "@mui/material/Modal";
-import axios from "axios";
-import { Link } from "react-router-dom";
 import SideBar from "../../components/Sidebar";
 // import Container from "@mui/material/Container";
 // import Card from "@mui/material/Card";
@@ -39,28 +37,17 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import sidebarMenus from "../../components/sidebarMenus";
 
 const NodalDashboard = () => {
-  const id = useParams();
   const navigate = useNavigate();
 
   const statusFoundChild = useSelector(getFoundChildStatus);
   const foundChildData = useSelector(selectFoundChild);
-  const errorFoundChild = useSelector(getFoundChildError);
+  // const errorFoundChild = useSelector(getFoundChildError);
 
   const statusNodal = useSelector(getNodalStatus);
-  const nodalData = useSelector((state) => getNodalById(state, id.adminId));
-  const errorNodal = useSelector(getNodalError);
+  const nodalData = useSelector((state) => getNodal(state));
+  // const errorNodal = useSelector(getNodalError);
 
   const [childData, setChildData] = useState([]);
-  const [isVisible, setIsVisible] = useState(false);
-  const [currentChild, setCurrentChild] = useState({});
-
-  const [name, setName] = useState("");
-  const [ifsc, setIfsc] = useState("");
-  const [accountNumber, setAccountNumber] = useState("");
-
-  
-
-  const [amount, setAmount] = useState("");
 
  
 

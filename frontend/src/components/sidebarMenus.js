@@ -1,6 +1,8 @@
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SettingsIcon from "@mui/icons-material/Settings";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LogoutIcon from "@mui/icons-material/Logout"
 
 const menus = {
   user: {
@@ -31,14 +33,21 @@ const menus = {
     sectionList: [
       [
         {
-          label: "Officer's Profile",
-          Icon: AccountCircleIcon,
+          label: "Dashboard",
+          Icon: DashboardIcon,
+          link: '/admin/'
         },
       ],
       [
         {
-          label: "Settings",
-          Icon: SettingsIcon,
+          label: "Officer's Profile",
+          Icon: AccountCircleIcon,
+          link: '/admin/profile'
+        },
+        {
+          label: "Logout",
+          Icon: LogoutIcon,
+          link: '/logout'
         },
       ],
     ],

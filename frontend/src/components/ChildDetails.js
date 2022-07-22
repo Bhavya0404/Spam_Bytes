@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  getFoundChildById,
-  getFoundChildStatus,
-} from "../features/foundchild/FoundChildSlice";
+import { getFoundChildById } from "../features/foundchild/FoundChildSlice";
 import Sidebar from "../components/Sidebar";
 import sidebarMenus from "../components/sidebarMenus";
 import {
@@ -22,62 +19,79 @@ import {
   Modal,
   TextField,
   TableHead,
+  capitalize,
 } from "@mui/material";
+import { red, yellow, green, grey } from "@mui/material/colors";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PaymentIcon from "@mui/icons-material/Payment";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { formatMoney } from "accounting";
 import axios from "axios";
+import EditButton from "./EditButton";
+import EditModal from "./EditModal";
+import UploadModal from "./UploadModal";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: { xs: "200px", lg: "400px" },
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
+  borderRadius: "10px",
   p: 4,
 };
 
 const payoutModalstyle = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 800,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+  ...style,
+  width: { xs: "400px", md: "600px", lg: "800px" },
 };
 
 const ChildDetails = () => {
+  const navigate = useNavigate();
+
   const { childId } = useParams();
   const childData = useSelector((state) => getFoundChildById(state, childId));
   const [accountNumber, setAccountNumber] = useState("");
   const [ifsc, setIfsc] = useState("");
   const [amount, setAmount] = useState(0);
+
+  const [addressEditValue, setAddressEditValue] = useState("");
+  const [descriptionEditValue, setDescriptionEditValue] = useState("");
+  const [nameEditValue, setNameEditValue] = useState("");
+  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+
+  // Modal States
   const [accountVisible, setAccountVisible] = useState(false);
   const [payoutVisible, setPayoutVisible] = useState(false);
   const [payoutListVisible, setPayoutListVisible] = useState(false);
   const [payoutData, setPayoutData] = useState([]);
   const [payoutLoading, setPayoutLoading] = useState(true);
+  const [nameEdit, setNameEdit] = useState(false);
+  const [addressEdit, setAddressEdit] = useState(false);
+  const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [uploadOpen, setUploadOpen] = useState(false);
 
   const handleCloseAV = () => setAccountVisible(false);
   const handleClosePM = () => setPayoutVisible(false);
   const handleClosePL = () => setPayoutListVisible(false);
+  const handleCloseDE = () => setDescriptionEdit(false);
+  const handleCloseNE = () => setNameEdit(false);
+  const handleCloseAE = () => setAddressEdit(false);
 
   useEffect(() => {
     const getPayoutData = async () => {
       const pData = [];
-      await childData?.payouts.forEach(async (pID) => {
-        console.log(pID);
+      if (!childData?.payouts) return;
+      for (const childPayoutId of childData.payouts) {
         const resp = await axios.get(
-          `http://localhost:5000/nodal/payoutStatus/${pID}`
+          `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`
         );
-        console.log(resp?.data);
         pData.push(resp?.data);
-      });
+      }
       setPayoutData(pData);
       setPayoutLoading(false);
     };
@@ -115,28 +129,141 @@ const ChildDetails = () => {
   };
 
   const [acceptChild, setAcceptChild] = useState(false);
-  const [verfied, setVerifiedChild] = useState(false);
+  const [verified, setVerifiedChild] = useState(false);
   const [hasSchool, setHasSchool] = useState(false);
 
-  const accepted = () => {
+  const handleAccepted = async () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
-      setAcceptChild(true);
+      const body = { isAccepted: true };
+      try {
+        const resp = await axios.put(
+          `http://localhost:5000/nodal/child/${childData?._id}`,
+          body
+        );
+        alert(resp?.data?.message);
+        setAcceptChild(true);
+        navigate(0);
+      } catch (err) {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      }
     }
   };
 
-  const verified = () => {
+  const handleVerified = async () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
-      setVerifiedChild(true);
+      const body = { isVerified: true };
+      try {
+        const resp = await axios.put(
+          `http://localhost:5000/nodal/child/${childData?._id}`,
+          body
+        );
+        alert(resp?.data?.message);
+        setVerifiedChild(true);
+        navigate(0);
+      } catch (err) {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      }
     }
   };
 
-  const allotedSchool = () => {
+  const handleAllotedSchool = async () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
-      setHasSchool(true);
+      const body = { inSchool: true };
+      try {
+        const resp = await axios.put(
+          `http://localhost:5000/nodal/child/${childData?._id}`,
+          body
+        );
+        alert(resp?.data?.message);
+        setHasSchool(true);
+        navigate(0);
+      } catch (err) {
+        console.error(err);
+        alert(err?.response?.data?.message);
+      }
     }
+  };
+
+  const getColor = (status) => {
+    if (status === "processed") return [green[50], green[600]];
+    if (status === "processing") return [yellow[50], yellow[900]];
+    if (
+      status === "reversed" ||
+      status === "rejected" ||
+      status === "cancelled"
+    )
+      return [red[50], red[600]];
+    return [grey[50], grey[600]];
+  };
+
+  const handleNameChange = async () => {
+    const data = { name: nameEditValue };
+    try {
+      const resp = await axios.put(
+        `http://localhost:5000/nodal/child/${childData?._id}`,
+        data
+      );
+      alert(resp?.data?.message);
+      setNameEditValue("");
+      setNameEdit(false);
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+      alert(err?.response?.data?.message);
+    }
+  };
+  const handleAddressChange = async () => {
+    const data = { address: addressEditValue };
+    try {
+      const resp = await axios.put(
+        `http://localhost:5000/nodal/child/${childData?._id}`,
+        data
+      );
+      alert(resp?.data?.message);
+      setAddressEditValue("");
+      setAddressEdit(false);
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+      alert(err?.response?.data?.message);
+    }
+  };
+  const handleDescriptionChange = async () => {
+    const data = { description: descriptionEditValue };
+    try {
+      const resp = await axios.put(
+        `http://localhost:5000/nodal/child/${childData?._id}`,
+        data
+      );
+      alert(resp?.data?.message);
+      setDescriptionEditValue("");
+      setDescriptionEdit(false);
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+      alert(err?.response?.data?.message);
+    }
+  };
+  const handleUpload = (e) => {
+    const val = e.target.files[0];
+    console.log(val);
+    const promise = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(val);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+    });
+    promise
+      .then((res) => {
+        setImageFile(res);
+        setUploadOpen(true);
+      })
+      .catch((err) => console.error(err));
   };
   return (
     <div>
@@ -152,12 +279,7 @@ const ChildDetails = () => {
           header="Child Details"
         />
 
-        <Container
-          maxWidth={false}
-          sx={{
-            width: "85%",
-          }}
-        >
+        <Container maxWidth={false}>
           <Card sx={{ flex: 1, mt: "100px" }}>
             <CardContent>
               <Box
@@ -182,10 +304,11 @@ const ChildDetails = () => {
                   maxWidth={false}
                   sx={{
                     display: "flex",
-                    flexDirection: {xs: 'column', md: 'row'},
+                    flexDirection: { xs: "column", md: "row" },
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginTop: "30px",
+                    gap: "30px",
                   }}
                 >
                   <Box
@@ -203,6 +326,9 @@ const ChildDetails = () => {
                             <TableCell>
                               <Typography>{childData?.name}</Typography>
                             </TableCell>
+                            <TableCell>
+                              <EditButton onEdit={() => setNameEdit(true)} />
+                            </TableCell>
                           </TableRow>
                           <TableRow>
                             <TableCell>
@@ -210,6 +336,9 @@ const ChildDetails = () => {
                             </TableCell>
                             <TableCell>
                               <Typography>{childData?.address}</Typography>
+                            </TableCell>
+                            <TableCell>
+                              <EditButton onEdit={() => setAddressEdit(true)} />
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -219,6 +348,7 @@ const ChildDetails = () => {
                             <TableCell>
                               <Typography>{childData?.state}</Typography>
                             </TableCell>
+                            <TableCell></TableCell>
                           </TableRow>
                           <TableRow>
                             <TableCell>
@@ -227,6 +357,7 @@ const ChildDetails = () => {
                             <TableCell>
                               <Typography>{childData?.district}</Typography>
                             </TableCell>
+                            <TableCell></TableCell>
                           </TableRow>
                           <TableRow>
                             <TableCell>
@@ -235,39 +366,19 @@ const ChildDetails = () => {
                             <TableCell>
                               <Typography>{childData?.description}</Typography>
                             </TableCell>
-                          </TableRow>
-
-                          <TableRow>
                             <TableCell>
-                              <Typography>Is Accepted</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>
-                                {childData?.isAccepted ? (
-                                  <CheckCircleIcon sx={{ color: "green" }} />
-                                ) : (
-                                  <CancelIcon sx={{ color: "red" }} />
-                                )}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Button
-                                variant="contained"
-                                disabled={childData?.isAccepted || acceptChild}
-                                onClick={accepted}
-                              >
-                                Mark As Accepted
-                              </Button>
+                              <EditButton
+                                onEdit={() => setDescriptionEdit(true)}
+                              />
                             </TableCell>
                           </TableRow>
-
                           <TableRow>
                             <TableCell>
                               <Typography>Is Verified</Typography>
                             </TableCell>
                             <TableCell>
                               <Typography>
-                                {childData?.isVerified ? (
+                                {childData?.isVerified || verified ? (
                                   <CheckCircleIcon sx={{ color: "green" }} />
                                 ) : (
                                   <CancelIcon sx={{ color: "red" }} />
@@ -276,22 +387,48 @@ const ChildDetails = () => {
                             </TableCell>
                             <TableCell>
                               <Button
-                                variant="contained"
+                                variant="text"
                                 disabled={childData?.isVerified || verified}
-                                onClick={verified}
+                                onClick={handleVerified}
                               >
-                                Mark As Verfied
+                                Mark As Verified
                               </Button>
                             </TableCell>
                           </TableRow>
-
+                          <TableRow>
+                            <TableCell>
+                              <Typography>Is Accepted</Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography>
+                                {childData?.isAccepted || acceptChild ? (
+                                  <CheckCircleIcon sx={{ color: "green" }} />
+                                ) : (
+                                  <CancelIcon sx={{ color: "red" }} />
+                                )}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                variant="text"
+                                disabled={
+                                  !childData?.isVerified ||
+                                  childData?.isAccepted ||
+                                  acceptChild
+                                }
+                                onClick={handleAccepted}
+                              >
+                                Mark As Accepted
+                              </Button>
+                            </TableCell>
+                          </TableRow>
                           <TableRow>
                             <TableCell>
                               <Typography>In School</Typography>
                             </TableCell>
                             <TableCell>
                               <Typography>
-                                {childData?.inSchool ? (
+                                {childData?.inSchool || hasSchool ? (
                                   <CheckCircleIcon sx={{ color: "green" }} />
                                 ) : (
                                   <CancelIcon sx={{ color: "red" }} />
@@ -300,11 +437,15 @@ const ChildDetails = () => {
                             </TableCell>
                             <TableCell>
                               <Button
-                                variant="contained"
-                                disabled={childData?.hasSchool || hasSchool}
-                                onClick={allotedSchool}
+                                variant="text"
+                                disabled={
+                                  !childData?.isVerified ||
+                                  childData?.inSchool ||
+                                  hasSchool
+                                }
+                                onClick={handleAllotedSchool}
                               >
-                                Have School
+                                Assign School
                               </Button>
                             </TableCell>
                           </TableRow>
@@ -316,44 +457,99 @@ const ChildDetails = () => {
                     sx={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: "10px",
+                      alignItems: "center",
+                      gap: 1.75,
                     }}
                   >
-                    <img
-                      alt={childData?.name}
-                      src={`data:image/png;base64, ${childData?.img}`}
-                      style={{
-                        objectFit: "contain",
-                        height: "250px",
-                        width: "200px",
+                    <Box
+                      sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+                    >
+                      <img
+                        alt={childData?.name}
+                        src={
+                          childData?.img
+                            ? `${childData?.img}`
+                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
+                        }
+                        style={{
+                          objectFit: "contain",
+                          height: "250px",
+                          width: "200px",
+                        }}
+                      />
+                      <Button variant="text" component="label" sx={{ gap: 1 }}>
+                        <AddAPhotoIcon />
+                        <Typography
+                          component="span"
+                          sx={{ textTransform: "capitalize" }}
+                        >
+                          Upload Photograph
+                        </Typography>
+                        <input
+                          hidden
+                          accept="image/png"
+                          type="file"
+                          value={image}
+                          onChange={handleUpload}
+                        />
+                      </Button>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: { xs: "grid", md: "flex" },
+                        flexDirection: { md: "column" },
+                        gridTemplateColumns: "repeat(2, 1fr)",
+                        gap: "10px",
                       }}
-                    />
-                    <Box display="flex" flexDirection="column" gap="10px">
-                      <Button
-                        variant="contained"
-                        onClick={() => setPayoutVisible(true)}
-                      >
-                        Payout
-                      </Button>
-                      <Button
-                        variant="contained"
-                        onClick={() => setAccountVisible(true)}
-                        disabled={!!childData?.rzp_fundAcId}
-                      >
-                        Create Fund Account
-                      </Button>
-                      <Button
-                        variant="contained"
-                        disabled={!!childData?.rzp_contactId}
-                      >
-                        Create Contact
-                      </Button>
-                      <Button
-                        variant="contained"
-                        onClick={() => setPayoutListVisible(true)}
-                      >
-                        View Payouts
-                      </Button>
+                    >
+                      {childData?.isVerified && (
+                        <>
+                          <Button
+                            variant="contained"
+                            sx={{ gap: 2 }}
+                            onClick={() => setPayoutVisible(true)}
+                          >
+                            <PaymentIcon />
+                            <Typography
+                              component="span"
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              Payout
+                            </Typography>
+                          </Button>
+                          <Button
+                            variant="contained"
+                            sx={{ gap: 2 }}
+                            onClick={() => setPayoutListVisible(true)}
+                          >
+                            <AccountBalanceIcon />
+                            <Typography
+                              component="span"
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              View Payouts
+                            </Typography>
+                          </Button>
+                          {!!!childData?.rzp_fundAcId && (
+                            <Button
+                              variant="contained"
+                              onClick={() => setAccountVisible(true)}
+                              disabled={!!childData?.rzp_fundAcId}
+                            >
+                              Create Fund Account
+                            </Button>
+                          )}
+
+                          {!!!childData?.rzp_contactId && (
+                            <Button
+                              variant="contained"
+                              disabled={!!childData?.rzp_contactId}
+                            >
+                              Create Contact
+                            </Button>
+                          )}
+                        </>
+                      )}
                     </Box>
                   </Box>
                 </Container>
@@ -443,32 +639,205 @@ const ChildDetails = () => {
         >
           <Box sx={payoutModalstyle}>
             <Container>
+              <Typography
+                sx={{ fontSize: 30, marginBottom: "10px", textAlign: "center" }}
+                component="h4"
+              >
+                Payout Details of {childData?.name}
+              </Typography>
               {payoutLoading ? (
                 <Typography>Loading...</Typography>
               ) : (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Payout ID</TableCell>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Amount</TableCell>
-                        <TableCell>Status</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {childData?.payouts?.map((payout, i) => (
-                        <TableRow key={i}>
-                          <TableCell>{payout}</TableCell>
+                <>
+                  {/* Small to Large Screen Table */}
+                  <TableContainer
+                    sx={{ display: { xs: "inherit", lg: "none" } }}
+                  >
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Payout ID</TableCell>
+                          <TableCell>Date</TableCell>
+                          <TableCell>Status</TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      </TableHead>
+                      <TableBody>
+                        {childData?.payouts?.map((payout, i) => {
+                          const payoutDataId = payoutData.find(
+                            (pD) => pD.id === payout
+                          );
+                          return (
+                            <TableRow key={i}>
+                              <TableCell>{payout?.slice(0, 9)}...</TableCell>
+                              <TableCell>
+                                {new Date(
+                                  payoutDataId?.created_at * 1000
+                                ).toLocaleDateString("en-in")}
+                              </TableCell>
+
+                              <TableCell>
+                                <Container
+                                  sx={{
+                                    padding: "3px",
+                                    borderRadius: "100px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    backgroundColor: getColor(
+                                      payoutDataId?.status
+                                    )[0],
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      color: getColor(payoutDataId?.status)[1],
+                                    }}
+                                  >
+                                    {capitalize(payoutDataId?.status)}
+                                  </Typography>
+                                </Container>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+
+                  {/* Large and above Screens */}
+                  <TableContainer
+                    sx={{ display: { xs: "none", lg: "inherit" } }}
+                  >
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>Payout ID</TableCell>
+                          <TableCell>Date</TableCell>
+                          <TableCell>Amount</TableCell>
+                          <TableCell>Status</TableCell>
+                          <TableCell>UTR</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {childData?.payouts?.map((payout, i) => {
+                          const payoutDataId = payoutData.find(
+                            (pD) => pD.id === payout
+                          );
+                          return (
+                            <TableRow key={i}>
+                              <TableCell>{payout}</TableCell>
+                              <TableCell>
+                                {new Date(
+                                  payoutDataId?.created_at * 1000
+                                ).toDateString()}
+                              </TableCell>
+                              <TableCell>
+                                <Typography component="span">
+                                  {formatMoney(payoutDataId?.amount, {
+                                    symbol: "₹ ",
+                                    precision: 2,
+                                  })}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Container
+                                  sx={{
+                                    padding: "3px",
+                                    borderRadius: "100px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    backgroundColor: getColor(
+                                      payoutDataId?.status
+                                    )[0],
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                      color: getColor(payoutDataId?.status)[1],
+                                    }}
+                                  >
+                                    {capitalize(payoutDataId?.status)}
+                                  </Typography>
+                                </Container>
+                              </TableCell>
+                              <TableCell>
+                                {payoutDataId?.status !== "processed"
+                                  ? "N/A"
+                                  : payoutDataId?.utr}
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </>
               )}
+              <Button
+                sx={{
+                  marginTop: "10px",
+                  gap: "4px",
+                  backgroundColor: red[500],
+                  "&:hover": { backgroundColor: red[700] },
+                }}
+                onClick={handleClosePL}
+                variant="contained"
+              >
+                <CancelIcon />
+                <Typography sx={{ display: { xs: "none", lg: "inline" } }}>
+                  Close
+                </Typography>
+              </Button>
             </Container>
           </Box>
         </Modal>
+        <EditModal
+          handleClose={handleCloseNE}
+          handleEdit={handleNameChange}
+          open={nameEdit}
+          editField={{
+            type: "text",
+            label: "Name",
+            placeholder: "Enter Name",
+            value: nameEditValue,
+            handleChange: setNameEditValue,
+          }}
+        />
+        <EditModal
+          handleClose={handleCloseAE}
+          handleEdit={handleAddressChange}
+          open={addressEdit}
+          editField={{
+            type: "textarea",
+            label: "Address",
+            placeholder: "Enter Address",
+            value: addressEditValue,
+            handleChange: setAddressEditValue,
+          }}
+        />
+        <EditModal
+          handleClose={handleCloseDE}
+          handleEdit={handleDescriptionChange}
+          open={descriptionEdit}
+          editField={{
+            type: "textarea",
+            label: "Description",
+            placeholder: "Enter Description",
+            value: descriptionEditValue,
+            handleChange: setDescriptionEditValue,
+          }}
+        />
+        <UploadModal
+          handleClose={() => setUploadOpen(false)}
+          imageChangeHandler={handleUpload}
+          imageFile={imageFile}
+          open={uploadOpen}
+          onUpload={() => {}}
+          setImageFile={setImageFile}
+          setImage={setImage}
+          id={childData?._id}
+        />
       </Box>
     </div>
   );

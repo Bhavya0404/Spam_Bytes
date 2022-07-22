@@ -4,14 +4,15 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 const POST_URL = 'http://localhost:5000/nodal'
 
 const initialState = {
-  nodalData: [],
+  nodalData: {},
   status: 'idle',
   error: null,
 }
 
 export const fetchNodal = createAsyncThunk('nodal/fetchNodal', async () => {
-  const responce = await axios.get(POST_URL)
-  return responce.data
+  const headers = {Authorization: `Bearer ${localStorage.getItem('token')}`}
+  const response = await axios.get(POST_URL, {headers})
+  return response.data
 })
 
 const nodalSlice = createSlice({
@@ -20,7 +21,7 @@ const nodalSlice = createSlice({
   reducers: {
     nodalAdded: {
       reducer(state, action) {
-        state.nodalData.push(action.payload)
+        state.nodalData = action.payload
       },
 
       prepare(state, district, officeLocation) {
@@ -41,10 +42,7 @@ const nodalSlice = createSlice({
       })
       .addCase(fetchNodal.fulfilled, (state, action) => {
         state.status = 'Succeeded'
-        const Data = action.payload.map((data) => {
-          return data
-        })
-        state.nodalData = state.nodalData.concat(Data)
+        state.nodalData = action.payload
       })
       .addCase(fetchNodal.rejected, (state, action) => {
         state.status = 'Error'
@@ -58,5 +56,6 @@ export const getNodalStatus = (state) => state.nodal.status
 export const getNodalError = (state) => state.nodal.error
 export const getNodalById = (state, nodalID) =>
   state.nodal.nodalData.find((nod) => nod.user === nodalID)
+export const getNodal = (state) => state.nodal.nodalData
 
 export default nodalSlice.reducer

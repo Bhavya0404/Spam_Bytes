@@ -12,7 +12,7 @@ import {
 
 import "react-step-progress-bar/styles.css";
 import {
-  selectFoundChild,
+  // selectFoundChild,
   getFoundChildByUser,
 } from "../foundchild/FoundChildSlice";
 
@@ -30,7 +30,7 @@ const uTypes = {
 const UserDashBord = () => {
   const user = useSelector((state) => getUser(state));
   // const statusChild = useSelector(getFoundChildStatus);
-  const foundChildData = useSelector(selectFoundChild);
+  // const foundChildData = useSelector(selectFoundChild);
   const childByUser = useSelector((state) =>
     getFoundChildByUser(state, user?._id)
   );
