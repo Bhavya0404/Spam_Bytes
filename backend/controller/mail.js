@@ -50,7 +50,32 @@ const sendMailChild = async (tot, id, subject) => {
   });
 };
 
-const sendMailUser = async (tot, subject) => {
+// const sendMailUser = async (tot, subject) => {
+//   var transporter = nodemailer.createTransport({
+//     service: "yahoo",
+//     auth: {
+//       user: "avichal_tripathi@yahoo.com",
+//       pass: "vwtartydnxaijsvk",
+//     },
+//   });
+
+//   var mailOptions = {
+//     from: "avichal_tripathi@yahoo.com",
+//     to: tot,
+//     subject: `${subject}`,
+//     text: `Change Password`,
+//   };
+
+//   transporter.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Email sent: " + info.response);
+//     }
+//   });
+// };
+
+const sendMailResetPassword = async (tot, subject, body) => {
   var transporter = nodemailer.createTransport({
     service: "yahoo",
     auth: {
@@ -63,7 +88,7 @@ const sendMailUser = async (tot, subject) => {
     from: "avichal_tripathi@yahoo.com",
     to: tot,
     subject: `${subject}`,
-    text: `Change Password`,
+    text: `${body}`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -74,4 +99,4 @@ const sendMailUser = async (tot, subject) => {
     }
   });
 };
-module.exports = { sendMail, sendMailChild , sendMailUser};
+module.exports = { sendMail, sendMailChild, sendMailResetPassword };
