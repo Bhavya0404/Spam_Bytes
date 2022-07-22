@@ -216,9 +216,6 @@ const Login = ({ onChange }) => {
               >
                 LOGIN
               </Button>
-              <button
-                 onClick={sendMail}
-              >Forgot Password</button>
             </Container>
           </Grid>
 
