@@ -3,8 +3,9 @@ const {
   getfoundChildData,
   updateFoundChild,
 } = require('../controller/foundChild')
+const { isAvailable } = require('../middleware/childAvailable')
 
 const router = express.Router()
 router.get('/', getfoundChildData)
-router.put('/:id', updateFoundChild)
+router.put('/:id', isAvailable, updateFoundChild)
 module.exports = router
