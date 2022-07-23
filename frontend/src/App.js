@@ -33,7 +33,7 @@ function App() {
         <Route path="/reportchild" element={<ReportChild />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         {/* <Route path="/users" element={<AllUser />} /> */}
-        <Route path="IN/" element={<UserDashboard />} />
+        <Route path="/in" element={<UserDashboard />} />
         <Route path="/ngo/:ngoId" element={<NgoDashboard />} />
         <Route exact path="/ngo" element={<AllNgo />} />
         <Route path="/admin" element={<NodalDashboard />} />
@@ -41,7 +41,6 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/foundchild" element={<AllFoundChild />} />
         <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
-        {/* <Route path="/admin/:adminId" element={<NodalDashboard />} /> */}
         <Route path="/child/:childId" element={<ChildDetails />} />
         <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />

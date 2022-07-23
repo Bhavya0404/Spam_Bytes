@@ -13,16 +13,19 @@ const menus = {
         {
           label: "All Reported Children",
           Icon: FormatListNumberedIcon,
+          link: '/in'
         },
         {
           label: "User Profile",
           Icon: AccountCircleIcon,
+          link: '/in'
         },
       ],
       [
         {
           label: "Settings",
           Icon: SettingsIcon,
+          link: '/in'
         },
       ],
     ],

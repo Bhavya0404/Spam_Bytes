@@ -49,7 +49,7 @@ const Login = ({ onChange }) => {
       if (resp.status === 200) {
         localStorage.setItem("token", resp.data.token);
         if (resp.data.user.acType === userType) {
-          navigate(`/${userType.toLowerCase()}/`);
+          navigate(`/${userType.toLowerCase()}`);
         } else {
           toast.error('Unauthorized User Type');
         }
