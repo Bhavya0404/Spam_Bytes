@@ -19,11 +19,13 @@ import ResetPassword from "./components/ResetPassword";
 import ForgotPassword from "./components/ForgotPassword";
 import NodalProfile from "./components/NodalProfile";
 import Logout from "./components/Logout";
+import {Toaster} from 'react-hot-toast'
 
 function App() {
   return (
     <div style={{ flexDirection: "column", display: "flex" }}>
       {/* <Navbar /> */}
+      <Toaster />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />

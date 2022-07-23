@@ -40,30 +40,30 @@ const forgotPassword = async (req, res) => {
 const resetPassword = async (req, res) => {
   const userId = req?.body?.userId;
   const token = req?.body?.token;
-  const newPassword = req?.body?.password;
+  let newPassword = req?.body?.password;
 
-  let passwordResetToken = await tokenModel.findOne({ userId }).exec();
-  if (!passwordResetToken) {
-    return res.status(404).json({ message: "Token Invalid or Expired" });
-  }
-  const isValid = await argon2.verify(passwordResetToken?.token, token);
-  if (!isValid) {
-    return res
-      .status(403)
-      .json({ message: "Token Invalid or Expired (isValid Error)" });
-  }
-  await userModel.updateOne(
-    { _id: userId },
-    { $set: { password: newPassword } }
-  );
-  await passwordResetToken.deleteOne();
+  // let passwordResetToken = await tokenModel.findOne({ userId }).exec();
+  // if (!passwordResetToken) {
+  //   return res.status(404).json({ message: "Token Invalid or Expired" });
+  // }
+  // const isValid = await argon2.verify(passwordResetToken?.token, token);
+  // if (!isValid) {
+  //   return res
+  //     .status(403)
+  //     .json({ message: "Token Invalid or Expired (isValid Error)" });
+  // }
+  const user = await userModel.findById(userId);
+  newPassword = await argon2.hash(newPassword);
+  user.password = newPassword;
+  await user.save();
+  // await passwordResetToken.deleteOne();
   return res.status(200).json({ message: "Password Reset Successful" });
 };
 
 const changePassword = async (req, res) => {
   const body = req?.body;
   const id = req?.user?._id;
-  const newpassword = body?.password;
+  let newpassword = body?.password;
   const confirmPassword = body?.cpassword;
   const oldPassword = body?.oldpassword;
 
@@ -80,6 +80,7 @@ const changePassword = async (req, res) => {
     if (!valid) {
       return res.status(403).json({ message: "Old Password mismatch" });
     }
+    newpassword = await argon2.hash(newpassword);
     user.password = newpassword;
     await user.save();
   } catch (err) {
@@ -111,7 +112,7 @@ const modifyProfile = async (req, res) => {
 const registerAdmin = async (req, res) => {
   const body = req?.body;
   const email = body?.email;
-  const password = body?.password;
+  let password = body?.password;
   const confirmPassword = body?.cpassword;
   const name = body?.name;
   const phoneNumber = body?.phoneNumber;
@@ -124,6 +125,7 @@ const registerAdmin = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
+    password = await argon2.hash(password);
     const newUser = await userModel({
       email,
       password,
@@ -145,7 +147,7 @@ const registerUser = async (req, res) => {
   const body = req.body;
 
   const email = body?.email;
-  const password = body?.password;
+  let password = body?.password;
   const confirmPassword = body?.cpassword;
   const name = body?.name;
   const phoneNumber = body?.phoneNumber;
@@ -156,6 +158,7 @@ const registerUser = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
+    password = await argon2.hash(password);
     const newUser = await userModel({
       email,
       password,
@@ -182,12 +185,11 @@ const login = async (req, res) => {
 
   try {
     const user = await userModel.findOne({ email }).exec();
-    if (!user)
-      return res.status(403).send({ error: "Invalid Email", code: 403 });
+    if (!user) return res.status(403).send({ message: "Invalid Email" });
 
     const password_hash = user?.password;
     if (!(await argon2.verify(password_hash, password)))
-      return res.status(403).send({ error: "Invalid Password", code: 403 });
+      return res.status(403).send({ message: "Invalid Password" });
 
     const uData = {
       _id: user?._id,
@@ -201,7 +203,7 @@ const login = async (req, res) => {
     return res.status(200).send({ token, user });
   } catch (err) {
     console.error(err);
-    return res.status(500).send({ error: err, code: 500 });
+    return res.status(500).send({ message: err });
   }
 };
 

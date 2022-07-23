@@ -15,6 +15,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import toast from "react-hot-toast";
 
 const Login = ({ onChange }) => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const Login = ({ onChange }) => {
 
   const handleOnChangeUser = (event) => {
     setUserType(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleLogin = async () => {
@@ -36,31 +36,28 @@ const Login = ({ onChange }) => {
 
     if (!email) {
       setEmailError(true);
+      return;
     }
 
     if (!password) {
       setPasswordError(true);
+      return;
     }
 
     try {
-      console.log(data.email);
-      console.log(userType);
       const resp = await axios.post("http://localhost:5000/auth/login", data);
       if (resp.status === 200) {
         localStorage.setItem("token", resp.data.token);
-        console.log(resp.data);
-        // console.log(resp.data.acType)
         if (resp.data.user.acType === userType) {
-          navigate(`/${userType}/${resp.data.user._id}`);
+          navigate(`/${userType.toLowerCase()}/`);
         } else {
-          alert("Faliure");
-          console.log("wrong user type");
+          toast.error('Unauthorized User Type');
         }
       } else {
-        alert("Failure");
-        console.log(resp);
+        toast.error(resp?.message);
       }
     } catch (err) {
+      toast.error(err?.response?.data?.message);
       console.error(err);
     } finally {
       setEmail("");
@@ -123,7 +120,7 @@ const Login = ({ onChange }) => {
                     mb: 5,
                     display: "block",
                   }}
-                  variant="standard"
+                  variant="outlined"
                   label="Email"
                   placeholder="Enter Email"
                   type="email"
@@ -138,7 +135,7 @@ const Login = ({ onChange }) => {
                   sx={{
                     display: "block",
                   }}
-                  variant="standard"
+                  variant="outlined"
                   label="Password"
                   placeholder="Enter Password"
                   type="password"
@@ -200,7 +197,7 @@ const Login = ({ onChange }) => {
             item
             sm={5}
             xs={12}
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", lg: "block" } }}
           >
             <Typography
               variant="h4"

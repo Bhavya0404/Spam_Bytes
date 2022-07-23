@@ -20,11 +20,4 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", async (next) => {
-  if (this.password && this.isModified("password")) {
-    this.password = await argon2.hash(this.password);
-  }
-  next();
-});
-
 module.exports = mongoose.model("User", userSchema);

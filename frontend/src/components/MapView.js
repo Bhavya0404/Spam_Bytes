@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as mapboxgl from "mapbox-gl";
+import { Box, Paper } from "@mui/material";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoib21pY3JvbmRldnMiLCJhIjoiY2w0dzk5YTZyMTY4ajNlcGh0enNtOGhneSJ9.Hv9f-Tp7pSeeMA4RVxvPOw";
@@ -89,19 +90,19 @@ const MapView = ({ childLocation: cloc, officeLocation: oloc }) => {
   }, [cloc, oloc]);
 
   return (
-    <div>
-      <div
+    <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
+      <Box
         id="map"
-        style={{ height: "800px", width: "800px" }}
+        sx={{ height: "420px", width: {xs: '200px', lg: '600px'}, flex: {xs: 1, lg: 0.7} }}
         ref={mapRef}
-      ></div>
-      <div id="instructions">
+      ></Box>
+      <Box id="instructions" sx={{flex: {xs: 1, lg: 0.3}}}>
         {instructions?.map((ins) => (
           <li key={ins}>{ins.maneuver.instruction}</li>
         ))}
         <strong>Trip Duration: {duration} minutes</strong>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
