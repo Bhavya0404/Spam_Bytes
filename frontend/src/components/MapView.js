@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as mapboxgl from "mapbox-gl";
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoib21pY3JvbmRldnMiLCJhIjoiY2w0dzk5YTZyMTY4ajNlcGh0enNtOGhneSJ9.Hv9f-Tp7pSeeMA4RVxvPOw";
