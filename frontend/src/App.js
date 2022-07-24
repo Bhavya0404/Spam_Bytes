@@ -1,3 +1,4 @@
+
 import "./App.css";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -21,9 +22,10 @@ import NodalProfile from "./components/NodalProfile";
 import Logout from "./components/Logout";
 import {Toaster} from 'react-hot-toast'
 
+
 function App() {
   return (
-    <div style={{ flexDirection: "column", display: "flex" }}>
+    <div style={{ flexDirection: 'column', display: 'flex' }}>
       {/* <Navbar /> */}
       <Toaster />
       <Routes>
@@ -33,8 +35,9 @@ function App() {
         <Route path="/reportchild" element={<ReportChild />} />
         <Route path="/verificationpage" element={<VerificationPage />} />
         {/* <Route path="/users" element={<AllUser />} /> */}
-        <Route path="/in" element={<UserDashboard />} />
-        <Route path="/ngo/:ngoId" element={<NgoDashboard />} />
+
+        <Route path="IN/" element={<UserDashboard />} />
+        <Route path="/NGO/:ngoId" element={<NgoDashboard />} />
         <Route exact path="/ngo" element={<AllNgo />} />
         <Route path="/admin" element={<NodalDashboard />} />
         <Route path="/admin/profile" element={<NodalProfile />} />
@@ -47,7 +50,7 @@ function App() {
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

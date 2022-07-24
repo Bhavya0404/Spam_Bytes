@@ -55,7 +55,7 @@ export const selectAllNgo = (state) => state.ngo.ngoData
 export const getNgoStatus = (state) => state.ngo.status
 export const getNgoError = (state) => state.ngo.error
 export const selectNgoById = (state, userId) => {
-  return state.ngo.ngoData.find((id) => id.id === userId)
+  return state.ngo.ngoData.find((id) => id._id === userId)
 }
 
 export const selectNgoByUserId = (state, userId) => {

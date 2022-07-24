@@ -9,6 +9,7 @@ import FoundChild from './FoundChild'
 const NgoDashboard = () => {
   const id = useParams()
 
+  // console.log(id)
   const ngo = useSelector((state) => selectNgoByUserId(state, id.ngoId))
   const childs = useSelector(selectFoundChild)
   if (!ngo) {
@@ -20,9 +21,10 @@ const NgoDashboard = () => {
 
     if (
       child.district.toLowerCase() === ngo.district.toLowerCase() &&
-      child.isVerified && !child.isAccepted
+      child.isVerified &&
+      !child.isAccepted
     )
-      return <FoundChild data={child} />
+      return <FoundChild data={child} officeLocation={child.location} />
   })
 
   return (
