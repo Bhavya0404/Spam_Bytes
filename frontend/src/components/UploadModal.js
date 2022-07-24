@@ -26,7 +26,7 @@ const UploadModal = ({
   setImageFile,
   setImage,
   id
-}) => {
+}) => { 
     const navigate = useNavigate();
     const handleUpload = async () => {
         const data = {img: imageFile}
