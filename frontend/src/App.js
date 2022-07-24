@@ -23,7 +23,7 @@ import Logout from './components/Logout'
 function App() {
   return (
     <div style={{ flexDirection: 'column', display: 'flex' }}>
-      {/* <Navbar /> */}
+      <Navbar />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />

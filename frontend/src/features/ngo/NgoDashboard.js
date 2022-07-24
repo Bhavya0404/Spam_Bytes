@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../foundchild/FoundChildSlice'
 import { selectNgoByUserId } from './ngoSlice'
 import FoundChild from './FoundChild'
+import { Box, Container, Grid, Paper, Typography } from '@mui/material'
+import mainImg from '../../assets/images/ngoDash.webp'
+import { display } from '@mui/system'
 
 const NgoDashboard = () => {
   const id = useParams()
@@ -24,43 +27,81 @@ const NgoDashboard = () => {
       child.isVerified &&
       !child.isAccepted
     )
-      return <FoundChild data={child} officeLocation={child.location} />
+      return (
+        <Grid spacing={2}>
+          <FoundChild data={child} officeLocation={child.location} />
+        </Grid>
+      )
   })
 
   return (
-    <div>
-      <h1>name:{ngo.name}</h1>
-      <h1>address: {ngo.address}</h1>
-      <h1>district: {ngo.district}</h1>
-      <div>{childState}</div>
-    </div>
+    // <Box>
+    <Box sx={{ margin: '0 ' }} maxWidth>
+      <Box
+        maxWidth
+        sx={{
+          margin: '0',
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          alignItems: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <Container
+          maxWidth
+          sx={{
+            margin: '0',
+            height: '30rem',
+            width: '100%',
+            display: 'flex',
+            // justifyContent: 'center',
+            // alignItemsc: 'center',
+            backgroundImage: `url(${mainImg})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            color: 'white',
+          }}
+        >
+          <Typography
+            variant="h3"
+            component="h5"
+            sx={{ justifyContent: 'center', margin: 'auto 0' }}
+          >
+            {ngo.name}
+          </Typography>
+        </Container>
+        <Container maxWidth sx={{ margin: '0', minHeight: '50rem' }}>
+          <Container
+            sx={{ height: '10rem', display: 'flex', justifyContent: 'center' }}
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                margin: '20px 0',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              Located children in your area
+            </Typography>
+          </Container>
+          <Container sx={{ margin: '20px', width: '100%' }} maxWidth>
+            <Grid container spacing={2} columns={12}>
+              {childState}
+            </Grid>
+          </Container>
+        </Container>
+      </Box>
+    </Box>
+    // <div>
+    //   <h1>name:{ngo.name}</h1>
+    //   <h1>address: {ngo.address}</h1>
+    //   <h1>district: {ngo.district}</h1>
+    //   <div>{childState}</div>
+    // </div>
   )
-
-  // if (status === 'Loading') {
-  //   return <p>Loading</p>
-  // } else if (status === 'Succeeded') {
-  //   return foundChildData.map((e) => {
-  //     console.log(e)
-
-  //     if (e.isAccepted === 'Yes') {
-  //       return (
-  //         <React.Fragment>
-  //           <h4>{e.name} has already been Accepted </h4>
-  //         </React.Fragment>
-  //       )
-  //     } else if (e.isAccepted === 'No' && e.isVerified === 'Yes') {
-  //       return (
-  //         <React.Fragment>
-  //           <h4> {e.name} is not yet Accepted</h4>
-  //           <h4> To accept them click on the button below</h4>
-  //           <Button onClick="e.isAccepted = 'Yes' "> I Accept </Button>
-  //         </React.Fragment>
-  //       )
-  //     }
-  //   })
-  // } else {
-  //   return <p>{error}</p>
-  // }
 }
 
 export default NgoDashboard
