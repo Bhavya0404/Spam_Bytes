@@ -4,13 +4,15 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 const POST_URL = 'http://localhost:5000/ngo'
 
 const initialState = {
-  ngoData: [],
+  ngoData: {},
   status: 'idle',
   error: null,
 }
 
 export const fetchNgo = createAsyncThunk('ngo/fetchNgo', async () => {
-  const responce = await axios.get(POST_URL)
+  const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` }
+  const responce = await axios.get(POST_URL, { headers })
+
   return responce.data
 })
 
@@ -20,7 +22,7 @@ const ngoSlice = createSlice({
   reducers: {
     ngoAdded: {
       reducer(state, action) {
-        state.ngoData.push(action.payload)
+        state.ngoData = action.payload
       },
       prepare(name, address, isVerified) {
         return {
@@ -41,8 +43,7 @@ const ngoSlice = createSlice({
       })
       .addCase(fetchNgo.fulfilled, (state, action) => {
         state.status = 'Succeeded'
-        const loadedNgo = action.payload.map((data) => data)
-        state.ngoData = state.ngoData.concat(loadedNgo)
+        state.ngoData = action.payload
       })
       .addCase(fetchNgo.rejected, (state, action) => {
         state.status = 'failed'
@@ -54,12 +55,13 @@ const ngoSlice = createSlice({
 export const selectAllNgo = (state) => state.ngo.ngoData
 export const getNgoStatus = (state) => state.ngo.status
 export const getNgoError = (state) => state.ngo.error
-export const selectNgoById = (state, userId) => {
-  return state.ngo.ngoData.find((id) => id._id === userId)
-}
 
-export const selectNgoByUserId = (state, userId) => {
-  return state.ngo.ngoData.find((person) => person.user === userId)
-}
+// export const selectNgoById = (state, userId) => {
+//   return state.ngo.ngoData.find((id) => id._id === userId)
+// }
+
+// export const selectNgoByUserId = (state, userId) => {
+//   return state.ngo.ngoData.find((person) => person.user === userId)
+// }
 
 export default ngoSlice.reducer
