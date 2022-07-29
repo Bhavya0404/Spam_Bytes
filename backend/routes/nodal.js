@@ -6,11 +6,11 @@ const { createContact, addBankDetails, processPayout, getPayoutStatus } = requir
 const router = express.Router();
 
 router.get("/", isAuthenticated, isAdmin, getNodalProfile);
-router.put("/verify/:id", verifyChild);
-router.post("/createContact", createContact);
-router.post("/addBankAc", addBankDetails);
-router.post("/processPayout", processPayout);
-router.get('/payoutStatus/:id', getPayoutStatus);
-router.put('/child/:id', updateChild);
+router.put("/verify/:id", isAuthenticated, isAdmin, verifyChild);
+router.post("/createContact", isAuthenticated, isAdmin, createContact);
+router.post("/addBankAc", isAuthenticated, isAdmin, addBankDetails);
+router.post("/processPayout", isAuthenticated, isAdmin, processPayout);
+router.get('/payoutStatus/:id', isAuthenticated, isAdmin, getPayoutStatus);
+router.put('/child/:id', isAuthenticated, isAdmin, updateChild);
 
 module.exports = router;

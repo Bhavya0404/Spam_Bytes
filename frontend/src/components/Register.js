@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -34,61 +41,115 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter Email"
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Paper
+        elevation={12}
+        sx={{
+          width: { xs: "320px", sm: "500px", md: "550px" },
+          height: { xs: "650px", sm: "650px", md: "700px", lg: "750px" },
+          backgroundColor: "#FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <Container
+          sx={{
+            width: { xs: "80%", md: "70%" },
+            height: "75%",
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="p"
+            sx={{
+              fontWeight: 600,
+              mb: 5,
+              fontSize: { xs: 25, sm: 32 },
+            }}
+          >
+            Registeration
+          </Typography>
+
+          <TextField
+            fullWidth
+            id="standard-basic"
+            label="Name"
+            variant="standard"
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) => {setName(e.target.value)} }
+          />
+          <TextField
+            sx={{ mt: "20px" }}
+            fullWidth
+            id="standard-basic"
+            label="Phone Number"
+            variant="standard"
+            placeholder="Enter Phone Number"
+          value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+          />
+          <TextField
+            sx={{ mt: "20px" }}
+            fullWidth
+            id="standard-basic"
+            label="Email"
+            variant="standard"
+            placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Password"
+            
+          />
+          <TextField
+            sx={{ mt: "20px" }}
+            fullWidth
+            id="standard-basic"
+            label="Password"
+            variant="standard"
+            placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="cpassword">Confirm Password</label>
-        <input
-          type="password"
-          id="cpassword"
-          placeholder="Confirm Password"
+          />
+          <TextField
+            sx={{ mt: "20px" }}
+            fullWidth
+            id="standard-basic"
+            label="Confirm Password"
+            variant="standard"
+            placeholder="Confirm Password"
           value={cpassword}
           onChange={(e) => setCpassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="name">Nmae</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Enter Email"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="phoneNumber">Phone Number</label>
-        <input
-          type="tel"
-          id="phoneNumber"
-          placeholder="Enter Phone Number"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={handleRegister}>Register</button>
-      </div>
-    </div>
+          />
+          <Link
+            href="#"
+            sx={{
+              textDecoration: "none",
+              textAlign: "right",
+            }}
+          >
+            <Typography sx={{ mt: "15px", fontWeight: "500" }}>
+              Already a user? Sign in
+            </Typography>
+          </Link>
+          <Button
+            onClick={handleRegister}
+            size="large"
+            sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
+            variant="contained"
+          >
+            Register
+          </Button>
+        </Container>
+      </Paper>
+    </Box>
   );
 };
 

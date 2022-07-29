@@ -60,7 +60,7 @@ const FoundChild = ({ data, location }) => {
       <h1>{data.description}</h1>
       <h1>{data.address}</h1>
       <h1>{data.district}</h1>
-      
+      <MapView childLocation={data.location} officeLocation={location} />
       <Button variant="outlined" onClick={() => updateChild(data._id)}>
         Outlined
       </Button>

@@ -3,7 +3,7 @@ const foundChild = require('../model/foundChild')
 const isAvailable = async (req, res, next) => {
   // will check if child is available for change or not
   const { id } = req.params
-
+  console.log(id)
   try {
     const data = await foundChild.findById(id)
     if (data.isAccepted == false) {

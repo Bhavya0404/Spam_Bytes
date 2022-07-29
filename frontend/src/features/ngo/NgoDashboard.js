@@ -3,17 +3,19 @@ import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { selectFoundChild } from '../foundchild/FoundChildSlice'
-import { selectNgoByUserId } from './ngoSlice'
+import { selectAllNgo, selectNgoByUserId } from './ngoSlice'
 import FoundChild from './FoundChild'
 import { Box, Container, Grid, Paper, Typography } from '@mui/material'
 import mainImg from '../../assets/images/ngoDash.webp'
 import { display } from '@mui/system'
 
 const NgoDashboard = () => {
-  const id = useParams()
+  // const id = useParams()
 
   // console.log(id)
-  const ngo = useSelector((state) => selectNgoByUserId(state, id.ngoId))
+  const ngo = useSelector(selectAllNgo)
+  console.log(ngo)
+  // const ngo = useSelector((state) => selectNgoByUserId(state, id.ngoId))
   const childs = useSelector(selectFoundChild)
   if (!ngo) {
     return <h2>Page Not Found</h2>

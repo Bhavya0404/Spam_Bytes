@@ -1,9 +1,27 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import {
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+
   const sendFPRequest = async () => {
+    setEmailError(false);
+    if (!email) {
+      setEmailError(true);
+      return;
+    }
+    const notification = toast.loading("Processing...");
     try {
       const resp = await axios.post(
         `http://localhost:5000/auth/forgotpassword`,
@@ -11,31 +29,77 @@ const ForgotPassword = () => {
       );
 
       if (resp.status === 200) {
-        console.log(resp.data);
-        alert(resp?.data?.message);
+        toast.success(resp?.data?.message, { id: notification });
+        setEmail("");
+        navigate("/login");
       } else {
-        alert("Error");
-        console.error(resp);
+        toast.error(`Error: ${resp?.data?.message}`, { id: notification });
       }
     } catch (err) {
+      toast.error(`Error: ${err?.response?.data?.message}`, {
+        id: notification,
+      });
       console.log(err);
     }
   };
 
   return (
-    <div>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
+    <Box
+      sx={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Paper
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          padding: 4,
+          minWidth: "40%",
+        }}
+      >
+        <Typography
+          sx={{ textAlign: "center", fontWeight: "bold", fontSize: 24 }}
+        >
+          Forgot Password
+        </Typography>
+        <TextField
           value={email}
+          placeholder="Enter Email"
+          label="Email"
           onChange={(e) => setEmail(e.target.value)}
+          error={emailError}
         />
-      </div>
-      <div>
-        <button onClick={sendFPRequest}>Forgot Password</button>
-      </div>
-    </div>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            gap: 1.25,
+          }}
+        >
+          <Button
+            onClick={() => navigate(-1)}
+            color="error"
+            variant="outlined"
+            sx={{ flex: 0.4 }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={sendFPRequest}
+            variant="contained"
+            sx={{ flex: 0.4 }}
+          >
+            Next
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 
