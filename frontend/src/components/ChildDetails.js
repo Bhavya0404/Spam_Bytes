@@ -27,11 +27,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PaymentIcon from "@mui/icons-material/Payment";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { formatMoney } from "accounting";
 import axios from "axios";
 import EditButton from "./EditButton";
 import EditModal from "./EditModal";
 import UploadModal from "./UploadModal";
+import MapModal from "./MapModal";
+import { getNodal } from "../features/nodal/NodalSlice";
 
 const style = {
   position: "absolute",
@@ -51,6 +54,7 @@ const payoutModalstyle = {
 
 const ChildDetails = () => {
   const navigate = useNavigate();
+  const nodalOfficer = useSelector(getNodal);
 
   const { childId } = useParams();
   const childData = useSelector((state) => getFoundChildById(state, childId));
@@ -74,6 +78,7 @@ const ChildDetails = () => {
   const [addressEdit, setAddressEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false);
 
   const handleCloseAV = () => setAccountVisible(false);
   const handleClosePM = () => setPayoutVisible(false);
@@ -81,14 +86,19 @@ const ChildDetails = () => {
   const handleCloseDE = () => setDescriptionEdit(false);
   const handleCloseNE = () => setNameEdit(false);
   const handleCloseAE = () => setAddressEdit(false);
+  const handleCloseMP = () => setMapOpen(false);
 
   useEffect(() => {
     const getPayoutData = async () => {
       const pData = [];
       if (!childData?.payouts) return;
       for (const childPayoutId of childData.payouts) {
+        const headers = {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
         const resp = await axios.get(
-          `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`
+          `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`,
+          { headers }
         );
         pData.push(resp?.data);
       }
@@ -101,11 +111,13 @@ const ChildDetails = () => {
   const createFundAcHandler = async (childId) => {
     const data = { id: childId, ac_no: accountNumber, ifsc };
     try {
-      // const rstp = await axios.post(`http://localhost:5000/nodal/createContact`, {id: childId})
-      // alert(rstp?.data?.message);
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       const resp = await axios.post(
         `http://localhost:5000/nodal/addBankAc`,
-        data
+        data,
+        { headers }
       );
       alert(resp?.data?.message);
     } catch (err) {
@@ -117,9 +129,13 @@ const ChildDetails = () => {
   const processPayoutForChild = async (childId) => {
     const data = { id: childId, amount };
     try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       const resp = await axios.post(
         `http://localhost:5000/nodal/processPayout`,
-        data
+        data,
+        { headers }
       );
       alert(resp?.data?.message);
     } catch (err) {
@@ -136,10 +152,14 @@ const ChildDetails = () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
       const body = { isAccepted: true };
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       try {
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
-          body
+          body,
+          { headers }
         );
         alert(resp?.data?.message);
         setAcceptChild(true);
@@ -155,10 +175,14 @@ const ChildDetails = () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
       const body = { isVerified: true };
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       try {
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
-          body
+          body,
+          { headers }
         );
         alert(resp?.data?.message);
         setVerifiedChild(true);
@@ -175,9 +199,13 @@ const ChildDetails = () => {
     if (x) {
       const body = { inSchool: true };
       try {
+        const headers = {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
-          body
+          body,
+          { headers }
         );
         alert(resp?.data?.message);
         setHasSchool(true);
@@ -204,9 +232,13 @@ const ChildDetails = () => {
   const handleNameChange = async () => {
     const data = { name: nameEditValue };
     try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
-        data
+        data,
+        { headers }
       );
       alert(resp?.data?.message);
       setNameEditValue("");
@@ -220,9 +252,13 @@ const ChildDetails = () => {
   const handleAddressChange = async () => {
     const data = { address: addressEditValue };
     try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
-        data
+        data,
+        { headers }
       );
       alert(resp?.data?.message);
       setAddressEditValue("");
@@ -235,10 +271,14 @@ const ChildDetails = () => {
   };
   const handleDescriptionChange = async () => {
     const data = { description: descriptionEditValue };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     try {
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
-        data
+        data,
+        { headers }
       );
       alert(resp?.data?.message);
       setDescriptionEditValue("");
@@ -251,7 +291,6 @@ const ChildDetails = () => {
   };
   const handleUpload = (e) => {
     const val = e.target.files[0];
-    console.log(val);
     const promise = new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(val);
@@ -493,13 +532,27 @@ const ChildDetails = () => {
                           onChange={handleUpload}
                         />
                       </Button>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ gap: 1 }}
+                        onClick={() => setMapOpen(true)}
+                      >
+                        <LocationOnIcon />
+                        <Typography
+                          component="span"
+                          sx={{ textTransform: "capitalize" }}
+                        >
+                          View Location
+                        </Typography>
+                      </Button>
                     </Box>
                     <Box
                       sx={{
                         display: { xs: "grid", md: "flex" },
                         flexDirection: { md: "column" },
                         gridTemplateColumns: "repeat(2, 1fr)",
-                        gap: "10px",
+                        gap: 1.25,
                       }}
                     >
                       {childData?.isVerified && (
@@ -837,6 +890,13 @@ const ChildDetails = () => {
           setImageFile={setImageFile}
           setImage={setImage}
           id={childData?._id}
+        />
+        <MapModal
+          open={mapOpen}
+          handleClose={handleCloseMP}
+          childLocation={childData?.lastKnownLocation}
+          officeLocation={nodalOfficer?.officeLocation}
+          _id={childData?._id}
         />
       </Box>
     </div>
