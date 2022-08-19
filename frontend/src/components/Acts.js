@@ -1,17 +1,37 @@
-import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Container from "@mui/material/Container";
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import { Typography } from "@mui/material";
+
 
 function createData(name, number, district) {
   return { name, number, district };
 }
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 
 const rows = [
   createData("Andhra Pradesh ", 12, "Vizianagaram, Visakhapatanam, Krishna, Anantapur, Kurnool, West Godavari, Prakasam, Srikakulam, Spsr Nellore, Guntur, East Godavari, Chittoor "),
@@ -58,27 +78,24 @@ const Acts = () => {
            National Child Labour Project Districts
           </Typography>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="customized table">
           <TableHead>
             <TableRow>
-              <TableCell>Name of the state</TableCell>
-              <TableCell align="right" >No. of Districts</TableCell>
-              <TableCell align="right">Name of District</TableCell>
+              <StyledTableCell>Name of the state</StyledTableCell>
+            <StyledTableCell align="right">No. of Districts</StyledTableCell>
+            <StyledTableCell align="center">Name of Districts</StyledTableCell>
               
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.number}</TableCell>
-                <TableCell align="right">{row.district}</TableCell>
-              </TableRow>
+              <StyledTableRow key={row.name}>
+                 <StyledTableCell component="th" scope="row">
+                {row.name}
+                </StyledTableCell>
+              <StyledTableCell align="right">{row.number}</StyledTableCell>
+              <StyledTableCell align="right">{row.district}</StyledTableCell>
+                </StyledTableRow>
             ))}
           </TableBody>
         </Table>
