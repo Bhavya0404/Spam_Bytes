@@ -53,26 +53,6 @@ function DrawerAppBar(props) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-      <Box
-        sx={{
-          displa: 'flex',
-          justifyContent: 'space-between',
-          height: '30px',
-        }}
-      >
-        <Box
-          sx={{
-            width: '100%',
-            height: '30px',
-            position: 'absolute',
-            backgroundColor: '#1C3879',
-            opacity: '70%',
-          }}
-        ></Box>
-        <Typography variant="h6" sx={{ color: 'black', fontWeight: 1000 }}>
-          Ministry of labor and Emplyment Government of India
-        </Typography>
-      </Box>
       <AppBar
         component="nav"
         sx={{

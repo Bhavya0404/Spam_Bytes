@@ -3,7 +3,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import ReportChild from './components/ReportChild'
 import Navbar from './components/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import HomePage from './components/HomePage'
 import VerificationPage from './components/VerificationPage'
 import UserDashboard from './features/users/UserDashboard'
@@ -28,6 +28,7 @@ import { Toaster } from 'react-hot-toast'
 import { Box, Container } from '@mui/material'
 
 function App() {
+  
   return (
     <Box
       sx={{
