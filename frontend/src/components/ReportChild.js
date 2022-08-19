@@ -185,6 +185,21 @@ const ReportChild = () => {
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
+          <FormControlLabel
+            label="Report Anonymously"
+            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
+          />
+          {isAnon && (
+            <TextField
+              required
+              fullWidth
+              type="email"
+              id="outlined-required"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          )}
           <Button
             variant="contained"
             sx={{ mt: "2px", width: "50%" }}
