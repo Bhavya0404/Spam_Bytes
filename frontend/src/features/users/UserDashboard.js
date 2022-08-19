@@ -20,6 +20,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ComplaintStatus from "../../components/ComplaintStatus";
 import sidebarMenus from '../../components/sidebarMenus';
+import {useNavigate} from 'react-router-dom'
 
 const uTypes = {
   IN: "Individual",
@@ -34,6 +35,8 @@ const UserDashBord = () => {
   const childByUser = useSelector((state) =>
     getFoundChildByUser(state, user?._id)
   );
+
+  const navigate = useNavigate();
 
   if (!user) {
     return (
@@ -94,7 +97,7 @@ const UserDashBord = () => {
               <LogoutIcon
                 sx={{ color: "red", cursor: "pointer" }}
                 fontSize="medium"
-                onClick={() => alert("Logout Implementing....")}
+                onClick={() => navigate('/logout')}
               />
             </Box>
           </CardContent>

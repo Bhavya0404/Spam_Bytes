@@ -126,7 +126,7 @@ const NodalProfile = () => {
               <TableBody>
                 <TableRow>
                   <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
-                  <TableCell colSpan={3}>{nodalData?.name}</TableCell>
+                  <TableCell colSpan={3}>{nodalData?.user?.name}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell sx={{ fontWeight: "bold" }}>State</TableCell>
