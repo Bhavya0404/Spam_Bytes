@@ -57,7 +57,7 @@ const ReportChild = () => {
       );
       if (resp.status === 201) {
         console.log(resp);
-        alert(resp?.statusText);
+       // alert(resp?.statusText);
       } else {
         alert("Error");
         console.log(resp);
@@ -119,7 +119,7 @@ const ReportChild = () => {
               };
               reader.readAsBinaryString(file);
             }
-            console.log(img);
+           // console.log(img);
           }}
         />
       </div>
