@@ -99,67 +99,6 @@ const ReportChild = () => {
       }
     });
   };
-  // return (
-  //   <div>
-  //     <div>
-  //       <label htmlFor="name">Name</label>
-  //       <input
-  //         id="name"
-  //         type="text"
-  //         value={name}
-  //         onChange={(e) => setName(e.target.value)}
-  //       />
-  //     </div>
-  //     <div>
-  //       <label htmlFor="desc">Description</label>
-  //       <textarea id="desc" onChange={(e) => setDescription(e.target.value)} />
-  //     </div>
-  //     <div>
-  //       <label htmlFor="img">Image</label>
-  //       <input
-  //         id="img"
-  //         type="file"
-  //         onChange={(e) => {
-  //           const file = e.target.files[0];
-  //           if (file) {
-  //             const reader = new FileReader();
-  //             reader.onload = (rEvent) => {
-  //               const bString = rEvent.target.result;
-  //               setImg(btoa(bString));
-  //             };
-  //             reader.readAsBinaryString(file);
-  //           }
-  //           console.log(img);
-  //         }}
-  //       />
-  //     </div>
-  //     <div>
-  //       <label htmlFor="address">Address</label>
-  //       <textarea id="address" onChange={(e) => setAddress(e.target.value)} />
-  //     </div>
-  //     <div>
-  //       <label htmlFor="state">State</label>
-  //       <input
-  //         id="state"
-  //         type="text"
-  //         onChange={(e) => setState(e.target.value)}
-  //       />
-  //     </div>
-  //     <div>
-  //       <label htmlFor="dist">District</label>
-  //       <input
-  //         id="dist"
-  //         type="text"
-  //         onChange={(e) => setDistrict(e.target.value)}
-  //       />
-  //     </div>
-  //     <div>
-  //       <button onClick={handleReportChild}>Report Child</button>
-  //     </div>
-  //   </div>
-  // );
-
-  // export default function FormPropsTextFields() {
 
   return (
     <Box
@@ -221,27 +160,7 @@ const ReportChild = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <Button
-            variant="contained"
-            sx={{ mt: "2px", width: "50%" }}
-            component="label"
-            value={img}
-            onChange={(e) => {
-              const file = e.target.files[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = (rEvent) => {
-                  const bString = rEvent.target.result;
-                  setImg(btoa(bString));
-                };
-                reader.readAsBinaryString(file);
-              }
-              console.log(img);
-            }}
-          >
-            Upload
-            <input hidden accept="image/*" multiple type="file" />
-          </Button>
+
           <TextField
             required
             fullWidth
@@ -266,20 +185,28 @@ const ReportChild = () => {
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
-            label="Anonymous Report"
-          />
-          {isAnon && (
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          )}
+          <Button
+            variant="contained"
+            sx={{ mt: "2px", width: "50%" }}
+            component="label"
+            type="file"
+            value={img}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = (rEvent) => {
+                  const bString = rEvent.target.result;
+                  setImg(btoa(bString));
+                };
+                reader.readAsBinaryString(file);
+              }
+              console.log(img);
+            }}
+          >
+            Upload Image
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
           <Button
             onClick={handleReportChild}
             size="large"

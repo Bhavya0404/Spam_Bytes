@@ -39,12 +39,12 @@ const FoundChild = ({ data, location }) => {
       isAccepted: 'true',
     }
     try {
-      console.log(id)
+      // console.log(id)
       const child = await axios.put(
         `http://localhost:5000/foundchild/${id}`,
         datas,
       )
-      console.log(child)
+      // console.log(child)
     } catch (err) {
       console.log(err)
     }
