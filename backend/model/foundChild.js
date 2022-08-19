@@ -39,6 +39,10 @@ const foundchild = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    email: {
+      type: String,
+      required: false
+    },
     rzp_contactId: String,
     rzp_fundAcId: String,
     payouts: {

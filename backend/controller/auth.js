@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const userModel = require("../model/userSchema");
 const { sendMailResetPassword } = require("../controller/mail");
 const tokenModel = require("../model/token");
+const nodalOfficer = require("../model/nodalOfficer");
 
 const CLIENT_URI = "http://localhost:3000";
 
@@ -164,7 +165,7 @@ const registerUser = async (req, res) => {
       password,
       name,
       phoneNumber,
-      acType,
+      acType: "IN",
     });
     await newUser.save();
 
