@@ -108,6 +108,24 @@ const ChildDetails = ({ngo = false}) => {
     getPayoutData();
   }, [childData?.payouts]);
 
+  const handleCreateContact = async () => {
+    const data = { id: childId };
+    try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      const resp = await axios.post(
+        `http://localhost:5000/nodal/createContact`,
+        data,
+        { headers }
+      );
+      alert(resp?.data?.message);
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    }
+  };
+
   const createFundAcHandler = async (childId) => {
     const data = { id: childId, ac_no: accountNumber, ifsc };
     try {
@@ -507,7 +525,7 @@ const ChildDetails = ({ngo = false}) => {
                         alt={childData?.name}
                         src={
                           childData?.img
-                            ? `${childData?.img}`
+                            ? `data:image/png;base64, ${childData?.img}`
                             : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
                         }
                         style={{
@@ -596,6 +614,7 @@ const ChildDetails = ({ngo = false}) => {
                           {!!!childData?.rzp_contactId && (
                             <Button
                               variant="contained"
+                              onClick={() => handleCreateContact()}
                               disabled={!!childData?.rzp_contactId}
                             >
                               Create Contact
