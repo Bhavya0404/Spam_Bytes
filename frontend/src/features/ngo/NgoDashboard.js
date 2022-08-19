@@ -21,7 +21,15 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
+function refresh() {
+  if(!window.location.hash) {
+    window.location = window.location + '#loaded';
+    window.location.reload();
+  }
+}
+
 const NgoDashboard = () => {
+  refresh();
   const [allChild, setAllChild] = useState(true);
   
   const navigate = useNavigate();

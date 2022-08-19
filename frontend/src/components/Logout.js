@@ -7,7 +7,7 @@ const Logout = () => {
     localStorage.clear();
     navigate("/login");
   });
-  return <div>Logging Out...</div>;
+  // return <div>Logging Out...</div>;
 };
 
 export default Logout;

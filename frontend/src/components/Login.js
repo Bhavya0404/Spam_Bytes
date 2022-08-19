@@ -30,9 +30,11 @@ const Login = ({ onChange }) => {
     setUserType(event.target.value)
   }
 
+
   const handleLogin = async () => {
     setEmailError(false)
     setPasswordError(false)
+    
 
     if (!email) {
       setEmailError(true)
@@ -42,6 +44,8 @@ const Login = ({ onChange }) => {
     if (!password) {
       setPasswordError(true)
       return
+
+  
     }
 
     try {
@@ -181,7 +185,7 @@ const Login = ({ onChange }) => {
               <Button
                 size="large"
                 variant="contained"
-                onClick={handleLogin}
+                onClick={handleLogin}               
                 sx={{
                   backgroundColor: 'black',
                   mt: 5,
