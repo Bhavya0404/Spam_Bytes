@@ -152,22 +152,7 @@ const ReportChild = () => {
             value={description} 
             onChange={(e) => setDescription(e.target.value)}         
           />
-          <Button variant="contained" sx={{ mt: "2px", width: "50%"}} component="label" type="file" value={img}
-           onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (rEvent) => {
-                          const bString = rEvent.target.result;
-                          setImg(btoa(bString));
-                        };
-                        reader.readAsBinaryString(file);
-                      }
-                      console.log(img);
-                    }}>
-  Upload Image
-  <input hidden accept="image/*" multiple type="file" />
-</Button>
+
           <TextField
           required
           fullWidth
@@ -192,6 +177,22 @@ const ReportChild = () => {
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
+                    <Button variant="contained" sx={{ mt: "2px", width: "50%"}} component="label" type="file" value={img}
+           onChange={(e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (rEvent) => {
+                          const bString = rEvent.target.result;
+                          setImg(btoa(bString));
+                        };
+                        reader.readAsBinaryString(file);
+                      }
+                      console.log(img);
+                    }}>
+  Upload Image
+  <input hidden accept="image/*" multiple type="file" />
+</Button>
           <Button onClick={handleReportChild} 
           size="large"
             sx={{ mt: "30px", backgroundColor: "black", width: "70%" }} 
