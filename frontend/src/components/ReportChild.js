@@ -13,8 +13,9 @@ const ReportChild = () => {
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
-  const [lat, setLat] = useState(0.0);
-  const [lng, setLng] = useState(0.0);
+
+  const [isAnon, setIsAnon] = useState(false);
+  const [email, setEmail] = useState("");
 
   const status = useSelector(getFoundChildStatus);
   const foundChildData = useSelector(selectFoundChild);
@@ -33,61 +34,62 @@ const ReportChild = () => {
       "Access-Control-Allow-Origin": "*",
     };
 
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setLat(pos.coords.latitude);
-      setLng(pos.coords.longitude);
-    });
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      let data = {
+        name,
+        description,
+        img,
+        address,
+        state,
+        district,
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude,
+      };
 
-    const data = {
-      name,
-      description,
-      img,
-      address,
-      state,
-      district,
-      lat,
-      lng,
-    };
-
-    try {
-      const resp = await axios.post(
-        "http://localhost:5000/pencil/report",
-        data,
-        { headers }
-      );
-      if (resp.status === 201) {
-        console.log(resp);
-        alert(resp?.statusText);
+      if (isAnon) {
+        data = { ...data, isAnon, email };
       } else {
-        alert("Error");
-        console.log(resp);
+        data = { ...data, isAnon };
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      if (status === "Succeeded") {
-        return foundChildData.forEach((e, i, row) => {
-          console.log(e);
-          if (i + 1 === row.length) {
-            alert(
-              "Your complaint ID is : " +
-                e._id +
-                "  " +
-                name +
-                ". You may track your reported child using this ID"
-            );
-          }
-        });
+
+      try {
+        const resp = await axios.post(
+          "http://localhost:5000/pencil/report",
+          data,
+          { headers }
+        );
+        if (resp.status === 201) {
+          console.log(resp);
+          alert(resp?.statusText);
+        } else {
+          alert("Error");
+          console.log(resp);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (status === "Succeeded") {
+          return foundChildData.forEach((e, i, row) => {
+            console.log(e);
+            if (i + 1 === row.length) {
+              alert(
+                "Your complaint ID is : " +
+                  e._id +
+                  "  " +
+                  name +
+                  ". You may track your reported child using this ID"
+              );
+            }
+          });
+        }
+        setName("");
+        setAddress("");
+        setDescription("");
+        setImg("");
+        setState("");
+        setDistrict("");
       }
-      setName("");
-      setAddress("");
-      setDescription("");
-      setImg("");
-      setLat(0.0);
-      setLng(0.0);
-      setState("");
-      setDistrict("");
-    }
+    });
   };
   return (
     <div>
@@ -143,6 +145,24 @@ const ReportChild = () => {
           onChange={(e) => setDistrict(e.target.value)}
         />
       </div>
+      <div>
+        <label htmlFor="anon">Anonymous Report?</label>
+        <input
+          id="anon"
+          type="checkbox"
+          onChange={(e) => setIsAnon(e.target.checked)}
+        />
+      </div>
+      {isAnon && (
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+      )}
       <div>
         <button onClick={handleReportChild}>Report Child</button>
       </div>

@@ -20,7 +20,7 @@ const MapView = ({ childLocation: cloc, officeLocation: oloc }) => {
 
     async function getRoute(end) {
       const query = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/cycling/${cloc[0]},${cloc[1]};${oloc[0]},${oloc[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+        `https://api.mapbox.com/directions/v5/mapbox/driving/${cloc[0]},${cloc[1]};${oloc[0]},${oloc[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
         { method: "GET" }
       );
       const json = await query.json();
