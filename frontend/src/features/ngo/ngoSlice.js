@@ -24,12 +24,14 @@ const ngoSlice = createSlice({
       reducer(state, action) {
         state.ngoData = action.payload
       },
-      prepare(name, address, isVerified) {
+      prepare(name, address, isVerified, state, district) {
         return {
           payload: {
             name,
             address,
             isVerified,
+            state,
+            district,
           },
         }
       },
