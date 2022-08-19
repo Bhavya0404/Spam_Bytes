@@ -12,13 +12,15 @@ function createData(name, number, district) {
 }
 
 const rows = [
-  createData("Andhra Pradesh ", 159, "Vizianagaram, Visakhapatanam, Krishna, Anantapur, Kurnool, West Godavari, Prakasam, Srikakulam, Spsr Nellore, Guntur, East Godavari, Chittoor "),
-  createData("Ice cream sandwich", 237, "	Lakhimpur, Nagaon, Kamrup Metro, Nalbari, Bongaigaon "),
-  createData("Eclair", 262, "Araria, Samastipur, Purbi Champaran, Kishanganj, Banka, Saran, Bhagalpur, Jamui, Nawada, Madhepura, Supaul, Patna, Nalanda, Madhubani, Muzaffarpur, Darbhanga, Sitamarhi, Purnia, Saharsa, Pashchim Champaran, Gaya, Khagaria, Begusarai "),
-  createData("Cupcake", 305, "Raigarh, Dantewada, Rajnandgaon, Durg, Bilaspur, Korba, Surguja, Raipur "),
-  createData("Gingerbread", 356, "	New Delhi "),
-  createData("Gingerbread", 356, "Vadodara, Banas Kantha, Surat, Rajkot, Kachchh, Ahmadabad, Panch Mahals, Dohad, Bhavnagar "),
-  createData("Gingerbread", 356, "Faridabad, Panipat, Gurugram  ")
+  createData("Andhra Pradesh ", 12, "Vizianagaram, Visakhapatanam, Krishna, Anantapur, Kurnool, West Godavari, Prakasam, Srikakulam, Spsr Nellore, Guntur, East Godavari, Chittoor "),
+  createData("Assam", 5, "	Lakhimpur, Nagaon, Kamrup Metro, Nalbari, Bongaigaon "),
+  createData("Bihar", 23, "Araria, Samastipur, Purbi Champaran, Kishanganj, Banka, Saran, Bhagalpur, Jamui, Nawada, Madhepura, Supaul, Patna, Nalanda, Madhubani, Muzaffarpur, Darbhanga, Sitamarhi, Purnia, Saharsa, Pashchim Champaran, Gaya, Khagaria, Begusarai "),
+  createData("Chhattisgarh", 8, "Raigarh, Dantewada, Rajnandgaon, Durg, Bilaspur, Korba, Surguja, Raipur "),
+  createData("Delhi", 1, "	New Delhi "),
+  createData("Gujrat", 9, "Vadodara, Banas Kantha, Surat, Rajkot, Kachchh, Ahmadabad, Panch Mahals, Dohad, Bhavnagar "),
+  createData("Haryana", 3, "Faridabad, Panipat, Gurugram  ")
+  createData("Jammu and Kashmir ", 3, "Jammu, Srinagar ")
+  createData("Haryana", 3, "Faridabad, Panipat, Gurugram  ")
 
 ];
 
