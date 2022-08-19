@@ -1,33 +1,33 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Button } from "@mui/material";
+import React, { useState } from 'react'
+import axios from 'axios'
+import { Button } from '@mui/material'
 
-const ChangePassword =() => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
+const ChangePassword = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [cpassword, setCpassword] = useState('')
   const Change = async () => {
-    const data = { email, password, cpassword };
+    const data = { email, password, cpassword }
     try {
       const resp = await axios.post(
-        "http://localhost:5000/auth/changepassword",
-        data
-      );
+        'http://localhost:5000/auth/changepassword',
+        data,
+      )
 
       if (resp.status === 201) {
-        console.log(resp.data);
+        console.log(resp.data)
       } else {
-        alert("Error");
-        console.error(resp);
+        alert('Error')
+        console.error(resp)
       }
     } catch (err) {
-      console.error(err);
+      console.error(err)
     } finally {
-      setEmail("");
-      setPassword("");
-      setCpassword("");
+      setEmail('')
+      setPassword('')
+      setCpassword('')
     }
-  };
+  }
 
   return (
     <div>
@@ -62,11 +62,10 @@ const ChangePassword =() => {
         />
       </div>
       <div>
-        <Button onClick={Change
-        }>Change Password</Button>
+        <Button onClick={Change}>Change Password</Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ChangePassword;
+export default ChangePassword

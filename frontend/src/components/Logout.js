@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Logout = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   useEffect(() => {
     localStorage.clear();
     navigate("/login");
@@ -10,4 +10,4 @@ const Logout = () => {
   // return <div>Logging Out...</div>;
 };
 
-export default Logout;
+export default Logout

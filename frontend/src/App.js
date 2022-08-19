@@ -3,7 +3,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import ReportChild from './components/ReportChild'
 import Navbar from './components/Navbar'
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import HomePage from './components/HomePage'
 import VerificationPage from './components/VerificationPage'
 import UserDashboard from './features/users/UserDashboard'
@@ -26,9 +26,10 @@ import Acts from './components/Acts'
 import Logout from './components/Logout'
 import { Toaster } from 'react-hot-toast'
 import { Box, Container } from '@mui/material'
+import AnimatedRoutes from './components/AnimatedRoutes'
 
 function App() {
-  
+  const location = useLocation()
   return (
     <Box
       sx={{
@@ -39,35 +40,37 @@ function App() {
       }}
     >
       <Navbar />
-      {/* <Toaster /> */}
-      {/* <Districts /> */}
-      <Routes>
-        <Route exact path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reportchild" element={<ReportChild />} />
-        <Route path="/verificationpage" element={<VerificationPage />} />
-        {/* <Route path="/users" element={<AllUser />} /> */}
+      <AnimatedRoutes exitBeforeEnter>
+        {/* <Toaster /> */}
+        {/* <Districts /> */}
+        <Routes key={location.pathname} location={location}>
+          <Route exact path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reportchild" element={<ReportChild />} />
+          <Route path="/verificationpage" element={<VerificationPage />} />
+          {/* <Route path="/users" element={<AllUser />} /> */}
 
-        <Route path="IN/" element={<UserDashboard />} />
-        {/* <Route path="/NGO/:ngoId" element={<NgoDashboard />} /> */}
-        <Route path="/ngo" element={<NgoDashboard />} />
-        <Route path="/Districts" element={<Districts />} />
-        <Route path="/Policy" element={<PolicyPage />} />
-        <Route path="/NCLP" element={<NCLP />} />
-        <Route path="/Guildlines" element={<Guidelines />} />
-        <Route path="/Acts" element={<Acts />} />
+          <Route path="IN/" element={<UserDashboard />} />
+          {/* <Route path="/NGO/:ngoId" element={<NgoDashboard />} /> */}
+          <Route path="/ngo" element={<NgoDashboard />} />
+          <Route path="/Districts" element={<Districts />} />
+          <Route path="/Policy" element={<PolicyPage />} />
+          <Route path="/NCLP" element={<NCLP />} />
+          <Route path="/Guildlines" element={<Guidelines />} />
+          <Route path="/Acts" element={<Acts />} />
 
-        <Route path="/admin" element={<NodalDashboard />} />
-        <Route path="/admin/profile" element={<NodalProfile />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="/foundchild" element={<AllFoundChild />} />
-        <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
-        <Route path="/child/:childId" element={<ChildDetails />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
-        <Route exact path="/forgotpassword" element={<ForgotPassword />} />
-      </Routes>
+          <Route path="/admin" element={<NodalDashboard />} />
+          <Route path="/admin/profile" element={<NodalProfile />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/foundchild" element={<AllFoundChild />} />
+          <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
+          <Route path="/child/:childId" element={<ChildDetails />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
+          <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+        </Routes>
+      </AnimatedRoutes>
     </Box>
   )
 }
