@@ -3,12 +3,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import { Typography } from "@mui/material";
+import { Typography, FormControlLabel, Checkbox } from "@mui/material";
 import {
   getFoundChildStatus,
   selectFoundChild,
@@ -99,21 +99,21 @@ const ReportChild = () => {
       }
     });
   };
-    
-    return (
-      <Box
-        component="form"
-        sx={{
-          display: "flex",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-         <Paper
+
+  return (
+    <Box
+      component="form"
+      sx={{
+        display: "flex",
+        height: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <Paper
         elevation={12}
         sx={{
           width: { xs: "320px", sm: "500px", md: "550px" },
@@ -129,8 +129,8 @@ const ReportChild = () => {
             width: { xs: "80%", md: "70%" },
             height: "75%",
           }}
-          >
-              <Typography
+        >
+          <Typography
             variant="h4"
             component="p"
             sx={{
@@ -142,67 +142,98 @@ const ReportChild = () => {
             Report Child
           </Typography>
 
-        <TextField id="outlined-basic" fullWidth required label="Name" variant="outlined" value={name} onChange={(e) => setName(e.target.value)}/>
+          <TextField
+            id="outlined-basic"
+            fullWidth
+            required
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
           <TextField
             required
             fullWidth
             sx={{ mt: "20px" }}
             id="outlined-required"
-            label="Description" 
-            value={description} 
-            onChange={(e) => setDescription(e.target.value)}         
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
 
           <TextField
-          required
-          fullWidth
+            required
+            fullWidth
             id="outlined-required"
             label="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
           <TextField
-          required
-          fullWidth
+            required
+            fullWidth
             id="outlined-required"
             label="District"
             value={district}
             onChange={(e) => setDistrict(e.target.value)}
           />
           <TextField
-          required
-          fullWidth
+            required
+            fullWidth
             id="outlined-required"
             label="State"
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
-                    <Button variant="contained" sx={{ mt: "2px", width: "50%"}} component="label" type="file" value={img}
-           onChange={(e) => {
-                      const file = e.target.files[0];
-                      if (file) {
-                        const reader = new FileReader();
-                        reader.onload = (rEvent) => {
-                          const bString = rEvent.target.result;
-                          setImg(btoa(bString));
-                        };
-                        reader.readAsBinaryString(file);
-                      }
-                      console.log(img);
-                    }}>
-  Upload Image
-  <input hidden accept="image/*" multiple type="file" />
-</Button>
-          <Button onClick={handleReportChild} 
-          size="large"
-            sx={{ mt: "30px", backgroundColor: "black", width: "70%" }} 
-            variant="contained">
-              Submit
-              </Button>
+          <FormControlLabel
+            label="Report Anonymously"
+            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
+          />
+          {isAnon && (
+            <TextField
+              required
+              fullWidth
+              type="email"
+              id="outlined-required"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          )}
+          <Button
+            variant="contained"
+            sx={{ mt: "2px", width: "50%" }}
+            component="label"
+            type="file"
+            value={img}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = (rEvent) => {
+                  const bString = rEvent.target.result;
+                  setImg(btoa(bString));
+                };
+                reader.readAsBinaryString(file);
+              }
+              console.log(img);
+            }}
+          >
+            Upload Image
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+          <Button
+            onClick={handleReportChild}
+            size="large"
+            sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
+            variant="contained"
+          >
+            Submit
+          </Button>
         </Container>
       </Paper>
     </Box>
-    );
+  );
 };
 
 export default ReportChild;
