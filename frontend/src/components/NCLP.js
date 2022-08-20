@@ -3,7 +3,6 @@ import React from 'react'
 import pic from '../images/architecture.png'
 import AnimatedRoutes from './AnimatedRoutes'
 import Container from '@mui/material/Container'
-import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
 
