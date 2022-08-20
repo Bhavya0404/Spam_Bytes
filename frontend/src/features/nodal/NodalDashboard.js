@@ -36,7 +36,16 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import sidebarMenus from "../../components/sidebarMenus";
 
+function refresh() {
+  if(!window.location.hash) {
+    window.location = window.location + '#loaded';
+    window.location.reload();
+  }
+}
+
 const NodalDashboard = () => {
+       refresh();
+  
   const navigate = useNavigate();
 
   const statusFoundChild = useSelector(getFoundChildStatus);
@@ -85,7 +94,6 @@ const NodalDashboard = () => {
     foundChildData,
   ]);
   return (
-    <div>
       <Box
         sx={{
           display: "flex",
@@ -262,7 +270,6 @@ const NodalDashboard = () => {
           </Table>
         </TableContainer>
       </Box>
-    </div>
   );
 };
 

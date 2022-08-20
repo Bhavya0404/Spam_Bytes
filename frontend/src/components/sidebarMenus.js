@@ -1,31 +1,31 @@
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SettingsIcon from "@mui/icons-material/Settings";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LogoutIcon from "@mui/icons-material/Logout"
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import SettingsIcon from '@mui/icons-material/Settings'
+import DashboardIcon from '@mui/icons-material/Dashboard'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 const menus = {
   user: {
-    header: "User Dashboard",
+    header: 'User Dashboard',
     nSections: 2,
     sectionList: [
       [
         {
-          label: "All Reported Children",
+          label: 'All Reported Children',
           Icon: FormatListNumberedIcon,
-          link: '/in'
+          link: '/in',
         },
         {
-          label: "User Profile",
+          label: 'User Profile',
           Icon: AccountCircleIcon,
-          link: '/in'
+          link: '/user/profile',
         },
       ],
       [
         {
-          label: "Settings",
+          label: 'Settings',
           Icon: SettingsIcon,
-          link: '/in'
+          link: '/in',
         },
       ],
     ],
@@ -36,50 +36,50 @@ const menus = {
     sectionList: [
       [
         {
-          label: "Dashboard",
+          label: 'Dashboard',
           Icon: DashboardIcon,
-          link: '/admin/'
+          link: '/admin/',
         },
       ],
       [
         {
           label: "Officer's Profile",
           Icon: AccountCircleIcon,
-          link: '/admin/profile'
+          link: '/admin/profile',
         },
         {
-          label: "Logout",
+          label: 'Logout',
           Icon: LogoutIcon,
-          link: '/logout'
+          link: '/logout',
         },
       ],
     ],
   },
   ngo: {
-    header: "NGO Dashboard",
+    header: 'NGO Dashboard',
     nSections: 2,
     sectionList: [
       [
         {
-          label: "All Child",
+          label: 'All Child',
           Icon: DashboardIcon,
-          link: '/ngo/'
+          link: null,
         },
       ],
       [
         {
-          label: "Accepted Child",
+          label: 'Accepted Child',
           Icon: AccountCircleIcon,
-          link: '/ngo/accepted'
+          link: null,
         },
         {
-          label: "Logout",
+          label: 'Logout',
           Icon: LogoutIcon,
-          link: '/logout'
+          link: '/logout',
         },
       ],
     ],
   },
-};
+}
 
-export default menus;
+export default menus

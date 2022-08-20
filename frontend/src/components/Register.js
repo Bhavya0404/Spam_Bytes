@@ -1,156 +1,161 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
-import { Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
+import React, { useState } from 'react'
+import axios from 'axios'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import TextField from '@mui/material/TextField'
+import { Typography } from '@mui/material'
+import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
+import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from './Navbar'
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [cpassword, setCpassword] = useState("");
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [cpassword, setCpassword] = useState('')
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
 
   const handleRegister = async () => {
-    const data = { email, password, cpassword, name, phoneNumber };
+    const data = { email, password, cpassword, name, phoneNumber }
     try {
-      const resp = await axios.post(
-        "http://localhost:5000/auth/register",
-        data
-      );
+      const resp = await axios.post('http://localhost:5000/auth/register', data)
 
       if (resp.status === 201) {
-        console.log(resp.data);
+        console.log(resp.data)
       } else {
-        alert("Error");
-        console.error(resp);
+        alert('Error')
+        console.error(resp)
       }
     } catch (err) {
-      console.error(err);
+      console.error(err)
     } finally {
-      setEmail("");
-      setPassword("");
-      setName("");
-      setCpassword("");
-      setPhoneNumber("");
+      setEmail('')
+      setPassword('')
+      setName('')
+      setCpassword('')
+      setPhoneNumber('')
     }
-  };
+  }
 
   return (
-    <Box
+    <div>
+      <Navbar />
+      <Box
       sx={{
-        display: "flex",
-        height: "100vh",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        height: '100vh',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
-      <Paper
-        elevation={12}
-        sx={{
-          width: { xs: "320px", sm: "500px", md: "550px" },
-          height: { xs: "650px", sm: "650px", md: "700px", lg: "750px" },
-          backgroundColor: "#FFFFFF",
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <Container
+      <AnimatedRoutes>
+        <Paper
+          elevation={12}
           sx={{
-            width: { xs: "80%", md: "70%" },
-            height: "75%",
+            width: { xs: '320px', sm: '500px', md: '550px' },
+            height: { xs: '650px', sm: '650px', md: '700px', lg: '750px' },
+            backgroundColor: '#FFFFFF',
+            display: 'flex',
+            alignItems: 'center',
+            textAlign: 'center',
           }}
         >
-          <Typography
-            variant="h4"
-            component="p"
+          <Container
             sx={{
-              fontWeight: 600,
-              mb: 5,
-              fontSize: { xs: 25, sm: 32 },
+              width: { xs: '80%', md: '70%' },
+              height: '75%',
             }}
           >
-            Registeration
-          </Typography>
-
-          <TextField
-            fullWidth
-            id="standard-basic"
-            label="Name"
-            variant="standard"
-            placeholder="Enter Name"
-            value={name}
-            onChange={(e) => {setName(e.target.value)} }
-          />
-          <TextField
-            sx={{ mt: "20px" }}
-            fullWidth
-            id="standard-basic"
-            label="Phone Number"
-            variant="standard"
-            placeholder="Enter Phone Number"
-          value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          <TextField
-            sx={{ mt: "20px" }}
-            fullWidth
-            id="standard-basic"
-            label="Email"
-            variant="standard"
-            placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-            
-          />
-          <TextField
-            sx={{ mt: "20px" }}
-            fullWidth
-            id="standard-basic"
-            label="Password"
-            variant="standard"
-            placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          />
-          <TextField
-            sx={{ mt: "20px" }}
-            fullWidth
-            id="standard-basic"
-            label="Confirm Password"
-            variant="standard"
-            placeholder="Confirm Password"
-          value={cpassword}
-          onChange={(e) => setCpassword(e.target.value)}
-          />
-          <Link
-            href="#"
-            sx={{
-              textDecoration: "none",
-              textAlign: "right",
-            }}
-          >
-            <Typography sx={{ mt: "15px", fontWeight: "500" }}>
-              Already a user? Sign in
+            <Typography
+              variant="h4"
+              component="p"
+              sx={{
+                fontWeight: 600,
+                mb: 5,
+                fontSize: { xs: 25, sm: 32 },
+              }}
+            >
+              Registeration
             </Typography>
-          </Link>
-          <Button
-            onClick={handleRegister}
-            size="large"
-            sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
-            variant="contained"
-          >
-            Register
-          </Button>
-        </Container>
-      </Paper>
-    </Box>
-  );
-};
 
-export default Register;
+            <TextField
+              fullWidth
+              id="standard-basic"
+              label="Name"
+              variant="standard"
+              placeholder="Enter Name"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value)
+              }}
+            />
+            <TextField
+              sx={{ mt: '20px' }}
+              fullWidth
+              id="standard-basic"
+              label="Phone Number"
+              variant="standard"
+              placeholder="Enter Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+            <TextField
+              sx={{ mt: '20px' }}
+              fullWidth
+              id="standard-basic"
+              label="Email"
+              variant="standard"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              sx={{ mt: '20px' }}
+              fullWidth
+              id="standard-basic"
+              label="Password"
+              variant="standard"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <TextField
+              sx={{ mt: '20px' }}
+              fullWidth
+              id="standard-basic"
+              label="Confirm Password"
+              variant="standard"
+              placeholder="Confirm Password"
+              value={cpassword}
+              onChange={(e) => setCpassword(e.target.value)}
+            />
+            <Link
+              href="#"
+              sx={{
+                textDecoration: 'none',
+                textAlign: 'right',
+              }}
+            >
+              <Typography sx={{ mt: '15px', fontWeight: '500' }}>
+                Already a user? Sign in
+              </Typography>
+            </Link>
+            <Button
+              onClick={handleRegister}
+              size="large"
+              sx={{ mt: '30px', backgroundColor: 'black', width: '70%' }}
+              variant="contained"
+            >
+              Register
+            </Button>
+          </Container>
+        </Paper>
+      </AnimatedRoutes>
+    </Box>
+    </div>
+  )
+}
+
+export default Register

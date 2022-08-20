@@ -16,6 +16,8 @@ import {
   RadioGroup,
 } from '@mui/material'
 import toast from 'react-hot-toast'
+import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from './Navbar'
 
 const Login = ({ onChange }) => {
   const navigate = useNavigate()
@@ -30,9 +32,11 @@ const Login = ({ onChange }) => {
     setUserType(event.target.value)
   }
 
+
   const handleLogin = async () => {
     setEmailError(false)
     setPasswordError(false)
+    
 
     if (!email) {
       setEmailError(true)
@@ -42,6 +46,8 @@ const Login = ({ onChange }) => {
     if (!password) {
       setPasswordError(true)
       return
+
+  
     }
 
     try {
@@ -66,7 +72,9 @@ const Login = ({ onChange }) => {
   }
 
   return (
-    <Box
+    <div>
+      <Navbar />
+      <Box
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -79,145 +87,148 @@ const Login = ({ onChange }) => {
         },
       }}
     >
-      <Paper
-        elevation={12}
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid
-            item
-            sm={7}
-            xs={12}
-            sx={{
-              my: { xs: 'auto' },
-            }}
-          >
-            <Container
+      <AnimatedRoutes>
+        <Paper
+          elevation={12}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid
+              item
+              sm={7}
+              xs={12}
               sx={{
-                alignSelf: 'center',
-                width: '70%',
-                m: 'auto',
+                my: { xs: 'auto' },
               }}
+            >
+              <Container
+                sx={{
+                  alignSelf: 'center',
+                  width: '70%',
+                  m: 'auto',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  component="p"
+                  sx={{
+                    fontWeight: 700,
+                    mb: 7,
+                    fontSize: { xs: 25, sm: 35 },
+                  }}
+                >
+                  Welcome back
+                </Typography>
+                <FormControl>
+                  <TextField
+                    sx={{
+                      mb: 5,
+                      display: 'block',
+                    }}
+                    variant="outlined"
+                    label="Email"
+                    placeholder="Enter Email"
+                    type="email"
+                    required
+                    fullWidth
+                    error={emailError}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+
+                  <TextField
+                    sx={{
+                      display: 'block',
+                    }}
+                    variant="outlined"
+                    label="Password"
+                    placeholder="Enter Password"
+                    type="password"
+                    value={password}
+                    error={passwordError}
+                    required
+                    fullWidth
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                  <FormLabel id="userType" sx={{ marginTop: '20px' }}>
+                    Login as
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="userType"
+                    name="userTypeBut"
+                    defaultValue="IN"
+                  >
+                    <FormControlLabel
+                      value="IN"
+                      control={<Radio />}
+                      onChange={handleOnChangeUser}
+                      label="User"
+                    />
+                    <FormControlLabel
+                      value="NGO"
+                      control={<Radio />}
+                      onChange={handleOnChangeUser}
+                      label="NGO"
+                    />
+                    <FormControlLabel
+                      value="ADMIN"
+                      control={<Radio />}
+                      onChange={handleOnChangeUser}
+                      label="Nodal Officer"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <Button onClick={() => navigate('/forgotpassword')}>
+                  Forgot Password or Change password
+                </Button>
+                <Button
+                  size="large"
+                  variant="contained"
+                  onClick={handleLogin}
+                  sx={{
+                    backgroundColor: 'black',
+                    mt: 5,
+                    width: '50%',
+                  }}
+                >
+                  LOGIN
+                </Button>
+              </Container>
+            </Grid>
+
+            <Grid
+              item
+              sm={5}
+              xs={12}
+              sx={{ display: { xs: 'none', lg: 'block' } }}
             >
               <Typography
                 variant="h4"
-                component="p"
+                component="div"
                 sx={{
-                  fontWeight: 700,
-                  mb: 7,
-                  fontSize: { xs: 25, sm: 35 },
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#f5af19',
+                  height: '65vh',
+                  textAlign: 'center',
+                  color: 'white',
                 }}
               >
-                Welcome back
+                Please LogIn
               </Typography>
-              <FormControl>
-                <TextField
-                  sx={{
-                    mb: 5,
-                    display: 'block',
-                  }}
-                  variant="outlined"
-                  label="Email"
-                  placeholder="Enter Email"
-                  type="email"
-                  required
-                  fullWidth
-                  error={emailError}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <TextField
-                  sx={{
-                    display: 'block',
-                  }}
-                  variant="outlined"
-                  label="Password"
-                  placeholder="Enter Password"
-                  type="password"
-                  value={password}
-                  error={passwordError}
-                  required
-                  fullWidth
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <FormLabel id="userType" sx={{ marginTop: '20px' }}>
-                  Login as
-                </FormLabel>
-                <RadioGroup
-                  row
-                  aria-labelledby="userType"
-                  name="userTypeBut"
-                  defaultValue="IN"
-                >
-                  <FormControlLabel
-                    value="IN"
-                    control={<Radio />}
-                    onChange={handleOnChangeUser}
-                    label="User"
-                  />
-                  <FormControlLabel
-                    value="NGO"
-                    control={<Radio />}
-                    onChange={handleOnChangeUser}
-                    label="NGO"
-                  />
-                  <FormControlLabel
-                    value="ADMIN"
-                    control={<Radio />}
-                    onChange={handleOnChangeUser}
-                    label="Nodal Officer"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <Button onClick={() => navigate('/forgotpassword')}>
-                Forgot Password or Change password
-              </Button>
-              <Button
-                size="large"
-                variant="contained"
-                onClick={handleLogin}
-                sx={{
-                  backgroundColor: 'black',
-                  mt: 5,
-                  width: '50%',
-                }}
-              >
-                LOGIN
-              </Button>
-            </Container>
+            </Grid>
           </Grid>
-
-          <Grid
-            item
-            sm={5}
-            xs={12}
-            sx={{ display: { xs: 'none', lg: 'block' } }}
-          >
-            <Typography
-              variant="h4"
-              component="div"
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f5af19',
-                height: '65vh',
-                textAlign: 'center',
-                color: 'white',
-              }}
-            >
-              Please LogIn
-            </Typography>
-          </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 

@@ -28,7 +28,15 @@ const uTypes = {
   NGO: "NGO",
 };
 
+function refresh() {
+  if(!window.location.hash) {
+    window.location = window.location + '#loaded';
+    window.location.reload();
+  }
+}
+
 const UserDashBord = () => {
+  
   const user = useSelector((state) => getUser(state));
   // const statusChild = useSelector(getFoundChildStatus);
   // const foundChildData = useSelector(selectFoundChild);
@@ -37,6 +45,8 @@ const UserDashBord = () => {
   );
 
   const navigate = useNavigate();
+
+  refresh();
 
   if (!user) {
     return (

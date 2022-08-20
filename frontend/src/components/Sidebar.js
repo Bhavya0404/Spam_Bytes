@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = 250;
 
-const Sidebar = ({ window, nSections, sectionList, header }) => {
+const Sidebar = ({ window, nSections, sectionList, header, func }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
@@ -34,12 +34,21 @@ const Sidebar = ({ window, nSections, sectionList, header }) => {
           <List key={i}>
             {sectionList[i].map(({ label, Icon, link }) => (
               <ListItem key={label} disablePadding>
+                {link ? (
                   <ListItemButton component={Link} to={link}>
                     <ListItemIcon>
                       <Icon />
                     </ListItemIcon>
                     <ListItemText primary={label} />
                   </ListItemButton>
+                ) : (
+                  <ListItemButton onClick={() => func(label.includes('All Child'))}>
+                    <ListItemIcon>
+                      <Icon />
+                    </ListItemIcon>
+                    <ListItemText primary={label} />
+                  </ListItemButton>
+                )}
               </ListItem>
             ))}
           </List>
