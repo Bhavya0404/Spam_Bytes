@@ -4,6 +4,7 @@ import React from 'react'
 import AnimatedRoutes from './AnimatedRoutes'
 import mainPic from '../assets/images/mainPage.webp'
 import Navbar from '../components/Navbar'
+import DonateButton from './DonateButton'
 
 const HomePage = () => {
   <Navbar />
@@ -62,6 +63,7 @@ const HomePage = () => {
               <Typography variant="h6">
                 A Ministry of Labour and Employment initiative
               </Typography>
+              <DonateButton />
             </Box>
           </Container>
           <Container
