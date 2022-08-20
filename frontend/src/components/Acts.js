@@ -9,6 +9,9 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Typography } from '@mui/material'
 import AnimatedRoutes from './AnimatedRoutes'
+import { Box } from '@mui/material'
+import Container from '@mui/material/Container'
+
 
 function createData(name, number, district) {
   return { name, number, district }
@@ -32,6 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }))
+
 
 const rows = [
   createData(
@@ -125,6 +129,16 @@ const Acts = () => {
   return (
     <box>
       <AnimatedRoutes>
+      <Container>
+      <Box sx={{ 
+        position: 'relative',
+         marginTop: '10px' ,
+         m: 0.5,
+        borderRadius: 2,
+         border: 3
+         }}
+         >
+
         <Typography
           variant="h4"
           component="p"
@@ -169,6 +183,8 @@ const Acts = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        </Box>
+          </Container>
       </AnimatedRoutes>
     </box>
   )

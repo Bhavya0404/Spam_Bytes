@@ -14,7 +14,14 @@ const NCLP = () => {
       
         
       <Container>
-      <Box sx={{ position: 'relative', marginTop: '10px' }}>
+      <Box sx={{ 
+        position: 'relative',
+         marginTop: '10px' ,
+         m: 2,
+        borderRadius: 8,
+         border: 3
+         }}
+         >
             
       
 
