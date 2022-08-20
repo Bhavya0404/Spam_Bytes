@@ -48,6 +48,7 @@ const PolicyPage = () => {
                 Child Labour Policy
               </Typography>
 
+              
               <Typography variant="body1" gutterBottom>
                 Children are a valuable asset for any society. They constitute a
                 very large segment of our population. As per 2011 Census, the
