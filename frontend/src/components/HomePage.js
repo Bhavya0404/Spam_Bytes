@@ -2,11 +2,15 @@ import { Box, Container, Typography } from '@mui/material'
 // import { Container } from '@mui/system'
 import React from 'react'
 import AnimatedRoutes from './AnimatedRoutes'
+
 import mainPic from '../assets/images/mainPage.webp'
 import Navbar from '../components/Navbar'
 import DonateButton from './DonateButton'
 import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
+
+import HeroSection from './HeroSection'
+
 
 const HomePage = () => {
   <Navbar />
@@ -56,6 +60,7 @@ const HomePage = () => {
     >
 
       <AnimatedRoutes>
+
         <Box sx={{ width: '100%', height: '600px', display: 'flex' }}>
           <Box sx={{ width: '100%', height: '600px', position: 'absolute' }}>
             <Box
@@ -116,6 +121,9 @@ const HomePage = () => {
 
           </Container>
         </Box>
+
+        <HeroSection />
+
       </AnimatedRoutes>
     </Box>
     </div>
