@@ -25,7 +25,7 @@ import NCLP from './components/NCLP'
 import Acts from './components/Acts'
 import Logout from './components/Logout'
 import { Toaster } from 'react-hot-toast'
-import { Box, Container } from '@mui/material'
+import { Box } from '@mui/material'
 import AnimatedRoutes from './components/AnimatedRoutes'
 
 function App() {
@@ -40,8 +40,8 @@ function App() {
       }}
     >
       <Navbar />
+      <Toaster />
       <AnimatedRoutes exitBeforeEnter>
-        {/* <Toaster /> */}
         {/* <Districts /> */}
         <Routes key={location.pathname} location={location}>
           <Route exact path="/" element={<HomePage />} />

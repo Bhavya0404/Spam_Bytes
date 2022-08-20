@@ -52,6 +52,7 @@ const NgoDashboard = () => {
         nSections={sidebarMenus.ngo.nSections}
         sectionList={sidebarMenus.ngo.sectionList}
         header={sidebarMenus.ngo.header}
+        func={setAllChild}
       />
       {/* Table for XL Screens to L Screens */}
       <TableContainer
