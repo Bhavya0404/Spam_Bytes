@@ -9,10 +9,13 @@ import { Stack } from '@mui/material'
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from './Navbar'
 
 const PolicyPage = () => {
   return (
-    <Box
+    <div>
+      <Navbar />
+      <Box
       sx={{
         bgcolor: 'background.paper',
         m: 1,
@@ -98,6 +101,7 @@ const PolicyPage = () => {
         </Card>
       </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 

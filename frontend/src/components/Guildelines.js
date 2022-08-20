@@ -4,10 +4,12 @@ import neww from '../images/new_ncil_guildlines.png'
 import { Box, Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import AnimatedRoutes from './AnimatedRoutes'
-
+import Navbar from './Navbar'
 const Guidelines = () => {
   return (
-    <Box sx={{ position: 'relative', marginTop: '100px' ,
+    <div>
+    <Navbar />
+      <Box sx={{ position: 'relative', marginTop: '100px' ,
     m: 2,
    borderRadius: 8,
     border: 3 }}>
@@ -42,6 +44,7 @@ const Guidelines = () => {
         </Stack>
       </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 

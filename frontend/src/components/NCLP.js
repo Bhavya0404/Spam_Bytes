@@ -5,12 +5,14 @@ import AnimatedRoutes from './AnimatedRoutes'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
-
+import Navbar from './Navbar'
 
 
 const NCLP = () => {
   return (
-    <AnimatedRoutes>
+    <div>
+      <Navbar />
+      <AnimatedRoutes>
       
         
       <Container>
@@ -133,6 +135,7 @@ const NCLP = () => {
           </Container>
       
     </AnimatedRoutes>
+    </div>
   )
 }
 

@@ -11,7 +11,7 @@ import { Typography } from '@mui/material'
 import AnimatedRoutes from './AnimatedRoutes'
 import { Box } from '@mui/material'
 import Container from '@mui/material/Container'
-
+import Navbar from './Navbar'
 
 function createData(name, number, district) {
   return { name, number, district }
@@ -127,7 +127,9 @@ const rows = [
 
 const Acts = () => {
   return (
-    <box>
+    <div>
+      <Navbar />
+      <box>
       <AnimatedRoutes>
       <Container>
       <Box sx={{ 
@@ -187,6 +189,7 @@ const Acts = () => {
           </Container>
       </AnimatedRoutes>
     </box>
+    </div>
   )
 }
 
