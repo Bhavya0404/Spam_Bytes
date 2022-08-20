@@ -7,7 +7,10 @@ import AnimatedRoutes from './AnimatedRoutes'
 
 const Guidelines = () => {
   return (
-    <Box sx={{ position: 'relative', marginTop: '100px' }}>
+    <Box sx={{ position: 'relative', marginTop: '100px' ,
+    m: 2,
+   borderRadius: 8,
+    border: 3 }}>
       <AnimatedRoutes>
         <Typography
           variant="h4"
