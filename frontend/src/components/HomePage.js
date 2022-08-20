@@ -1,18 +1,17 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from "@mui/material";
 // import { Container } from '@mui/system'
-import React from 'react'
-import AnimatedRoutes from './AnimatedRoutes'
-import mainPic from '../assets/images/mainPage.webp'
-import Navbar from '../components/Navbar'
-import DonateButton from './DonateButton'
-import { useSelector } from 'react-redux'
-import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
+import React from "react";
+import AnimatedRoutes from "./AnimatedRoutes";
+import mainPic from "../assets/images/mainPage.webp";
+import Navbar from "../components/Navbar";
+import DonateButton from "./DonateButton";
+import { useSelector } from "react-redux";
+import { selectFoundChild } from "../features/foundchild/FoundChildSlice";
 
 const HomePage = () => {
-  <Navbar />
-
-  const foundChildData = useSelector(selectFoundChild)
+  const foundChildData = useSelector(selectFoundChild);
   const hotspot = new Map();
+
 
   foundChildData.filter((child) => {
     if (child.isVerified) {
@@ -45,81 +44,77 @@ const HomePage = () => {
   return (
     <div>
       <Navbar />
-    
-    <Box
-      sx={{
-        position: 'relative',
-        display: 'flex',
-        width: '100%',
-        flexDirection: 'column',
-      }}
-    >
 
-      <AnimatedRoutes>
-        <Box sx={{ width: '100%', height: '600px', display: 'flex' }}>
-          <Box sx={{ width: '100%', height: '600px', position: 'absolute' }}>
-            <Box
-              component="img"
-              sx={{
-                width: '100%',
-                height: '600px',
-                position: 'absolute',
-                zIndex: '-2',
-              }}
-              src={mainPic}
-            />
-            <Box
-              sx={{
-                width: '100%',
-                height: '600px',
-                backgroundColor: 'black',
-                opacity: '60%',
-                position: 'absolute',
-                zIndex: '-1',
-              }}
-            />
-          </Box>
-
-          <Container
-            sx={{
-              position: 'relative',
-              color: 'white',
-              width: '50%',
-              height: '100%',
-              display: 'flex',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              marginLeft: '200px',
-            }}
-          >
-            <Box>
-              <Typography variant="h1">Pencil</Typography>
-              <Typography variant="h6">
-                A Ministry of Labour and Employment initiative
-              </Typography>
-              <DonateButton />
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+        }}
+      >
+        <AnimatedRoutes>
+          <Box sx={{ width: "100%", height: "600px", display: "flex" }}>
+            <Box sx={{ width: "100%", height: "600px", position: "absolute" }}>
+              <Box
+                component="img"
+                sx={{
+                  width: "100%",
+                  height: "600px",
+                  position: "absolute",
+                  zIndex: "-2",
+                }}
+                src={mainPic}
+              />
+              <Box
+                sx={{
+                  width: "100%",
+                  height: "600px",
+                  backgroundColor: "black",
+                  opacity: "60%",
+                  position: "absolute",
+                  zIndex: "-1",
+                }}
+              />
             </Box>
-          </Container>
-          <Container
-            sx={{
-              position: 'relative',
-              color: 'white',
-              width: '50%',
-              height: '100%',
-              display: 'flex',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              marginLeft: '200px',
-            }}
-          >
-            
 
-          </Container>
-        </Box>
-      </AnimatedRoutes>
-    </Box>
+            <Container
+              sx={{
+                position: "relative",
+                color: "white",
+                width: "50%",
+                height: "100%",
+                display: "flex",
+                // justifyContent: 'center',
+                alignItems: "center",
+                marginLeft: "200px",
+              }}
+            >
+              <Box>
+                <Typography variant="h1">Pencil</Typography>
+                <Typography variant="h6">
+                  A Ministry of Labour and Employment initiative
+                </Typography>
+                <DonateButton />
+              </Box>
+            </Container>
+            <Container
+              sx={{
+                position: "relative",
+                color: "white",
+                width: "50%",
+                height: "100%",
+                display: "flex",
+                // justifyContent: 'center',
+                alignItems: "center",
+                marginLeft: "200px",
+              }}
+            ></Container>
+          </Box>
+        </AnimatedRoutes>
+      </Box>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
