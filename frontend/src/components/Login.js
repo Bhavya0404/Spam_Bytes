@@ -17,6 +17,7 @@ import {
 } from '@mui/material'
 import toast from 'react-hot-toast'
 import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from './Navbar'
 
 const Login = ({ onChange }) => {
   const navigate = useNavigate()
@@ -71,7 +72,9 @@ const Login = ({ onChange }) => {
   }
 
   return (
-    <Box
+    <div>
+      <Navbar />
+      <Box
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -225,6 +228,7 @@ const Login = ({ onChange }) => {
         </Paper>
       </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 

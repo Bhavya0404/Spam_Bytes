@@ -17,25 +17,16 @@ const PolicyPage = () => {
         bgcolor: 'background.paper',
         m: 1,
         borderColor: 'text.primary',
-        width: '250rem',
-
+        width: '94rem',
+        
         height: '50rem',
       }}
     >
       <AnimatedRoutes>
-        <Card sx={{ maxWidth: 1500 }}>
+        <Card sx={{ maxWidth: 1500, borderRadius: 8,
+        border: 3,}}>
           <CardActionArea>
-            <Stack sx={{ ml: 1, display: 'flex' }} direction="row" spacing={2}>
-              <a
-                href="https://pencil.gov.in/uploads/child_labour_policy/child_labour_policy.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img width="1500" height="400" src={pol}></img>
-              </a>
-            </Stack>
-            <CardContent>
-              <Typography
+          <Typography
                 variant="h4"
                 component="p"
                 sx={{
@@ -47,7 +38,19 @@ const PolicyPage = () => {
               >
                 Child Labour Policy
               </Typography>
+            <Stack sx={{ ml: 0.5, display: 'flex' }} direction="row" spacing={2}>
+              <a
+                href="https://pencil.gov.in/uploads/child_labour_policy/child_labour_policy.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img width="1500" height="400" src={pol}></img>
+              </a>
+            </Stack>
+            <CardContent>
+              
 
+              
               <Typography variant="body1" gutterBottom>
                 Children are a valuable asset for any society. They constitute a
                 very large segment of our population. As per 2011 Census, the

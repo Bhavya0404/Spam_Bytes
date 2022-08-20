@@ -18,7 +18,7 @@ const menus = {
         {
           label: 'User Profile',
           Icon: AccountCircleIcon,
-          link: '/in',
+          link: '/user/profile',
         },
       ],
       [
@@ -63,14 +63,14 @@ const menus = {
         {
           label: 'All Child',
           Icon: DashboardIcon,
-          link: '/ngo/',
+          link: null,
         },
       ],
       [
         {
           label: 'Accepted Child',
           Icon: AccountCircleIcon,
-          link: '/ngo/accepted',
+          link: null,
         },
         {
           label: 'Logout',

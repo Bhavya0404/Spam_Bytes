@@ -8,6 +8,7 @@ import { Typography } from '@mui/material'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from './Navbar'
 
 const Register = () => {
   const [email, setEmail] = useState('')
@@ -39,7 +40,9 @@ const Register = () => {
   }
 
   return (
-    <Box
+    <div>
+      <Navbar />
+      <Box
       sx={{
         display: 'flex',
         height: '100vh',
@@ -151,6 +154,7 @@ const Register = () => {
         </Paper>
       </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 
