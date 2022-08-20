@@ -1,51 +1,58 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import { selectFoundChild } from "../foundchild/FoundChildSlice";
-import { getNgoStatus, selectAllNgo } from "./ngoSlice";
-import { Box, Paper, Typography } from "@mui/material";
+import { selectFoundChild } from '../foundchild/FoundChildSlice'
+import { getNgoStatus, selectAllNgo } from './ngoSlice'
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Paper,
+  Toolbar,
+  Typography,
+} from '@mui/material'
 
-import SideBar from "../../components/Sidebar";
-import sidebarMenus from "../../components/sidebarMenus";
-import { useNavigate } from "react-router-dom";
+import SideBar from '../../components/Sidebar'
+import sidebarMenus from '../../components/sidebarMenus'
+import { useNavigate } from 'react-router-dom'
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
 
-import { Button } from "@mui/material";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { Button } from '@mui/material'
+import CancelIcon from '@mui/icons-material/Cancel'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 
 function refresh() {
-  if(!window.location.hash) {
-    window.location = window.location + '#loaded';
-    window.location.reload();
+  if (!window.location.hash) {
+    window.location = window.location + '#loaded'
+    window.location.reload()
   }
 }
 
 const NgoDashboard = () => {
-  refresh();
-  const [allChild, setAllChild] = useState(true);
-  
-  const navigate = useNavigate();
-  const ngo = useSelector(selectAllNgo);
-  const status = useSelector(getNgoStatus);
-  const childs = useSelector(selectFoundChild);
+  refresh()
+  const [allChild, setAllChild] = useState(true)
 
-  if (status === "failed") {
-    return <h2>Page Not Found</h2>;
+  const navigate = useNavigate()
+  const ngo = useSelector(selectAllNgo)
+  const status = useSelector(getNgoStatus)
+  const childs = useSelector(selectFoundChild)
+
+  if (status === 'failed') {
+    return <h2>Page Not Found</h2>
   }
 
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "space-between",
+        display: 'flex',
+        justifyContent: 'space-between',
       }}
     >
       <SideBar
@@ -53,13 +60,14 @@ const NgoDashboard = () => {
         sectionList={sidebarMenus.ngo.sectionList}
         header={sidebarMenus.ngo.header}
       />
+
       {/* Table for XL Screens to L Screens */}
       <TableContainer
         sx={{
-          display: { xs: "none", lg: "inherit" },
-          mx: "20px",
-          mt: "100px",
-          maxHeight: "500px",
+          display: { xs: 'none', lg: 'inherit' },
+          mx: '20px',
+          mt: '100px',
+          maxHeight: '500px',
         }}
       >
         <Table stickyHeader component={Paper}>
@@ -87,16 +95,16 @@ const NgoDashboard = () => {
                   <TableCell>{child?.address}</TableCell>
                   <TableCell>
                     {child?.isAccepted ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>
                     {child?.isVerified ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>{child?.reportedBy?.name}</TableCell>
@@ -110,8 +118,8 @@ const NgoDashboard = () => {
                       <Typography
                         component="span"
                         sx={{
-                          display: { xs: "none", md: "block" },
-                          fontSize: "14px",
+                          display: { xs: 'none', md: 'block' },
+                          fontSize: '14px',
                         }}
                       >
                         View Details
@@ -121,7 +129,7 @@ const NgoDashboard = () => {
                 </TableRow>
               ) : (
                 <div></div>
-              )
+              ),
             )}
           </TableBody>
         </Table>
@@ -131,10 +139,10 @@ const NgoDashboard = () => {
 
       <TableContainer
         sx={{
-          display: { xs: "inherit", md: "none", lg: "none" },
-          mx: "20px",
-          mt: "100px",
-          maxHeight: "500px",
+          display: { xs: 'inherit', md: 'none', lg: 'none' },
+          mx: '20px',
+          mt: '100px',
+          maxHeight: '500px',
         }}
       >
         <Table stickyHeader component={Paper}>
@@ -159,16 +167,16 @@ const NgoDashboard = () => {
                   <TableCell>{child.name}</TableCell>
                   <TableCell>
                     {child?.isAccepted ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>
                     {child?.isVerified ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>
@@ -180,7 +188,7 @@ const NgoDashboard = () => {
                       <ArrowRightAltIcon />
                       <Typography
                         component="span"
-                        sx={{ display: { xs: "none", md: "block" } }}
+                        sx={{ display: { xs: 'none', md: 'block' } }}
                       >
                         View Details
                       </Typography>
@@ -189,7 +197,7 @@ const NgoDashboard = () => {
                 </TableRow>
               ) : (
                 <div></div>
-              )
+              ),
             )}
           </TableBody>
         </Table>
@@ -199,10 +207,10 @@ const NgoDashboard = () => {
 
       <TableContainer
         sx={{
-          display: { xs: "none", md: "inherit", lg: "none" },
-          mx: "20px",
-          mt: "100px",
-          maxHeight: "500px",
+          display: { xs: 'none', md: 'inherit', lg: 'none' },
+          mx: '20px',
+          mt: '100px',
+          maxHeight: '500px',
         }}
       >
         <Table stickyHeader component={Paper}>
@@ -230,16 +238,16 @@ const NgoDashboard = () => {
                   <TableCell>{child?.address}</TableCell>
                   <TableCell>
                     {child?.isAccepted ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>
                     {child?.isVerified ? (
-                      <CheckCircleIcon sx={{ color: "green" }} />
+                      <CheckCircleIcon sx={{ color: 'green' }} />
                     ) : (
-                      <CancelIcon sx={{ color: "red" }} />
+                      <CancelIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>{child?.reportedBy?.name}</TableCell>
@@ -253,8 +261,8 @@ const NgoDashboard = () => {
                       <Typography
                         component="span"
                         sx={{
-                          display: { xs: "none", md: "block" },
-                          fontSize: "13px",
+                          display: { xs: 'none', md: 'block' },
+                          fontSize: '13px',
                         }}
                       >
                         View Details
@@ -264,13 +272,13 @@ const NgoDashboard = () => {
                 </TableRow>
               ) : (
                 <div></div>
-              )
+              ),
             )}
           </TableBody>
         </Table>
       </TableContainer>
     </Box>
-  );
-};
+  )
+}
 
-export default NgoDashboard;
+export default NgoDashboard

@@ -5,6 +5,7 @@ const POST_URL = 'http://localhost:5000/ngo'
 
 const initialState = {
   ngoData: {},
+  allChild: true,
   status: 'idle',
   error: null,
 }
@@ -57,6 +58,7 @@ const ngoSlice = createSlice({
 export const selectAllNgo = (state) => state.ngo.ngoData
 export const getNgoStatus = (state) => state.ngo.status
 export const getNgoError = (state) => state.ngo.error
+export const getNgoAllChild = (state) => state.ngo.allChild
 
 // export const selectNgoById = (state, userId) => {
 //   return state.ngo.ngoData.find((id) => id._id === userId)
