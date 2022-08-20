@@ -1,9 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 const animations = {
-  initial: { opacity: 0, x: 20 },
+  initial: { opacity: 0, x: 10 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -20 },
+  exit: { opacity: 0, x: -10 },
 }
 
 const AnimatedRoutes = ({ children }) => {
@@ -13,7 +13,7 @@ const AnimatedRoutes = ({ children }) => {
       initial="initial"
       animate="animate"
       exit="exit"
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.7 }}
     >
       {children}
     </motion.div>
