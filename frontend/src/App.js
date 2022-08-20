@@ -40,7 +40,6 @@ function App() {
         // flexDirection: 'column',
       }}
     >
-      
       <Toaster />
       <AnimatedRoutes exitBeforeEnter>
         {/* <Districts /> */}
