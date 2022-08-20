@@ -3,13 +3,13 @@ import AnimatedRoutes from './AnimatedRoutes'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
-
+import Navbar from './Navbar'
 
 const Districts = () => {
   return (
     <div>
       <AnimatedRoutes>
-
+      <Navbar />
       <Container>
       <Box sx={{ 
         position: 'relative', 
