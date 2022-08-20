@@ -26,13 +26,13 @@ const HeroSection = () => {
   let size = hotspot.size
   let i = 0
   return (
-    <Box sx={{ width: '100%', height: '600px', display: 'flex' }}>
-      <Box sx={{ width: '100%', height: '600px', position: 'absolute' }}>
+    <Box sx={{ width: '100%', height: '800px', display: 'flex' }}>
+      <Box sx={{ width: '100%', height: '800px', position: 'absolute' }}>
         <Box
           component="img"
           sx={{
             width: '100%',
-            height: '600px',
+            height: '800px',
             position: 'absolute',
             zIndex: '-2',
           }}
@@ -41,7 +41,7 @@ const HeroSection = () => {
         <Box
           sx={{
             width: '100%',
-            height: '600px',
+            height: '800px',
             backgroundColor: 'black',
             opacity: '60%',
             position: 'absolute',

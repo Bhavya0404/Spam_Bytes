@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 
 import HeroSection from './HeroSection'
+import AboutUs from './AboutUs'
+import HowDoWeFunction from './HowDoWeFunction'
 
 const HomePage = () => {
   const foundChildData = useSelector(selectFoundChild)
@@ -57,6 +59,8 @@ const HomePage = () => {
       >
         <AnimatedRoutes>
           <HeroSection />
+          <AboutUs />
+          <HowDoWeFunction />
         </AnimatedRoutes>
       </Box>
     </div>
