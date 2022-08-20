@@ -16,7 +16,7 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { Container } from '@mui/system'
 import { TextField } from '@mui/material'
-
+import logo from '../assets/images/logo.png'
 const drawerWidth = 240
 const navItems = ['Districts', 'Policy', 'Acts', 'NCLP', 'Guildlines']
 
@@ -31,7 +31,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        PENCIL
+        <img src={logo} alt="logo" />
       </Typography>
       <Divider variant="middle" />
       <List>
@@ -52,7 +52,9 @@ function DrawerAppBar(props) {
     window !== undefined ? () => window().document.body : undefined
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
+    >
       <AppBar
         component="nav"
         sx={{
@@ -61,7 +63,13 @@ function DrawerAppBar(props) {
           backgroundColor: '#FFFF',
         }}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -71,29 +79,21 @@ function DrawerAppBar(props) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'block', sm: 'block' },
-              color: 'black',
-            }}
-          >
-            <Link to="/">PENCIL</Link>
-          </Typography>
-          
-
+          <Box>
+            <Link to="/">
+              <Box component="img" sx={{ height: '90px' }} src={logo}></Box>
+            </Link>
+          </Box>
           <Box
             sx={{
-              display: { xs: 'none', sm: 'flex' },
+              display: { xs: 'none', sm: 'flex', width: '50%' },
               justifyContent: 'space-between',
             }}
           >
             {navItems.map((item) => (
-              <Link to={`/${item}`}>
+              <Link to={`/${item}`} style={{ textDecoration: 'none' }}>
                 <Button
+                  
                   key={item}
                   sx={{ color: 'black', textDecoration: 'none' }}
                 >
@@ -101,6 +101,18 @@ function DrawerAppBar(props) {
                 </Button>
               </Link>
             ))}
+            <Box>
+              <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" size="large">
+                  Login
+                </Button>
+              </Link>
+              <Link to="/register" style={{ textDecoration: 'none' }}>
+                <Button variant="outlined" size="large">
+                  Signup
+                </Button>
+              </Link>
+            </Box>
           </Box>
         </Toolbar>
       </AppBar>
