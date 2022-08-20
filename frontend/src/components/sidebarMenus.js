@@ -18,7 +18,7 @@ const menus = {
         {
           label: 'User Profile',
           Icon: AccountCircleIcon,
-          link: '/in',
+          link: '/user/profile',
         },
       ],
       [

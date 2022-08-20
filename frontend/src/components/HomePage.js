@@ -3,9 +3,14 @@ import { Box, Container, Typography } from '@mui/material'
 import React from 'react'
 import AnimatedRoutes from './AnimatedRoutes'
 import mainPic from '../assets/images/mainPage.webp'
+import Navbar from '../components/Navbar'
 
 const HomePage = () => {
+  <Navbar />
   return (
+    <div>
+      <Navbar />
+    
     <Box
       sx={{
         position: 'relative',
@@ -14,6 +19,7 @@ const HomePage = () => {
         flexDirection: 'column',
       }}
     >
+
       <AnimatedRoutes>
         <Box sx={{ width: '100%', height: '600px', display: 'flex' }}>
           <Box sx={{ width: '100%', height: '600px', position: 'absolute' }}>
@@ -76,6 +82,7 @@ const HomePage = () => {
         </Box>
       </AnimatedRoutes>
     </Box>
+    </div>
   )
 }
 

@@ -27,6 +27,7 @@ import Logout from './components/Logout'
 import { Toaster } from 'react-hot-toast'
 import { Box } from '@mui/material'
 import AnimatedRoutes from './components/AnimatedRoutes'
+import UserProfile from './components/UserProfile'
 
 function App() {
   const location = useLocation()
@@ -39,7 +40,7 @@ function App() {
         // flexDirection: 'column',
       }}
     >
-      <Navbar />
+      
       <Toaster />
       <AnimatedRoutes exitBeforeEnter>
         {/* <Districts /> */}
@@ -62,6 +63,7 @@ function App() {
 
           <Route path="/admin" element={<NodalDashboard />} />
           <Route path="/admin/profile" element={<NodalProfile />} />
+          <Route path="/user/profile" element={<UserProfile />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/foundchild" element={<AllFoundChild />} />
           <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
