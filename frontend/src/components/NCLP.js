@@ -18,8 +18,7 @@ const NCLP = () => {
       <Box sx={{ position: 'relative', marginTop: '10px' }}>
             
       
-          {/* <img  justify="center" src={pic}></img> */}
-}
+
           <Typography
                 variant="h4"
                 component="p"
