@@ -13,7 +13,7 @@ const sendMail = async (tot, id, subject) => {
     from: "avichal_tripathi@yahoo.com",
     to: tot,
     subject: `${subject}`,
-    text: `That was easy! Complaint ID ${id}`,
+    text: `Dear User, Thank you for taking initiative towards a child labour free India.\nYou can track the Complaint using this Complaint ID: ${id}\n\nRegards\nPENCIL Team`,
   };
 
   transporter.sendMail(mailOptions, function (error, info) {

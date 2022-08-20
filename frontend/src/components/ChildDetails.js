@@ -52,7 +52,7 @@ const payoutModalstyle = {
   width: { xs: "400px", md: "600px", lg: "800px" },
 };
 
-const ChildDetails = () => {
+const ChildDetails = ({ngo = false}) => {
   const navigate = useNavigate();
   const nodalOfficer = useSelector(getNodal);
 

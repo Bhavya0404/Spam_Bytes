@@ -59,10 +59,25 @@ const menus = {
     header: "NGO Dashboard",
     nSections: 2,
     sectionList: [
-      {
-        label: "",
-        Icon: "",
-      },
+      [
+        {
+          label: "All Child",
+          Icon: DashboardIcon,
+          link: '/ngo/'
+        },
+      ],
+      [
+        {
+          label: "Accepted Child",
+          Icon: AccountCircleIcon,
+          link: '/ngo/accepted'
+        },
+        {
+          label: "Logout",
+          Icon: LogoutIcon,
+          link: '/logout'
+        },
+      ],
     ],
   },
 };
