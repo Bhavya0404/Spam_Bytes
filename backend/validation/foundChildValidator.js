@@ -2,7 +2,7 @@ const Joi = require("joi");
 const schema = Joi.object().keys({
   name: Joi.string().min(4).max(40),
   description: Joi.string().min(10).max(400).required(),
-  img: Joi.string().required(),
+  img: Joi.string().allow('', null),
   address: Joi.string().min(6).max(300).required(),
   state: Joi.string().required(),
   district: Joi.string().required(),

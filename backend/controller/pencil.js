@@ -16,8 +16,6 @@ const reportChild = async (req, res) => {
   const pNo = body?.phoneNumber;
   const anonymous = body?.isAnon;
 
-  console.log(anonymous);
-
   const address = body?.address;
   const state = body?.state;
   const district = body?.district;
@@ -50,11 +48,12 @@ const reportChild = async (req, res) => {
     await foundChildValidator.validateAsync(data);
   } catch (err) {
     logger.error(err);
-    return res.status(400).send({ message: err });
+    return res.status(400).send(err);
   }
 
   const newFoundChild = new foundChild(data);
   await newFoundChild.save();
+  logger.info("New Child Reported");
   const user = await nodalOfficer.findOne({ district }).exec();
   if (user) {
     const email = user.email;

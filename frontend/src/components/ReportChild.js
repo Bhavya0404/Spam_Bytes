@@ -1,18 +1,11 @@
-// import { TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-// import * as React from 'react';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { Typography, FormControlLabel, Checkbox } from "@mui/material";
-import {
-  getFoundChildStatus,
-  selectFoundChild,
-} from "../features/foundchild/FoundChildSlice";
 import AnimatedRoutes from "./AnimatedRoutes";
 import { toast } from "react-hot-toast";
 
@@ -28,8 +21,8 @@ const ReportChild = () => {
   const [email, setEmail] = useState("");
   const [pNo, setPnO] = useState("");
 
-  const status = useSelector(getFoundChildStatus);
-  const foundChildData = useSelector(selectFoundChild);
+  // const status = useSelector(getFoundChildStatus);
+  // const foundChildData = useSelector(selectFoundChild);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -71,31 +64,27 @@ const ReportChild = () => {
           { headers }
         );
         if (resp.status === 201) {
-          console.log(resp);
-          // alert(resp?.statusText);
+          toast.success(
+            "Your complaint ID is : " +
+              resp?.data?.newFoundChild?._id +
+              "  " +
+              name +
+              ". You may track your reported child using this ID",
+            { id: notification }
+          );
         } else {
           toast.error("Error", { id: notification });
-          console.log(resp);
+          console.error(resp);
         }
       } catch (err) {
-        toast.error(err, { id: notification });
+        toast.error(
+          err?.response?.data?.message?.details[0]?.message || err?.message,
+          {
+            id: notification,
+          }
+        );
         console.error(err);
       } finally {
-        if (status === "Succeeded") {
-          return foundChildData.forEach((e, i, row) => {
-            console.log(e);
-            if (i + 1 === row.length) {
-              toast.success(
-                "Your complaint ID is : " +
-                  e._id +
-                  "  " +
-                  name +
-                  ". You may track your reported child using this ID",
-                { id: notification }
-              );
-            }
-          });
-        }
         setName("");
         setAddress("");
         setDescription("");
