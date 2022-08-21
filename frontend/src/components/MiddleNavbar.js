@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import complaintImg from "../assets/images/complaint.png";
 import annoucementImg from "../assets/images/announce.png";
 import mediaImg from "../assets/images/media.png";
