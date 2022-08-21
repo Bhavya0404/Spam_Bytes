@@ -30,6 +30,7 @@ import { Toaster } from "react-hot-toast";
 import { Box } from "@mui/material";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import UserProfile from "./components/UserProfile";
+import Conference from "./components/conference";
 
 function App() {
   const location = useLocation();
@@ -63,7 +64,6 @@ function App() {
           <Route path="/NCLP" element={<NCLP />} />
           <Route path="/Guildlines" element={<Guidelines />} />
           <Route path="/Acts" element={<Acts />} />
-
           <Route path="/admin" element={<NodalDashboard />} />
 
           <Route path="/admin/profile" element={<NodalProfile />} />
