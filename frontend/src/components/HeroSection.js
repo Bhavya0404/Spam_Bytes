@@ -26,13 +26,27 @@ const HeroSection = () => {
   let size = hotspot.size
   let i = 0
   return (
-    <Box sx={{ width: '100%', height: '800px', display: 'flex' }}>
-      <Box sx={{ width: '100%', height: '800px', position: 'absolute' }}>
+    <Box
+      sx={{
+        width: { xs: '100%' },
+        height: { sm: '100vh', xs: '100vh' },
+        display: 'flex',
+      }}
+    >
+      <Box
+        sx={{
+          width: '100%',
+          height: { lg: '100vh', xs: '100vh' },
+          position: 'absolute',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
         <Box
           component="img"
           sx={{
             width: '100%',
-            height: '800px',
+            height: { lg: '100%', xs: '100vh' },
             position: 'absolute',
             zIndex: '-2',
           }}
@@ -41,7 +55,7 @@ const HeroSection = () => {
         <Box
           sx={{
             width: '100%',
-            height: '800px',
+            height: { lg: '100%', xs: '100vh' },
             backgroundColor: 'black',
             opacity: '60%',
             position: 'absolute',
@@ -54,35 +68,72 @@ const HeroSection = () => {
         sx={{
           position: 'relative',
           color: 'white',
-          width: '50%',
-          height: '100%',
+          width: { sm: '50%', xs: '100%' },
+          height: { sm: '100%', xs: '100vh' },
           display: 'flex',
           // justifyContent: 'center',
           alignItems: 'center',
-          marginLeft: '200px',
+          marginLeft: { sm: '200px', xs: 0 },
         }}
       >
-        <Box>
-          <Typography variant="h1">Pencil</Typography>
-          <Typography variant="h6">
-            A Ministry of Labour and Employment initiative
-          </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            height: '100%',
+            justifyContent: 'space-evenly',
+            // alignItems: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <Box
+            sx={{
+              height: '60%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography variant="h1">Pencil</Typography>
+            <Typography variant="h6">
+              (Platform for Effective Enforcement for No Child Labour)
+            </Typography>
+            <Typography variant="h6">
+              A Ministry of Labour and Employment initiative
+            </Typography>
+          </Box>
           {/* <DonateButton /> */}
           <Box
             sx={{
               display: 'flex',
+              flexDirection: 'column',
               width: '100%',
+              height: '40%',
               justifyContent: 'space-evenly',
             }}
           >
-            <DonateButton />
-            <Button variant="contained" size="large">
-              Large
-            </Button>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ marging: '10px' }}>
+                <DonateButton />
+              </Box>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{ margin: '10px', width: '200px' }}
+              >
+                Report a Child!
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                sx={{ margin: '10px', width: '200px' }}
+              >
+                complaint status
+              </Button>
+            </Box>
           </Box>
         </Box>
       </Container>
-      <Container
+      {/* <Container
         sx={{
           position: 'relative',
           color: 'white',
@@ -93,7 +144,7 @@ const HeroSection = () => {
           alignItems: 'center',
           marginLeft: '200px',
         }}
-      ></Container>
+      ></Container> */}
     </Box>
   )
 }
