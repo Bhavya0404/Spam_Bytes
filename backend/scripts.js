@@ -78,5 +78,6 @@ addToNgoModel(
   "N.G.O. Test 1",
   "NB/1-2, Sec 89",
   "Uttar Pradesh",
-  "Gautam Buddha Nagar"
+  "Gautam Buddha Nagar",
+  [0,0]
 );

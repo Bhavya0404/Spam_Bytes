@@ -2,6 +2,10 @@ const foundChild = require("../model/foundChild");
 const nodalOfficer = require("../model/nodalOfficer");
 const { sendMail } = require("../controller/mail");
 const userSchema = require("../model/userSchema");
+const logger = require("../logger");
+
+// Validators
+const foundChildValidator = require("../validation/foundChildValidator");
 
 const reportChild = async (req, res) => {
   const body = req?.body;
@@ -9,9 +13,10 @@ const reportChild = async (req, res) => {
   const description = body?.description;
   const img = body?.img;
   const userEmail = body?.email;
+  const pNo = body?.phoneNumber;
   const anonymous = body?.isAnon;
 
-  console.log(anonymous)
+  console.log(anonymous);
 
   const address = body?.address;
   const state = body?.state;
@@ -31,10 +36,23 @@ const reportChild = async (req, res) => {
   };
 
   if (anonymous) {
-    data = { ...data, reportedBy: anonUser, email: userEmail };
+    data = {
+      ...data,
+      reportedBy: anonUser,
+      email: userEmail,
+      phoneNumber: pNo,
+    };
   } else {
     data = { ...data, reportedBy: req?.user?._id };
   }
+
+  try {
+    await foundChildValidator.validateAsync(data);
+  } catch (err) {
+    logger.error(err);
+    return res.status(400).send({ message: err });
+  }
+
   const newFoundChild = new foundChild(data);
   await newFoundChild.save();
   const user = await nodalOfficer.findOne({ district }).exec();
