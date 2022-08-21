@@ -12,107 +12,110 @@ import {
   Modal,
   Container,
   TextField,
-} from '@mui/material'
-import Sidebar from './Sidebar'
-import sidebarMenus from './sidebarMenus'
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { getNodal } from '../features/nodal/NodalSlice'
-import EditIcon from '@mui/icons-material/Edit'
-import LocationIcon from '@mui/icons-material/LocationOn'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import AnimatedRoutes from './AnimatedRoutes'
+} from "@mui/material";
+import Sidebar from "./Sidebar";
+import sidebarMenus from "./sidebarMenus";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { getNodal } from "../features/nodal/NodalSlice";
+import EditIcon from "@mui/icons-material/Edit";
+import LocationIcon from "@mui/icons-material/LocationOn";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AnimatedRoutes from "./AnimatedRoutes";
+import toast from "react-hot-toast";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: { xs: '200px', lg: '400px' },
-  bgcolor: 'background.paper',
-  borderRadius: '10px',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: { xs: "200px", lg: "400px" },
+  bgcolor: "background.paper",
+  borderRadius: "10px",
   p: 4,
-}
+};
 
 const NodalProfile = () => {
-  const navigate = useNavigate()
-  const nodalData = useSelector((state) => getNodal(state))
-  const [oldPassword, setOldPassword] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [cNewPassword, setCNewPassword] = useState('')
-  const [newPhoneNumber, setNewPhoneNumber] = useState('')
+  const navigate = useNavigate();
+  const nodalData = useSelector((state) => getNodal(state));
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [cNewPassword, setCNewPassword] = useState("");
+  const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
-  const [passwordModalOpen, setPasswordModalOpen] = useState(false)
-  const [telModalOpen, setTelModalOpen] = useState(false)
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [telModalOpen, setTelModalOpen] = useState(false);
 
   const changePassword = async () => {
+    const notification = toast.loading("Processing...");
     if (
-      newPassword !== '' &&
-      cNewPassword !== '' &&
+      newPassword !== "" &&
+      cNewPassword !== "" &&
       cNewPassword !== newPassword
     ) {
-      alert('Password Mismatch')
-      return
+      toast.error("Password Mismatch", { id: notification });
+      return;
     }
     try {
       const data = {
         newpassword: newPassword,
         cpassword: cNewPassword,
         oldpassword: oldPassword,
-      }
+      };
       const headers = {
-        Authorization: `Bearer ${localStorage?.getItem('token')}`,
-      }
+        Authorization: `Bearer ${localStorage?.getItem("token")}`,
+      };
       const resp = await axios.put(
-        'http://localhost:5000/auth/changepassword',
+        "http://localhost:5000/auth/changepassword",
         data,
-        { headers },
-      )
-      alert(resp?.data?.message)
-      setOldPassword('')
-      setNewPassword('')
-      setCNewPassword('')
-      setPasswordModalOpen(false)
-      navigate(0)
+        { headers }
+      );
+      toast.success(resp?.data?.message, { id: notification });
+      setOldPassword("");
+      setNewPassword("");
+      setCNewPassword("");
+      setPasswordModalOpen(false);
+      navigate(0);
     } catch (err) {
-      console.log(err)
-      alert(err?.response?.data?.message)
+      console.log(err);
+      toast.error(err?.response?.data?.message, { id: notification });
     }
-  }
+  };
 
   const changePhoneNumber = async () => {
-    if (newPhoneNumber === '') {
-      alert('Empty Field')
-      return
+    const notification = toast.loading('Processing...');
+    if (newPhoneNumber === "") {
+      toast.error("Empty Field", {id: notification});
+      return;
     }
     try {
       const data = {
         phoneNumber: newPhoneNumber,
-      }
+      };
       const headers = {
-        Authorization: `Bearer ${localStorage?.getItem('token')}`,
-      }
+        Authorization: `Bearer ${localStorage?.getItem("token")}`,
+      };
       const resp = await axios.put(
-        'http://localhost:5000/auth/modifyprofile',
+        "http://localhost:5000/auth/modifyprofile",
         data,
-        { headers },
-      )
-      alert(resp?.data?.message)
-      setNewPhoneNumber('')
-      setTelModalOpen(false)
-      navigate(0)
+        { headers }
+      );
+      toast.success(resp?.data?.message, {id: notification});
+      setNewPhoneNumber("");
+      setTelModalOpen(false);
+      navigate(0);
     } catch (err) {
-      console.log(err)
-      alert(err?.response?.data?.message)
+      console.log(err);
+      toast.error(err?.response?.data?.message, {id: notification});
     }
-  }
+  };
   return (
     <div>
       <AnimatedRoutes>
         <Box
           sx={{
-            display: 'flex',
+            display: "flex",
             gap: 2,
           }}
         >
@@ -121,32 +124,32 @@ const NodalProfile = () => {
             sectionList={sidebarMenus.nodal.sectionList}
             header="Profile"
           />
-          <Card sx={{ mx: '20px', mt: '100px' }}>
+          <Card sx={{ mx: "20px", mt: "100px" }}>
             <CardContent>
               <Divider />
-              <TableContainer sx={{ display: { xs: 'none', lg: 'inherit' } }}>
+              <TableContainer sx={{ display: { xs: "none", lg: "inherit" } }}>
                 <TableBody>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
                     <TableCell colSpan={3}>{nodalData?.user?.name}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>State</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>State</TableCell>
                     <TableCell>{nodalData?.state}</TableCell>
-                    <TableCell sx={{ fontWeight: 'bold' }}>District</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>District</TableCell>
                     <TableCell>{nodalData?.district}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
                     <TableCell>{nodalData?.user?.email}</TableCell>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Password</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Password</TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       <Typography>*************</Typography>
@@ -160,21 +163,21 @@ const NodalProfile = () => {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
+                    <TableCell sx={{ fontWeight: "bold" }}>
                       Location (Lng, Lat)
                     </TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       {nodalData?.officeLocation && (
                         <Typography>
-                          {nodalData?.officeLocation[0]},{' '}
+                          {nodalData?.officeLocation[0]},{" "}
                           {nodalData?.officeLocation[1]}
                         </Typography>
                       )}
@@ -182,16 +185,16 @@ const NodalProfile = () => {
                         <LocationIcon />
                       </Button>
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
+                    <TableCell sx={{ fontWeight: "bold" }}>
                       Phone Number
                     </TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       <Typography>{nodalData?.user?.phoneNumber}</Typography>
@@ -206,33 +209,33 @@ const NodalProfile = () => {
                   </TableRow>
                 </TableBody>
               </TableContainer>
-              <TableContainer sx={{ display: { xs: 'inherit', lg: 'none' } }}>
+              <TableContainer sx={{ display: { xs: "inherit", lg: "none" } }}>
                 <TableBody>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Name</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
                     <TableCell colSpan={3}>{nodalData?.name}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>State</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>State</TableCell>
                     <TableCell>{nodalData?.state}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>District</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>District</TableCell>
                     <TableCell>{nodalData?.district}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Email</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
                     <TableCell>{nodalData?.user?.email}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Password</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Password</TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       <Typography>*************</Typography>
@@ -246,19 +249,19 @@ const NodalProfile = () => {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>Location</TableCell>
+                    <TableCell sx={{ fontWeight: "bold" }}>Location</TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                        alignItems: "center",
+                        justifyContent: "center",
                       }}
                     >
                       {nodalData?.officeLocation && (
                         <Typography>
-                          {nodalData.officeLocation[0]},{' '}
+                          {nodalData.officeLocation[0]},{" "}
                           {nodalData.officeLocation[1]}
                         </Typography>
                       )}
@@ -268,16 +271,16 @@ const NodalProfile = () => {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ fontWeight: 'bold' }}>
+                    <TableCell sx={{ fontWeight: "bold" }}>
                       Phone Number
                     </TableCell>
                     <TableCell
                       sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
+                        display: "flex",
+                        flexDirection: "row",
                         gap: 1.5,
-                        alignItems: 'flex-start',
-                        justifyContent: 'space-between',
+                        alignItems: "flex-start",
+                        justifyContent: "space-between",
                       }}
                     >
                       <Typography>{nodalData?.user?.phoneNumber}</Typography>
@@ -304,7 +307,7 @@ const NodalProfile = () => {
           >
             <Box sx={style}>
               <Container
-                sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
               >
                 <Typography
                   component="h4"
@@ -355,7 +358,7 @@ const NodalProfile = () => {
           >
             <Box sx={style}>
               <Container
-                sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+                sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
               >
                 <Typography
                   component="h4"
@@ -382,7 +385,7 @@ const NodalProfile = () => {
         </Box>
       </AnimatedRoutes>
     </div>
-  )
-}
+  );
+};
 
-export default NodalProfile
+export default NodalProfile;

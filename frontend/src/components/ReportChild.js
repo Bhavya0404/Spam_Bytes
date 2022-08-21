@@ -1,47 +1,50 @@
 // import { TextField } from "@mui/material";
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 // import * as React from 'react';
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import { Button } from '@mui/material'
-import Container from '@mui/material/Container'
-import Paper from '@mui/material/Paper'
-import { Typography, FormControlLabel, Checkbox } from '@mui/material'
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import { Typography, FormControlLabel, Checkbox } from "@mui/material";
 import {
   getFoundChildStatus,
   selectFoundChild,
-} from '../features/foundchild/FoundChildSlice'
-import AnimatedRoutes from './AnimatedRoutes'
+} from "../features/foundchild/FoundChildSlice";
+import AnimatedRoutes from "./AnimatedRoutes";
+import { toast } from "react-hot-toast";
 
 const ReportChild = () => {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [img, setImg] = useState('')
-  const [address, setAddress] = useState('')
-  const [state, setState] = useState('')
-  const [district, setDistrict] = useState('')
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [img, setImg] = useState("");
+  const [address, setAddress] = useState("");
+  const [state, setState] = useState("");
+  const [district, setDistrict] = useState("");
 
-  const [isAnon, setIsAnon] = useState(false)
-  const [email, setEmail] = useState('')
+  const [isAnon, setIsAnon] = useState(false);
+  const [email, setEmail] = useState("");
+  const [pNo, setPnO] = useState("");
 
-  const status = useSelector(getFoundChildStatus)
-  const foundChildData = useSelector(selectFoundChild)
+  const status = useSelector(getFoundChildStatus);
+  const foundChildData = useSelector(selectFoundChild);
 
   useEffect(() => {
-    if ('geolocation' in navigator) {
-      console.log('Geolocation Available')
+    if ("geolocation" in navigator) {
+      console.log("Geolocation Available");
     } else {
-      alert('Geolocation not available, allow it in your browser')
+      toast.error("Geolocation not available, allow it in your browser");
     }
-  }, [])
+  }, []);
 
   const handleReportChild = async () => {
+    const notification = toast.loading("Submitting Report...");
     const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Access-Control-Allow-Origin': '*',
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Access-Control-Allow-Origin": "*",
+    };
 
     navigator.geolocation.getCurrentPosition(async (pos) => {
       let data = {
@@ -53,63 +56,68 @@ const ReportChild = () => {
         district,
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
-      }
+      };
 
       if (isAnon) {
-        data = { ...data, isAnon, email }
+        data = { ...data, isAnon, email, phoneNumber: pNo };
       } else {
-        data = { ...data, isAnon }
+        data = { ...data, isAnon };
       }
 
       try {
         const resp = await axios.post(
-          'http://localhost:5000/pencil/report',
+          "http://localhost:5000/pencil/report",
           data,
-          { headers },
-        )
+          { headers }
+        );
         if (resp.status === 201) {
-          console.log(resp)
+          console.log(resp);
           // alert(resp?.statusText);
         } else {
-          alert('Error')
-          console.log(resp)
+          toast.error("Error", { id: notification });
+          console.log(resp);
         }
       } catch (err) {
-        console.error(err)
+        toast.error(err, { id: notification });
+        console.error(err);
       } finally {
-        if (status === 'Succeeded') {
+        if (status === "Succeeded") {
           return foundChildData.forEach((e, i, row) => {
-            console.log(e)
+            console.log(e);
             if (i + 1 === row.length) {
-              alert(
-                'Your complaint ID is : ' +
+              toast.success(
+                "Your complaint ID is : " +
                   e._id +
-                  '  ' +
+                  "  " +
                   name +
-                  '. You may track your reported child using this ID',
-              )
+                  ". You may track your reported child using this ID",
+                { id: notification }
+              );
             }
-          })
+          });
         }
-        setName('')
-        setAddress('')
-        setDescription('')
-        setImg('')
-        setState('')
-        setDistrict('')
+        setName("");
+        setAddress("");
+        setDescription("");
+        setImg("");
+        setState("");
+        setDistrict("");
+        setEmail("");
+        setIsAnon(false);
+        setPnO("");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Box
       component="form"
       sx={{
-        display: 'flex',
-        height: '100vh',
-        alignItems: 'center',
-        justifyContent: 'center',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
+        display: "flex",
+        height: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+        "& .MuiTextField-root": { m: 1, width: "25ch" },
       }}
       noValidate
       autoComplete="off"
@@ -118,18 +126,18 @@ const ReportChild = () => {
         <Paper
           elevation={12}
           sx={{
-            width: { xs: '320px', sm: '500px', md: '550px' },
-            height: { xs: '650px', sm: '650px', md: '700px', lg: '750px' },
-            backgroundColor: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            textAlign: 'center',
+            width: { xs: "320px", sm: "500px", md: "550px" },
+            height: { xs: "650px", sm: "650px", md: "700px", lg: "750px" },
+            backgroundColor: "#FFFFFF",
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
           <Container
             sx={{
-              width: { xs: '80%', md: '70%' },
-              height: '75%',
+              width: { xs: "80%", md: "70%" },
+              height: "75%",
             }}
           >
             <Typography
@@ -156,7 +164,7 @@ const ReportChild = () => {
             <TextField
               required
               fullWidth
-              sx={{ mt: '20px' }}
+              sx={{ mt: "20px" }}
               id="outlined-required"
               label="Description"
               value={description}
@@ -194,33 +202,44 @@ const ReportChild = () => {
               }
             />
             {isAnon && (
-              <TextField
-                required
-                fullWidth
-                type="email"
-                id="outlined-required"
-                label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <>
+                <TextField
+                  required
+                  fullWidth
+                  type="email"
+                  id="outlined-required"
+                  label="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                  required
+                  fullWidth
+                  type="tel"
+                  id="outlined-required"
+                  label="Phone Number"
+                  value={pNo}
+                  onChange={(e) => setPnO(e.target.value)}
+                />
+              </>
             )}
             <Button
               variant="contained"
-              sx={{ mt: '2px', width: '50%' }}
+              sx={{ mt: "2px", width: "50%" }}
               component="label"
               type="file"
               value={img}
               onChange={(e) => {
-                const file = e.target.files[0]
+                const file = e.target.files[0];
                 if (file) {
-                  const reader = new FileReader()
+                  const reader = new FileReader();
                   reader.onload = (rEvent) => {
-                    const bString = rEvent.target.result
-                    setImg(btoa(bString))
-                  }
-                  reader.readAsBinaryString(file)
+                    const bString = rEvent.target.result;
+                    setImg(btoa(bString));
+                  };
+                  reader.readAsBinaryString(file);
                 }
-                console.log(img)
+                console.log(img);
               }}
             >
               Upload Image
@@ -229,7 +248,7 @@ const ReportChild = () => {
             <Button
               onClick={handleReportChild}
               size="large"
-              sx={{ mt: '30px', backgroundColor: 'black', width: '70%' }}
+              sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
               variant="contained"
             >
               Submit
@@ -238,7 +257,7 @@ const ReportChild = () => {
         </Paper>
       </AnimatedRoutes>
     </Box>
-  )
-}
+  );
+};
 
-export default ReportChild
+export default ReportChild;

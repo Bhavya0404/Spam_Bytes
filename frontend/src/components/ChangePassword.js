@@ -1,33 +1,37 @@
-import React, { useState } from 'react'
-import axios from 'axios'
-import { Button } from '@mui/material'
+import React, { useState } from "react";
+import axios from "axios";
+import { Button } from "@mui/material";
+import toast from "react-hot-toast";
 
 const ChangePassword = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [cpassword, setCpassword] = useState('')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCpassword] = useState("");
   const Change = async () => {
-    const data = { email, password, cpassword }
+    const notification = toast.loading("Processing...");
+    const data = { email, password, cpassword };
     try {
       const resp = await axios.post(
-        'http://localhost:5000/auth/changepassword',
-        data,
-      )
+        "http://localhost:5000/auth/changepassword",
+        data
+      );
 
       if (resp.status === 201) {
-        console.log(resp.data)
+        console.log(resp.data);
+        toast.success("Password Changed Successfully", { id: notification });
       } else {
-        alert('Error')
-        console.error(resp)
+        toast.error("Error", { id: notification });
+        console.error(resp);
       }
     } catch (err) {
-      console.error(err)
+      toast.error(err, { id: notification });
+      console.error(err);
     } finally {
-      setEmail('')
-      setPassword('')
-      setCpassword('')
+      setEmail("");
+      setPassword("");
+      setCpassword("");
     }
-  }
+  };
 
   return (
     <div>
@@ -65,7 +69,7 @@ const ChangePassword = () => {
         <Button onClick={Change}>Change Password</Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChangePassword
+export default ChangePassword;
