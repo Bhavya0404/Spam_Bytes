@@ -28,7 +28,6 @@ const Register = () => {
       );
 
       if (resp.status === 201) {
-        console.log(resp.data);
         toast.success("Registration Successful", { id: notification });
       } else {
         toast.error("Error", { id: notification });
@@ -36,7 +35,9 @@ const Register = () => {
       }
     } catch (err) {
       console.error(err);
-      toast.error(err, { id: notification });
+      toast.error(err?.response?.data?.error?.details[0]?.message, {
+        id: notification,
+      });
     } finally {
       setEmail("");
       setPassword("");
@@ -123,6 +124,7 @@ const Register = () => {
                 fullWidth
                 id="standard-basic"
                 label="Password"
+                type="password"
                 variant="standard"
                 placeholder="Password"
                 value={password}
@@ -134,6 +136,7 @@ const Register = () => {
                 id="standard-basic"
                 label="Confirm Password"
                 variant="standard"
+                type="password"
                 placeholder="Confirm Password"
                 value={cpassword}
                 onChange={(e) => setCpassword(e.target.value)}

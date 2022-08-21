@@ -6,6 +6,11 @@ const { sendMailResetPassword } = require("../controller/mail");
 const tokenModel = require("../model/token");
 const nodalOfficer = require("../model/nodalOfficer");
 
+// Validators
+const loginValidator = require("../validation/loginUserValidator");
+const registerValidator = require("../validation/registerUserValidator");
+const logger = require("../logger");
+
 const CLIENT_URI = "http://localhost:3000";
 
 const forgotPassword = async (req, res) => {
@@ -43,21 +48,21 @@ const resetPassword = async (req, res) => {
   const token = req?.body?.token;
   let newPassword = req?.body?.password;
 
-  // let passwordResetToken = await tokenModel.findOne({ userId }).exec();
-  // if (!passwordResetToken) {
-  //   return res.status(404).json({ message: "Token Invalid or Expired" });
-  // }
-  // const isValid = await argon2.verify(passwordResetToken?.token, token);
-  // if (!isValid) {
-  //   return res
-  //     .status(403)
-  //     .json({ message: "Token Invalid or Expired (isValid Error)" });
-  // }
+  let passwordResetToken = await tokenModel.findOne({ userId }).exec();
+  if (!passwordResetToken) {
+    return res.status(404).json({ message: "Token Invalid or Expired" });
+  }
+  const isValid = await argon2.verify(passwordResetToken?.token, token);
+  if (!isValid) {
+    return res
+      .status(403)
+      .json({ message: "Token Invalid or Expired (isValid Error)" });
+  }
   const user = await userModel.findById(userId);
   newPassword = await argon2.hash(newPassword);
   user.password = newPassword;
   await user.save();
-  // await passwordResetToken.deleteOne();
+  await passwordResetToken.deleteOne();
   return res.status(200).json({ message: "Password Reset Successful" });
 };
 
@@ -126,20 +131,26 @@ const registerAdmin = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
-    password = await argon2.hash(password);
-    const newUser = await userModel({
+
+    let data = {
       email,
       password,
       isAdmin,
       acType,
       name,
       phoneNumber,
-    });
-    await newUser.save();
+    };
 
+    await registerValidator.validateAsync(data);
+    password = await argon2.hash(password);
+
+    data = { ...data, password };
+    const newUser = await userModel(data);
+    await newUser.save();
+    logger.info("New Admin Created");
     return res.status(201).send({ newUser });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     return res.status(500).send({ error: err, code: 500 });
   }
 };
@@ -159,15 +170,21 @@ const registerUser = async (req, res) => {
     if (password !== confirmPassword) {
       return res.status(500).send({ error: "Passwords mismatch", code: 500 });
     }
-    password = await argon2.hash(password);
-    const newUser = await userModel({
+    let data = {
       email,
       password,
       name,
       phoneNumber,
       acType: "IN",
-    });
+    };
+
+    await registerValidator.validateAsync(data);
+    password = await argon2.hash(password);
+
+    data = { ...data, password };
+    const newUser = await userModel(data);
     await newUser.save();
+    logger.info("New User Created");
 
     return res.status(201).send({ newUser });
   } catch (err) {
@@ -185,6 +202,7 @@ const login = async (req, res) => {
   // TODO: Add Validation
 
   try {
+    await loginValidator.validateAsync({ email, password });
     const user = await userModel.findOne({ email }).exec();
     if (!user) return res.status(403).send({ message: "Invalid Email" });
 
@@ -203,7 +221,7 @@ const login = async (req, res) => {
     const token = jwt.sign(uData, process.env.JWT_SECRET);
     return res.status(200).send({ token, user });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     return res.status(500).send({ message: err });
   }
 };

@@ -43,6 +43,10 @@ const foundchild = mongoose.Schema(
       type: String,
       required: false
     },
+    phoneNumber: {
+      type: String,
+      required: false
+    },
     rzp_contactId: String,
     rzp_fundAcId: String,
     payouts: {
