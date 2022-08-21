@@ -138,19 +138,7 @@ const HeroSection = () => {
           </Box>
         </Box>
       </Container>
-      {/* <Container
-        sx={{
-          position: 'relative',
-          color: 'white',
-          width: '50%',
-          height: '100%',
-          display: 'flex',
-          // justifyContent: 'center',
-          alignItems: 'center',
-          marginLeft: '200px',
-        }}
-      ></Container> */}
-    </Box>
+      </Box>
   )
 }
 
