@@ -113,7 +113,7 @@ const NgoDashboard = () => {
                     <Button
                       size="medium"
                       variant="contained"
-                      onClick={() => navigate(`/child/${child?._id}`)}
+                      onClick={() => navigate(`/ngo/child/${child?._id}`)}
                     >
                       <ArrowRightAltIcon />
                       <Typography
@@ -184,7 +184,7 @@ const NgoDashboard = () => {
                     <Button
                       size="small"
                       variant="contained"
-                      onClick={() => navigate(`/child/${child?._id}`)}
+                      onClick={() => navigate(`/ngo/child/${child?._id}`)}
                     >
                       <ArrowRightAltIcon />
                       <Typography
@@ -256,7 +256,7 @@ const NgoDashboard = () => {
                     <Button
                       size="small"
                       variant="contained"
-                      onClick={() => navigate(`/child/${child?._id}`)}
+                      onClick={() => navigate(`/ngo/child/${child?._id}`)}
                     >
                       <ArrowRightAltIcon />
                       <Typography
