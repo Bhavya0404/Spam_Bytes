@@ -17,7 +17,7 @@ const AboutUs = () => {
       {/* left */}
       <Box
         sx={{
-          height: { sm: '90vh', xs: '100vh' },
+          height: { sm: '80vh', xs: '100vh' },
           width: { sm: '50%', xs: '100%' },
           position: 'relative',
           display: 'flex',
@@ -53,7 +53,7 @@ const AboutUs = () => {
           <Typography
             variant="h1"
             sx={{
-              height: { sm: '40%', xs: '30%' },
+              height: { sm: '20%', xs: '30%' },
               display: 'flex',
               alignItems: 'center',
               fontSize: { xs: '80px' },
