@@ -5,15 +5,26 @@ import { Box, Stack } from '@mui/material'
 import { Typography } from '@mui/material'
 import AnimatedRoutes from './AnimatedRoutes'
 import Navbar from './Navbar'
+import Container from '@mui/material/Container'
+
+
+
 const Guidelines = () => {
   return (
     <div>
     <Navbar />
-      <Box sx={{ position: 'relative', marginTop: '100px' ,
-    m: 2,
-   borderRadius: 8,
-    border: 3 }}>
       <AnimatedRoutes>
+
+      <Container>
+      <Box sx={{ 
+        position: 'relative',
+         marginTop: '10px' ,
+         m: 2,
+        borderRadius: 8,
+         border: 3
+         }}
+         >
+            
         <Typography
           variant="h4"
           component="p"
@@ -26,7 +37,7 @@ const Guidelines = () => {
         >
           National Child Labour Project Guidelines
         </Typography>
-        <Stack sx={{ ml: 30, display: 'flex' }} direction="row" spacing={2}>
+        <Stack sx={{ ml: 6, display: 'flex' }} direction="row" spacing={2}>
           <a
             href="https://pencil.gov.in/uploads/guidelines/NCLPGuideline.pdf"
             target="_blank"
@@ -42,8 +53,11 @@ const Guidelines = () => {
             <img width="500" height="500" src={neww}></img>
           </a>
         </Stack>
+
+        </Box>
+          </Container>
       </AnimatedRoutes>
-    </Box>
+
     </div>
   )
 }
