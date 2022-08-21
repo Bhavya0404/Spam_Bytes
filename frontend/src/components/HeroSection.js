@@ -1,16 +1,38 @@
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Button, Container, Typography } from '@mui/material'
 import mainPic from '../assets/images/narendra.png'
 import React from 'react'
+import AnimatedRoutes from './AnimatedRoutes'
+import Navbar from '../components/Navbar'
+import DonateButton from './DonateButton'
+import { useSelector } from 'react-redux'
+import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
+import { width } from '@mui/system'
 
 const HeroSection = () => {
+  const foundChildData = useSelector(selectFoundChild)
+  const hotspot = new Map()
+
+  foundChildData.filter((child) => {
+    if (child.isVerified) {
+      if (!hotspot.get(child.district)) {
+        hotspot.set(child.district, 1)
+      } else {
+        let number = hotspot.get(child.district)
+        hotspot.set(child.district, number + 1)
+      }
+    }
+  })
+  const hotspotFinal = new Map([...hotspot].sort((a, b) => b[1] - a[1]))
+  let size = hotspot.size
+  let i = 0
   return (
-    <Box sx={{ width: '100%', height: '600px', display: 'flex' }}>
-      <Box sx={{ width: '100%', height: '600px', position: 'absolute' }}>
+    <Box sx={{ width: '100%', height: '800px', display: 'flex' }}>
+      <Box sx={{ width: '100%', height: '800px', position: 'absolute' }}>
         <Box
           component="img"
           sx={{
             width: '100%',
-            height: '600px',
+            height: '800px',
             position: 'absolute',
             zIndex: '-2',
           }}
@@ -19,7 +41,7 @@ const HeroSection = () => {
         <Box
           sx={{
             width: '100%',
-            height: '600px',
+            height: '800px',
             backgroundColor: 'black',
             opacity: '60%',
             position: 'absolute',
@@ -45,6 +67,19 @@ const HeroSection = () => {
           <Typography variant="h6">
             A Ministry of Labour and Employment initiative
           </Typography>
+          {/* <DonateButton /> */}
+          <Box
+            sx={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'space-evenly',
+            }}
+          >
+            <DonateButton />
+            <Button variant="contained" size="large">
+              Large
+            </Button>
+          </Box>
         </Box>
       </Container>
       <Container

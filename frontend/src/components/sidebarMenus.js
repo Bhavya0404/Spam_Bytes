@@ -3,6 +3,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import SettingsIcon from '@mui/icons-material/Settings'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import LogoutIcon from '@mui/icons-material/Logout'
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 const menus = {
   user: {
@@ -61,12 +62,17 @@ const menus = {
     sectionList: [
       [
         {
-          label: 'All Child',
+          label: 'Dashboard',
           Icon: DashboardIcon,
-          link: null,
+          link: '/ngo/',
         },
       ],
       [
+        {
+          label: 'All Child',
+          Icon: FormatListBulletedIcon,
+          link: null,
+        },
         {
           label: 'Accepted Child',
           Icon: AccountCircleIcon,

@@ -56,6 +56,7 @@ function App() {
           <Route path="IN/" element={<UserDashboard />} />
           {/* <Route path="/NGO/:ngoId" element={<NgoDashboard />} /> */}
           <Route path="/ngo" element={<NgoDashboard />} />
+          <Route path="/ngo/child/:childId" element={<ChildDetails ngo={true} />} />
           <Route path="/goverment" element={<Government />} />
           <Route path="/Districts" element={<Districts />} />
           <Route path="/Policy" element={<PolicyPage />} />
@@ -71,6 +72,7 @@ function App() {
           <Route path="/foundchild" element={<AllFoundChild />} />
           <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
           <Route path="/child/:childId" element={<ChildDetails />} />
+          
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />

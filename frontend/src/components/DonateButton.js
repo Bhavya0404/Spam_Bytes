@@ -9,7 +9,9 @@ const loadScript = (url) => {
     script.async = true;
     script.id = 'script';
 
-    document.getElementById("frm").appendChild(script);
+    const element = document.getElementById("frm")
+    if (!element) return resolve(false);
+    element.appendChild(script);
     script.onload = () => {
       resolve(true);
     };
@@ -39,7 +41,11 @@ const DonateButton = () => {
         setBtnLoaded(true);
       }
     })();
-    return () => document.getElementById('frm').removeChild(document.getElementById('script'))
+    const element = document.getElementById('frm');
+    const scriptTag = document.getElementById('script');
+    if (!element) return;
+    if (!scriptTag) return;
+    return () => element.removeChild(scriptTag);
   }, [btnLoaded]);
   return (
     <div>
