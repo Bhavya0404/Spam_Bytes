@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import map from "../assets/images/map.png";
 
 const Statistics = () => {

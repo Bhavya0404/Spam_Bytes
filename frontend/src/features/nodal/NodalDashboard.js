@@ -3,15 +3,11 @@ import { useSelector } from "react-redux";
 import {
   selectFoundChild,
   getFoundChildStatus,
-  // getFoundChildError,
 } from "../foundchild/FoundChildSlice";
 import {
   getNodal,
-  // getNodalData,
-  // getNodalError,
   getNodalStatus,
 } from "./NodalSlice";
-// import MapView from "../../components/MapView";
 import { useNavigate } from "react-router-dom";
 
 import Table from "@mui/material/Table";
@@ -25,12 +21,7 @@ import { Button } from "@mui/material";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-// import Modal from "@mui/material/Modal";
 import SideBar from "../../components/Sidebar";
-// import Container from "@mui/material/Container";
-// import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";

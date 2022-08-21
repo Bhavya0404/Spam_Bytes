@@ -1,12 +1,10 @@
 import React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { CardActionArea } from '@mui/material'
 import pol from '../images/How-to-develop-and-implement-a-new-company-policy-1.jpg'
 import { Stack } from '@mui/material'
-import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import AnimatedRoutes from './AnimatedRoutes'
 import Navbar from './Navbar'
@@ -47,7 +45,7 @@ const PolicyPage = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img width="1500" height="400" src={pol}></img>
+                <img width="1500" alt="Pict" height="400" src={pol}></img>
               </a>
             </Stack>
             <CardContent>

@@ -8,7 +8,6 @@ import {
   TableContainer,
   TableRow,
   Typography,
-  Divider,
   Modal,
   Container,
   TextField,
@@ -17,9 +16,7 @@ import Sidebar from "./Sidebar";
 import sidebarMenus from "./sidebarMenus";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { getNodal } from "../features/nodal/NodalSlice";
 import EditIcon from "@mui/icons-material/Edit";
-import LocationIcon from "@mui/icons-material/LocationOn";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AnimatedRoutes from "./AnimatedRoutes";
@@ -85,9 +82,9 @@ const NodalProfile = () => {
   };
 
   const changePhoneNumber = async () => {
-    const notification = toast.loading('Processing...');
+    const notification = toast.loading("Processing...");
     if (newPhoneNumber === "") {
-      toast.error("Empty Field", {id: notification});
+      toast.error("Empty Field", { id: notification });
       return;
     }
     try {
@@ -102,13 +99,13 @@ const NodalProfile = () => {
         data,
         { headers }
       );
-      toast.success(resp?.data?.message, {id: notification});
+      toast.success(resp?.data?.message, { id: notification });
       setNewPhoneNumber("");
       setTelModalOpen(false);
       navigate(0);
     } catch (err) {
       console.log(err);
-      toast.error(err?.response?.data?.message, {id: notification});
+      toast.error(err?.response?.data?.message, { id: notification });
     }
   };
   return (
@@ -141,12 +138,6 @@ const NodalProfile = () => {
                     <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
                     <TableCell colSpan={3}>{userData?.name}</TableCell>
                   </TableRow>
-                  {/* <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold' }}>State</TableCell>
-                      <TableCell>{userData?.state}</TableCell>
-                      <TableCell sx={{ fontWeight: 'bold' }}>District</TableCell>
-                      <TableCell>{userData?.district}</TableCell>
-                    </TableRow> */}
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
                     <TableCell>{userData?.user?.email}</TableCell>
@@ -171,28 +162,6 @@ const NodalProfile = () => {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    {/* <TableCell sx={{ fontWeight: 'bold' }}>
-                        Location (Lng, Lat)
-                      </TableCell>
-                      <TableCell
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          gap: 1.5,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        {userData?.officeLocation && (
-                          <Typography>
-                            {userData?.officeLocation[0]},{' '}
-                            {userData?.officeLocation[1]}
-                          </Typography>
-                        )}
-                        <Button type="text" size="small">
-                          <LocationIcon />
-                        </Button>
-                      </TableCell> */}
                     <TableCell sx={{ fontWeight: "bold" }}>
                       Phone Number
                     </TableCell>
@@ -256,28 +225,6 @@ const NodalProfile = () => {
                       </Button>
                     </TableCell>
                   </TableRow>
-                  {/* <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold' }}>Location</TableCell>
-                      <TableCell
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          gap: 1.5,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        {userData?.officeLocation && (
-                          <Typography>
-                            {userData.officeLocation[0]},{' '}
-                            {userData.officeLocation[1]}
-                          </Typography>
-                        )}
-                        <Button type="text" size="small">
-                          <LocationIcon />
-                        </Button>
-                      </TableCell>
-                    </TableRow> */}
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>
                       Phone Number

@@ -1,14 +1,7 @@
-import { Box, Container, Typography } from '@mui/material'
-// import { Container } from '@mui/system'
+import { Box } from '@mui/material'
 import React from 'react'
 import AnimatedRoutes from './AnimatedRoutes'
-
-import mainPic from '../assets/images/mainPage.webp'
 import Navbar from '../components/Navbar'
-import DonateButton from './DonateButton'
-import { useSelector } from 'react-redux'
-import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
-
 import HeroSection from './HeroSection'
 import AboutUs from './AboutUs'
 import HowDoWeFunction from './HowDoWeFunction'
