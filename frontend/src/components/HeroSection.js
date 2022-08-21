@@ -102,6 +102,10 @@ const HeroSection = () => {
         }}
       ></Container>
     </Box>
+
+    {/* Complaint */}
+
+
     <Box
     sx={{
       position: 'relative',
@@ -113,224 +117,44 @@ const HeroSection = () => {
       
     }}
     >
-      <Box sx={{position: 'relative', width: '8%', height: '300px',  background: '#FF5C58',}}/>
+      <Box sx={{ width: '8%', height: '100%',  background: '#FF5C58',}}/>
+
       <Button sx={{
-        position: 'relative',
-        width: '20%',
-        height: '300px',
-        marginLeft: '10px',}}>
-      <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
+        width: {xs: '35%', md: '20%'},
         height: '100%',
-        background: 'rgba(254, 143, 143, 0.7)',       
-      }}>
-         <Box
+        marginLeft: '10px',}}>
+
+        <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          background: 'rgba(254, 143, 143, 0.7)',  
+          display: 'flex' ,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+            <Box
           component="img"
           sx={{
-            width: '50%',
-            height: '50%',
-            position: 'relative',
-            display: 'flex',
-            marginLeft: '25%',
-            marginTop: '12%'
-            
+            width: '45%',
+            height: '45%',
           }}
           src={compimg}
         >
-          
-          </Box> 
-            <Typography
+        </Box>
+
+        <Typography
             variant="h4"
-            sx={{ position:'relative', height: '20%', width:'20%', display: 'flex', marginLeft:'20%', marginTop:'15px', color:'black'}}
+            sx={{ color:'black', fontSize: {xs: '1rem', md: '1.2rem', lg: '1.4'}, mt: "15px"}}
             >File a Complaint</Typography> 
-      </Box></Button>
-
-
-      <Button sx={{
-        position: 'relative',
-        width: '20%',
-        height: '300px',
-        marginLeft: '10px',}}>
-      <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        background: 'rgba(254, 143, 143, 0.7)',       
-      }}>
-         <Box
-          component="img"
-          sx={{
-            width: '50%',
-            height: '50%',
-            position: 'relative',
-            display: 'flex',
-            marginLeft: '25%',
-            marginTop: '10%',
-            
-          }}
-          src={announcement}
-        >
-          
-          </Box> 
-            <Typography
-            variant="h4"
-            sx={{ position:'relative', height: '20%', width:'20%', display: 'flex', marginLeft:'10%', color:'black'}}
-            >Important Announcements</Typography> 
-      </Box></Button>
-
-
-      <Button sx={{
-        position: 'relative',
-        width: '20%',
-        height: '300px',
-        marginLeft: '10px',}}>
-      <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        background: 'rgba(254, 143, 143, 0.7)',       
-      }}>
-         <Box
-          component="img"
-          sx={{
-            width: '50%',
-            height: '50%',
-            position: 'relative',
-            display: 'flex',
-            marginLeft: '25%',
-            marginTop: '12%',
-            
-          }}
-          src={media}
-        >
-          
-          </Box> 
-            <Typography
-            variant="h4"
-            sx={{ position:'relative', height: '20%', width:'20%', display: 'flex', marginLeft:'35%', marginTop:'15px', color:'black'}}
-            >Media</Typography> 
-      </Box></Button>
-      <Button sx={{
-        position: 'relative',
-        width: '20%',
-        height: '300px',
-        marginLeft: '10px',}}>
-      <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        background: 'rgba(254, 143, 143, 0.7)',       
-      }}>
-         <Box
-          component="img"
-          sx={{
-            width: '50%',
-            height: '50%',
-            position: 'relative',
-            display: 'flex',
-            marginLeft: '25%',
-            marginTop: '12%'
-            
-          }}
-          src={conferences}
-        >
-          
-          </Box> 
-            <Typography
-            variant="h4"
-            sx={{ position:'relative', height: '20%', width:'20%', display: 'flex', marginLeft:'20%', marginTop:'15px', color:'black'}}
-            >Conferences</Typography> 
-      </Box></Button>
       
-      <Box sx={{position: 'relative', width: '10%', height: '300px', marginLeft: '15px', background: '#FF5C58',}}/>
+         
+        </Box>
 
+      </Button>
     </Box>
-    
-    <Box
-    sx={{
-      width: '100%',
-      height: '800px',
-      backgroundColor: 'rgba(254, 143, 143, 0.3)',
-      position: 'relative',
-      marginTop:'100px',
-      display: 'flex',
-    }}>
-      <Box
-      sx={{
-        height: '100%',
-        width: '50%',
-        position: 'absolute',
-        alignItems: 'left',
-        marginTop: '30px',
-        marginLeft: '30px',
-        }}>
-          <Typography
-          variant="h1"
-          sx={{ height: '20%', display: 'flex',  color: '#FF5C58'}}>
-            STATISTICS  </Typography>
-
-          <Typography
-          variant="h1"
-          sx={{ display: 'flex',  color: '#FF5C58',}}>        
-            2500
-          </Typography>
-          <Typography
-          variant="h4"
-          sx={{ height: '50px',display: 'flex',  color: '#FF5C58',}}>        
-            Reported Cases
-          </Typography>
-          <Typography
-          variant="h1"
-          sx={{  display: 'flex',  color: '#FF5C58',}}>        
-            2500
-          </Typography>
-          <Typography
-          variant="h4"
-          sx={{ height: '50px', display: 'flex',  color: '#FF5C58',}}>        
-            Nodal Officers Appointed
-          </Typography>
-          <Typography
-          variant="h1"
-          sx={{  display: 'flex',  color: '#FF5C58',}}>        
-            2500
-          </Typography>
-          <Typography
-          variant="h4"
-          sx={{  display: 'flex',  color: '#FF5C58',}}>        
-            Children Enrolled in School
-          </Typography>
-
-      </Box>
-      <Box
-       sx={{
-        height: '100%',
-        width: '50%',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginLeft:'50%'
-      }}>
-          <Box
-          component="img"
-          sx={{height:'90%'}}
-          
-          src={map}>
-            
-
-          </Box>
-        
-          
-
-      </Box>
-
-    </Box>
-    </Box>
+   </Box>
   )
 }
 
