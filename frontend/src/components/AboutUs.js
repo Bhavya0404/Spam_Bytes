@@ -17,8 +17,10 @@ const AboutUs = () => {
       {/* left */}
       <Box
         sx={{
-          height: '800px',
-          width: '50%',
+
+          height: { sm: '80vh', xs: '100vh' },
+          width: { sm: '50%', xs: '100%' },
+
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -51,7 +53,14 @@ const AboutUs = () => {
         >
           <Typography
             variant="h1"
-            sx={{ height: '40%', display: 'flex', alignItems: 'center' }}
+
+            sx={{
+              height: { sm: '20%', xs: '30%' },
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: { xs: '80px' },
+            }}
+
           >
             About us
           </Typography>
