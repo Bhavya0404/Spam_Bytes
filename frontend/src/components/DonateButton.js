@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 
 const loadScript = (url) => {
@@ -28,7 +29,7 @@ const DonateButton = () => {
       "https://checkout.razorpay.com/v1/payment-button.js"
     );
     if (!btn) {
-      alert("Error Occurred!!");
+      toast.error("Error Occurred!!");
       return;
     }
   };

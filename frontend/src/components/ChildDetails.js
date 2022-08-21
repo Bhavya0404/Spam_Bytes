@@ -36,6 +36,7 @@ import UploadModal from "./UploadModal";
 import MapModal from "./MapModal";
 import { getNodal } from "../features/nodal/NodalSlice";
 import { selectAllNgo } from "../features/ngo/ngoSlice";
+import { toast } from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -111,6 +112,7 @@ const ChildDetails = ({ ngo = false }) => {
   }, [childData?.payouts, ngo]);
 
   const handleCreateContact = async () => {
+    const notification = toast.loading("Creating Contact...");
     const data = { id: childId };
     try {
       const headers = {
@@ -121,15 +123,16 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
     } catch (err) {
       console.error(err);
-      alert(err);
+      toast.error(err, { id: notification });
     }
   };
 
   const createFundAcHandler = async (childId) => {
     const data = { id: childId, ac_no: accountNumber, ifsc };
+    const notification = toast.loading("Creating Fund A/c...");
     try {
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -139,15 +142,16 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
     } catch (err) {
       console.error(err);
-      alert(err);
+      toast.error(err, { id: notification });
     }
   };
 
   const processPayoutForChild = async (childId) => {
     const data = { id: childId, amount };
+    const notification = toast.loading(`Processing Payout of INR ${amount}...`);
     try {
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -157,10 +161,15 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
+      setAmount(0);
+      handleClosePM();
     } catch (err) {
       console.error(err);
-      alert(err);
+      toast.error(err?.response?.data?.error?.description, {
+        id: notification,
+      });
+      setAmount(0);
     }
   };
 
@@ -181,12 +190,12 @@ const ChildDetails = ({ ngo = false }) => {
           body,
           { headers }
         );
-        alert(resp?.data?.message);
+        toast.success(resp?.data?.message);
         setAcceptChild(true);
         navigate(0);
       } catch (err) {
         console.error(err);
-        alert(err?.response?.data?.message);
+        toast.error(err?.response?.data?.message);
       }
     }
   };
@@ -204,18 +213,20 @@ const ChildDetails = ({ ngo = false }) => {
           body,
           { headers }
         );
-        alert(resp?.data?.message);
+        toast.success(resp?.data?.message);
         setVerifiedChild(true);
         navigate(0);
       } catch (err) {
         console.error(err);
-        alert(err?.response?.data?.message);
+        toast.error(err?.response?.data?.message);
       }
     }
   };
 
   const handleAllotedSchool = async () => {
-    const x = window.confirm("Do you want to mark child as Accepted? ");
+    const x = window.confirm(
+      "Do you want to mark the child as 'Enrolled in School' ? "
+    );
     if (x) {
       const body = { inSchool: true };
       try {
@@ -227,12 +238,12 @@ const ChildDetails = ({ ngo = false }) => {
           body,
           { headers }
         );
-        alert(resp?.data?.message);
+        toast.success(resp?.data?.message);
         setHasSchool(true);
         navigate(0);
       } catch (err) {
         console.error(err);
-        alert(err?.response?.data?.message);
+        toast.error(err?.response?.data?.message);
       }
     }
   };
@@ -251,6 +262,7 @@ const ChildDetails = ({ ngo = false }) => {
 
   const handleNameChange = async () => {
     const data = { name: nameEditValue };
+    const notification = toast.loading("Updating Name...");
     try {
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -260,17 +272,18 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
       setNameEditValue("");
       setNameEdit(false);
       navigate(0);
     } catch (err) {
       console.error(err);
-      alert(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message, { id: notification });
     }
   };
   const handleAddressChange = async () => {
     const data = { address: addressEditValue };
+    const notification = toast.loading("Updating Address...");
     try {
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -280,17 +293,18 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
       setAddressEditValue("");
       setAddressEdit(false);
       navigate(0);
     } catch (err) {
       console.error(err);
-      alert(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message, { id: notification });
     }
   };
   const handleDescriptionChange = async () => {
     const data = { description: descriptionEditValue };
+    const notification = toast.loading("Updating Description...");
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
@@ -300,13 +314,13 @@ const ChildDetails = ({ ngo = false }) => {
         data,
         { headers }
       );
-      alert(resp?.data?.message);
+      toast.success(resp?.data?.message, { id: notification });
       setDescriptionEditValue("");
       setDescriptionEdit(false);
       navigate(0);
     } catch (err) {
       console.error(err);
-      alert(err?.response?.data?.message);
+      toast.error(err?.response?.data?.message, { id: notification });
     }
   };
   const handleUpload = (e) => {
@@ -319,10 +333,14 @@ const ChildDetails = ({ ngo = false }) => {
     });
     promise
       .then((res) => {
+        toast.success("Image Uploaded");
         setImageFile(res);
         setUploadOpen(true);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        toast.error(err);
+      });
   };
   return (
     <div>

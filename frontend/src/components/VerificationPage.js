@@ -7,23 +7,25 @@ import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Radio from '@mui/material/Radio'
 import FormControlLabel from '@mui/material/FormControlLabel'
+import toast from 'react-hot-toast'
 
 const VerificationPage = () => {
   const [_id, set_id] = useState('')
   const Verification = async () => {
-    // const c = 1;
+    const notification = toast.loading('Verifying...');
     try {
       const resp = await axios.put(`http://localhost:5000/nodal/verify/${_id}`)
 
       if (resp.status === 200) {
         console.log(resp.data)
-        alert(resp?.data?.message)
+        toast.success(resp?.data?.message, {id: notification})
       } else {
-        alert('Error')
+        toast.error('Error', {id: notification})
         console.error(resp)
       }
     } catch (err) {
-      // console.error(err);
+      console.error(err);
+      toast.error(err, {id: notification});
     } finally {
       set_id('')
     }
