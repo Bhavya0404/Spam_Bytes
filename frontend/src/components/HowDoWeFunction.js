@@ -19,7 +19,7 @@ const HowDoWeFunction = () => {
         sx={{
           height: '100%',
           width: '50%',
-          display: { sm: 'flex', xs: 'none' },
+          display: { md: 'flex', xs: 'none' },
           alignItems: 'center',
           justifyContent: 'center',
           //   marginLeft: '100px',
