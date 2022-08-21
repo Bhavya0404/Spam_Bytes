@@ -12,6 +12,8 @@ import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 import HeroSection from './HeroSection'
 import AboutUs from './AboutUs'
 import HowDoWeFunction from './HowDoWeFunction'
+import { MiddleNavbar } from './MiddleNavbar'
+import Statistics from './Statistics'
 
 const HomePage = () => {
   return (
@@ -28,6 +30,8 @@ const HomePage = () => {
       >
         <AnimatedRoutes>
           <HeroSection />
+          <MiddleNavbar />
+          <Statistics />
           <AboutUs />
           <HowDoWeFunction />
         </AnimatedRoutes>

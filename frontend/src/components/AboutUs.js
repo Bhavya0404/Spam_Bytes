@@ -12,7 +12,7 @@ const AboutUs = () => {
         width: '100%',
         marginTop: { md: '30px', xs: 0 },
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
       }}
     >
       {/* left */}

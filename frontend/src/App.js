@@ -30,7 +30,6 @@ import { Toaster } from "react-hot-toast";
 import { Box } from "@mui/material";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import UserProfile from "./components/UserProfile";
-import Conference from "./components/conference";
 
 function App() {
   const location = useLocation();
