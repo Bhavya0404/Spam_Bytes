@@ -7,6 +7,7 @@ import DonateButton from './DonateButton'
 import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 import { width } from '@mui/system'
+import { Link } from 'react-router-dom'
 
 const HeroSection = () => {
   const foundChildData = useSelector(selectFoundChild)
@@ -115,20 +116,24 @@ const HeroSection = () => {
               <Box sx={{ marging: '10px' }}>
                 <DonateButton />
               </Box>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ margin: '10px', width: '200px' }}
-              >
-                Report a Child!
-              </Button>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ margin: '10px', width: '200px' }}
-              >
-                complaint status
-              </Button>
+              <Link to="/reportchild">
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{ margin: '10px', width: '200px' }}
+                >
+                  Report a Child!
+                </Button>
+              </Link>
+              <Link to="/complaintstatus">
+                <Button
+                  variant="contained"
+                  size="large"
+                  sx={{ margin: '10px', width: '200px' }}
+                >
+                  complaint status
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Box>

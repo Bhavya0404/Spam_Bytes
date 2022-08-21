@@ -6,9 +6,9 @@ const HowDoWeFunction = () => {
   return (
     <Box
       sx={{
-        height: { sm: '90vh', xs: '100vh' },
+        height: { md: '90vh', xs: 'auto' },
         width: '100%',
-        marginTop: { sm: '30px', xs: 0 },
+        marginTop: { md: '30px', xs: 0 },
         display: 'flex',
         justifyContent: 'space-between',
         backgroundColor: 'rgba(254, 143, 143, 0.4)',
@@ -30,8 +30,9 @@ const HowDoWeFunction = () => {
       {/* right */}
       <Box
         sx={{
-          height: { sm: '100%', xs: '100vh' },
-          width: { sm: '50%', xs: '100%' },
+          minHeight: { xs: '50vh' },
+          height: { xs: 'auto' },
+          width: { md: '50%', xs: '100%' },
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
@@ -39,30 +40,34 @@ const HowDoWeFunction = () => {
       >
         <Container
           sx={{
-            height: { sm: '70%', xs: '100%' },
-            width: '80%',
+            height: { md: '70%', xs: 'auto' },
+            width: { md: '80%', xs: '100%' },
             margin: 0,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            marginLeft: { sm: '100px', xs: 0 },
+            alignItems: 'center',
+            marginLeft: { md: '100px', xs: 0 },
+
             // alignItems: 'center',
           }}
         >
           <Typography
             variant="h1"
             sx={{
-              height: { sm: '40%', xs: '30%' },
+              height: { md: '40%', xs: '20%' },
+
               display: 'flex',
               alignItems: 'center',
               fontSize: { xs: '80px' },
+              marginBottom: '20px',
             }}
           >
             How do we function
           </Typography>
           <Typography
             variant="h5"
-            sx={{ width: { sm: '80%', xs: '100%' }, height: '60%' }}
+            sx={{ width: { md: '80%', xs: '100%' }, height: '80%' }}
           >
             lPENCiL (Platform for Effective Enforcement for No Child Labour) an
             electronic platform for effective enforcement for no child labour
