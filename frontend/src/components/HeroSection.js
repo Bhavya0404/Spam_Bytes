@@ -7,6 +7,11 @@ import DonateButton from './DonateButton'
 import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 import { width } from '@mui/system'
+import conferences from '../assets/images/pngegg (3) 1.png'
+import announcement from '../assets/images/pngegg (1) 1.png'
+import compimg from '../assets/images/pngegg 1.png'
+import media from '../assets/images/pngegg (2) 1.png'
+import map from '../assets/images/map.png'
 
 const HeroSection = () => {
   const foundChildData = useSelector(selectFoundChild)
@@ -26,27 +31,15 @@ const HeroSection = () => {
   let size = hotspot.size
   let i = 0
   return (
-    <Box
-      sx={{
-        width: { xs: '100%' },
-        height: { sm: '100vh', xs: '100vh' },
-        display: 'flex',
-      }}
-    >
-      <Box
-        sx={{
-          width: '100%',
-          height: { lg: '100vh', xs: '100vh' },
-          position: 'absolute',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
+    <Box>
+    
+    <Box sx={{ width: '100%', height: '800px', display: 'flex' }}>
+      <Box sx={{ width: '100%', height: '800px', position: 'absolute' }}>
         <Box
           component="img"
           sx={{
             width: '100%',
-            height: { lg: '100%', xs: '100vh' },
+            height: '800px',
             position: 'absolute',
             zIndex: '-2',
           }}
@@ -55,7 +48,7 @@ const HeroSection = () => {
         <Box
           sx={{
             width: '100%',
-            height: { lg: '100%', xs: '100vh' },
+            height: '800px',
             backgroundColor: 'black',
             opacity: '60%',
             position: 'absolute',
@@ -68,72 +61,35 @@ const HeroSection = () => {
         sx={{
           position: 'relative',
           color: 'white',
-          width: { sm: '50%', xs: '100%' },
-          height: { sm: '100%', xs: '100vh' },
+          width: '50%',
+          height: '100%',
           display: 'flex',
           // justifyContent: 'center',
           alignItems: 'center',
-          marginLeft: { sm: '200px', xs: 0 },
+          marginLeft: '200px',
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            height: '100%',
-            justifyContent: 'space-evenly',
-            // alignItems: 'center',
-            flexDirection: 'column',
-          }}
-        >
-          <Box
-            sx={{
-              height: '60%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <Typography variant="h1">Pencil</Typography>
-            <Typography variant="h6">
-              (Platform for Effective Enforcement for No Child Labour)
-            </Typography>
-            <Typography variant="h6">
-              A Ministry of Labour and Employment initiative
-            </Typography>
-          </Box>
+        <Box>
+          <Typography variant="h1">Pencil</Typography>
+          <Typography variant="h6">
+            A Ministry of Labour and Employment initiative
+          </Typography>
           {/* <DonateButton /> */}
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'column',
               width: '100%',
-              height: '40%',
               justifyContent: 'space-evenly',
             }}
           >
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ marging: '10px' }}>
-                <DonateButton />
-              </Box>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ margin: '10px', width: '200px' }}
-              >
-                Report a Child!
-              </Button>
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ margin: '10px', width: '200px' }}
-              >
-                complaint status
-              </Button>
-            </Box>
+            <DonateButton />
+            <Button variant="contained" size="large">
+              Large
+            </Button>
           </Box>
         </Box>
       </Container>
-      {/* <Container
+      <Container
         sx={{
           position: 'relative',
           color: 'white',
@@ -144,8 +100,61 @@ const HeroSection = () => {
           alignItems: 'center',
           marginLeft: '200px',
         }}
-      ></Container> */}
+      ></Container>
     </Box>
+
+    {/* Complaint */}
+
+
+    <Box
+    sx={{
+      position: 'relative',
+      width: '100%',
+      height: '215px',
+      display: 'flex',
+      marginTop: '20px',
+      marginBottom: '20px'
+      
+    }}
+    >
+      <Box sx={{ width: '8%', height: '100%',  background: '#FF5C58',}}/>
+
+      <Button sx={{
+        width: {xs: '35%', md: '20%'},
+        height: '100%',
+        marginLeft: '10px',}}>
+
+        <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          background: 'rgba(254, 143, 143, 0.7)',  
+          display: 'flex' ,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+            <Box
+          component="img"
+          sx={{
+            width: '45%',
+            height: '45%',
+          }}
+          src={compimg}
+        >
+        </Box>
+
+        <Typography
+            variant="h4"
+            sx={{ color:'black', fontSize: {xs: '1rem', md: '1.2rem', lg: '1.4'}, mt: "15px"}}
+            >File a Complaint</Typography> 
+      
+         
+        </Box>
+
+      </Button>
+    </Box>
+   </Box>
   )
 }
 

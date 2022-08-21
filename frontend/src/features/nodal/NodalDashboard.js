@@ -57,25 +57,7 @@ const NodalDashboard = () => {
   // const errorNodal = useSelector(getNodalError);
 
   const [childData, setChildData] = useState([]);
-
- 
-
-  {
-    /* {isVisible && (
-                  <>
-                    <span>Map Location of child {currentChild.name}</span>
-                    <MapView
-                      childLocation={currentChild.lastKnownLocation}
-                      officeLocation={nodalData.officeLocation}
-                    />
-
-                    
-                  </>
-                )} */
-  }
-
   
-
   useEffect(() => {
     if (statusFoundChild === "Succeeded" && statusNodal === "Succeeded") {
       setChildData(
