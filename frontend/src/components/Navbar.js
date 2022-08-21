@@ -62,7 +62,7 @@ function DrawerAppBar(props) {
         sx={{
           width: '100%',
           position: 'relative',
-          backgroundColor: '#FFFF',
+          backgroundColor: 'rgba(255, 237, 211, 0.4)',
         }}
       >
         <Toolbar
@@ -89,7 +89,7 @@ function DrawerAppBar(props) {
           <Box
             sx={{
               display: { xs: 'none', sm: 'none', lg: 'flex' },
-              width: '60%',
+              width: { lg: '60%', md: '60%' },
               justifyContent: 'space-between',
             }}
           >
@@ -99,7 +99,9 @@ function DrawerAppBar(props) {
                   key={item}
                   sx={{ color: 'black', textDecoration: 'none' }}
                 >
-                  <Typography variant="h5">{item}</Typography>
+                  <Typography variant="h5" sx={{ fontSize: { sm: '20px' } }}>
+                    {item}
+                  </Typography>
                 </Button>
               </Link>
             ))}
