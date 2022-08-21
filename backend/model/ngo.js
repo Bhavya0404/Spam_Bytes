@@ -10,6 +10,7 @@ const ngo = mongoose.Schema(
     },
     state: String,
     district: String,
+    location: {type: Array, default: [0.0, 0.0]},
     user: {
       type: mongoose.Types.ObjectId,
       ref: 'User'

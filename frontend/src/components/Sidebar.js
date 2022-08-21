@@ -29,11 +29,11 @@ const Sidebar = ({ window, nSections, sectionList, header, func }) => {
         </Typography>
       </Toolbar>
       <Divider />
-      {[...Array(nSections).keys()].map((i) => (
+      {[...Array(nSections).keys()].map((i,idx) => (
         <>
-          <List key={i}>
-            {sectionList[i].map(({ label, Icon, link }) => (
-              <ListItem key={label} disablePadding>
+          <List key={idx}>
+            {sectionList[i].map(({ label, Icon, link }, idx1) => (
+              <ListItem key={idx1} disablePadding>
                 {link ? (
                   <ListItemButton component={Link} to={link}>
                     <ListItemIcon>

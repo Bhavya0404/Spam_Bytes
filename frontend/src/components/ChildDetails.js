@@ -35,6 +35,7 @@ import EditModal from "./EditModal";
 import UploadModal from "./UploadModal";
 import MapModal from "./MapModal";
 import { getNodal } from "../features/nodal/NodalSlice";
+import { selectAllNgo } from "../features/ngo/ngoSlice";
 
 const style = {
   position: "absolute",
@@ -54,7 +55,7 @@ const payoutModalstyle = {
 
 const ChildDetails = ({ ngo = false }) => {
   const navigate = useNavigate();
-  const nodalOfficer = useSelector(getNodal);
+  const currentUser = useSelector(ngo ? selectAllNgo : getNodal);
 
   const { childId } = useParams();
   const childData = useSelector((state) => getFoundChildById(state, childId));
@@ -105,8 +106,9 @@ const ChildDetails = ({ ngo = false }) => {
       setPayoutData(pData);
       setPayoutLoading(false);
     };
+    if (ngo) return;
     getPayoutData();
-  }, [childData?.payouts]);
+  }, [childData?.payouts, ngo]);
 
   const handleCreateContact = async () => {
     const data = { id: childId };
@@ -392,7 +394,9 @@ const ChildDetails = ({ ngo = false }) => {
                               <Typography>{childData?.name}</Typography>
                             </TableCell>
                             <TableCell>
-                              <EditButton onEdit={() => setNameEdit(true)} />
+                              {!ngo && (
+                                <EditButton onEdit={() => setNameEdit(true)} />
+                              )}
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -403,7 +407,11 @@ const ChildDetails = ({ ngo = false }) => {
                               <Typography>{childData?.address}</Typography>
                             </TableCell>
                             <TableCell>
-                              <EditButton onEdit={() => setAddressEdit(true)} />
+                              {!ngo && (
+                                <EditButton
+                                  onEdit={() => setAddressEdit(true)}
+                                />
+                              )}
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -432,9 +440,11 @@ const ChildDetails = ({ ngo = false }) => {
                               <Typography>{childData?.description}</Typography>
                             </TableCell>
                             <TableCell>
-                              <EditButton
-                                onEdit={() => setDescriptionEdit(true)}
-                              />
+                              {!ngo && (
+                                <EditButton
+                                  onEdit={() => setDescriptionEdit(true)}
+                                />
+                              )}
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -451,13 +461,15 @@ const ChildDetails = ({ ngo = false }) => {
                               </Typography>
                             </TableCell>
                             <TableCell>
-                              <Button
-                                variant="text"
-                                disabled={childData?.isVerified || verified}
-                                onClick={handleVerified}
-                              >
-                                Mark As Verified
-                              </Button>
+                              {!ngo && (
+                                <Button
+                                  variant="text"
+                                  disabled={childData?.isVerified || verified}
+                                  onClick={handleVerified}
+                                >
+                                  Mark As Verified
+                                </Button>
+                              )}
                             </TableCell>
                           </TableRow>
                           <TableRow>
@@ -501,17 +513,19 @@ const ChildDetails = ({ ngo = false }) => {
                               </Typography>
                             </TableCell>
                             <TableCell>
-                              <Button
-                                variant="text"
-                                disabled={
-                                  !childData?.isVerified ||
-                                  childData?.inSchool ||
-                                  hasSchool
-                                }
-                                onClick={handleAllotedSchool}
-                              >
-                                Assign School
-                              </Button>
+                              {!ngo && (
+                                <Button
+                                  variant="text"
+                                  disabled={
+                                    !childData?.isVerified ||
+                                    childData?.inSchool ||
+                                    hasSchool
+                                  }
+                                  onClick={handleAllotedSchool}
+                                >
+                                  Assign School
+                                </Button>
+                              )}
                             </TableCell>
                           </TableRow>
                         </TableBody>
@@ -542,22 +556,28 @@ const ChildDetails = ({ ngo = false }) => {
                           width: "200px",
                         }}
                       />
-                      <Button variant="text" component="label" sx={{ gap: 1 }}>
-                        <AddAPhotoIcon />
-                        <Typography
-                          component="span"
-                          sx={{ textTransform: "capitalize" }}
+                      {!ngo && (
+                        <Button
+                          variant="text"
+                          component="label"
+                          sx={{ gap: 1 }}
                         >
-                          Upload Photograph
-                        </Typography>
-                        <input
-                          hidden
-                          accept="image/png"
-                          type="file"
-                          value={image}
-                          onChange={handleUpload}
-                        />
-                      </Button>
+                          <AddAPhotoIcon />
+                          <Typography
+                            component="span"
+                            sx={{ textTransform: "capitalize" }}
+                          >
+                            Upload Photograph
+                          </Typography>
+                          <input
+                            hidden
+                            accept="image/png"
+                            type="file"
+                            value={image}
+                            onChange={handleUpload}
+                          />
+                        </Button>
+                      )}
                       <Button
                         variant="contained"
                         color="success"
@@ -581,7 +601,7 @@ const ChildDetails = ({ ngo = false }) => {
                         gap: 1.25,
                       }}
                     >
-                      {childData?.isVerified && (
+                      {!ngo && childData?.isVerified && (
                         <>
                           <Button
                             variant="contained"
@@ -922,8 +942,11 @@ const ChildDetails = ({ ngo = false }) => {
           open={mapOpen}
           handleClose={handleCloseMP}
           childLocation={childData?.lastKnownLocation}
-          officeLocation={nodalOfficer?.officeLocation}
+          officeLocation={
+            ngo ? currentUser?.location : currentUser?.officeLocation
+          }
           _id={childData?._id}
+          ngo={ngo}
         />
       </Box>
     </div>
