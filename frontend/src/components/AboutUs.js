@@ -7,9 +7,10 @@ const AboutUs = () => {
   return (
     <Box
       sx={{
-        height: '800px',
+        minHeight: { xs: '50vh' },
+        height: { md: '90vh', xs: 'auto' },
         width: '100%',
-        marginTop: '30px',
+        marginTop: { md: '30px', xs: 0 },
         display: 'flex',
         justifyContent: 'space-between',
       }}
@@ -17,23 +18,25 @@ const AboutUs = () => {
       {/* left */}
       <Box
         sx={{
+          minHeight: { xs: '70%' },
+          maxWidth: { md: '50%', xs: '100%' },
+          height: { md: '80vh', xs: '100%' },
 
-          height: { sm: '80vh', xs: '100vh' },
-          width: { sm: '50%', xs: '100%' },
-
+          width: { md: '50%', xs: '100%' },
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
-          marginLeft: '100px',
+          justifyContent: 'center',
+          marginLeft: { md: '4%', xs: 0 },
         }}
       >
         <Box
           component="img"
           sx={{
-            width: '800px',
-            height: '600px',
+            width: { md: '90%', xs: 'auto' },
+            height: { md: '90%' },
             position: 'absolute',
-            display: 'flex',
+            display: { md: 'flex', xs: 'none' },
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -41,30 +44,38 @@ const AboutUs = () => {
         ></Box>
         <Container
           sx={{
-            height: '70%',
-            width: '80%',
-            margin: 0,
+            height: { md: '100%', xs: '100%' },
+            width: { md: '90%', xs: '100%' },
+            margin: { xs: 0 },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            marginLeft: '100px',
+            alignContent: 'center',
+            marginLeft: { md: '4%' },
             // alignItems: 'center',
           }}
         >
           <Typography
             variant="h1"
-
             sx={{
-              height: { sm: '20%', xs: '30%' },
+              height: { md: '20%', xs: '10%' },
               display: 'flex',
               alignItems: 'center',
-              fontSize: { xs: '80px' },
+              justifyContent: 'center',
+              fontSize: { xs: '60px', sm: '70px', md: '80px' },
             }}
-
           >
             About us
           </Typography>
-          <Typography variant="h5" sx={{ width: '80%', height: '60%' }}>
+          <Typography
+            variant="h5"
+            sx={{
+              width: '100%',
+              height: { md: '69%', xs: '70%' },
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
             PENCiL (Platform for Effective Enforcement for No Child Labour) an
             electronic platform for effective enforcement for no child labour
             developed by Ministry of Labour and Employment. PENCiL Portal has
@@ -78,7 +89,7 @@ const AboutUs = () => {
         sx={{
           height: '100%',
           width: '50%',
-          display: 'flex',
+          display: { md: 'flex', xs: 'none' },
           alignItems: 'center',
           justifyContent: 'center',
         }}
