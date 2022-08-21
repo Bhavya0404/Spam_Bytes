@@ -15,8 +15,6 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 
-
-
 import { Container } from '@mui/system'
 import { TextField } from '@mui/material'
 import logo from '../assets/images/logo.png'
@@ -48,7 +46,6 @@ function DrawerAppBar(props) {
             </ListItemButton>
           </ListItem>
         ))}
-        
       </List>
     </Box>
   )
@@ -80,7 +77,7 @@ function DrawerAppBar(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' }, color: 'black' }}
+            sx={{ mr: 2, display: { lg: 'none' }, color: 'black' }}
           >
             <MenuIcon />
           </IconButton>
@@ -91,14 +88,14 @@ function DrawerAppBar(props) {
           </Box>
           <Box
             sx={{
-              display: { xs: 'none', sm: 'flex', width: '50%' },
+              display: { xs: 'none', sm: 'none', lg: 'flex' },
+              width: '60%',
               justifyContent: 'space-between',
             }}
           >
             {navItems.map((item) => (
               <Link to={`/${item}`} style={{ textDecoration: 'none' }}>
                 <Button
-                  
                   key={item}
                   sx={{ color: 'black', textDecoration: 'none' }}
                 >
