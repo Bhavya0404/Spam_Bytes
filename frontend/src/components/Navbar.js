@@ -14,6 +14,11 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
+
+import theme from '../theme/globalTheme'
+import { Container } from '@mui/system'
+import { TextField, ThemeProvider } from '@mui/material'
+
 import logo from '../assets/images/logo.png'
 
 const drawerWidth = 240
@@ -52,12 +57,17 @@ function DrawerAppBar(props) {
 
   return (
     <Box
-      sx={{ display: 'flex', flexDirection: 'column', textDecoration: 'none' }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        textDecoration: 'none',
+      }}
     >
       <AppBar
         component="nav"
         sx={{
           width: '100%',
+          height: '8vh',
           position: 'relative',
           backgroundColor: 'rgba(255, 237, 211, 0.4)',
         }}
