@@ -9,7 +9,7 @@ const Statistics = () => {
         sx={{
           width: '100%',
           height: { xs: '2000', md: '800px' },
-          backgroundColor: 'rgba(254, 143, 143, 0.3)',
+          backgroundColor: 'primary.main',
           display: 'flex',
           flexDirection: { xs: 'column', md: 'row' },
           justifyContent: 'space-between',
@@ -26,6 +26,7 @@ const Statistics = () => {
         >
           <Box
             sx={{
+              backgroundColor: 'primary.main',
               mt: '70px',
             }}
           >
@@ -34,7 +35,7 @@ const Statistics = () => {
               sx={{
                 height: '20%',
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'primary.contrastText',
                 // fontSize: { xs: '2rem', sm: '3rem', md: '4.5rem' },
               }}
             >
@@ -45,7 +46,7 @@ const Statistics = () => {
               variant="h2"
               sx={{
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'success.main',
                 // fontSize: { xs: '2rem', sm: '3rem', md: '4.5rem' },
               }}
             >
@@ -56,7 +57,7 @@ const Statistics = () => {
               sx={{
                 height: '50px',
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'primary.contrastText',
                 // fontSize: { xs: '1.5rem', sm: '2.5rem', md: '3rem' },
               }}
             >
@@ -66,7 +67,7 @@ const Statistics = () => {
               variant="h2"
               sx={{
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'success.main',
                 // fontSize: { xs: '2rem', sm: '3rem', md: '4.5rem' },
               }}
             >
@@ -77,7 +78,7 @@ const Statistics = () => {
               sx={{
                 height: '50px',
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'primary.contrastText',
                 // fontSize: { xs: '1.5rem', sm: '2.5rem', md: '3rem' },
               }}
             >
@@ -87,7 +88,7 @@ const Statistics = () => {
               variant="h2"
               sx={{
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'success.main',
                 // fontSize: { xs: '2rem', sm: '3rem', md: '4.5rem' },
               }}
             >
@@ -97,7 +98,7 @@ const Statistics = () => {
               variant="h4"
               sx={{
                 display: 'flex',
-                color: '#FF5C58',
+                color: 'primary.contrastText',
                 // fontSize: { xs: '1.5rem', sm: '2.5rem', md: '3rem' },
               }}
             >

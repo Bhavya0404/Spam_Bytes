@@ -11,7 +11,7 @@ const HowDoWeFunction = () => {
         marginTop: { md: '30px', xs: 0 },
         display: 'flex',
         justifyContent: 'space-between',
-        backgroundColor: 'rgba(254, 143, 143, 0.4)',
+        backgroundColor: 'primary.main',
       }}
     >
       {/* left */}
@@ -59,6 +59,7 @@ const HowDoWeFunction = () => {
 
               display: 'flex',
               alignItems: 'center',
+              color: 'primary.contrastText',
               // fontSize: { xs: '80px' },
               marginBottom: '20px',
             }}
@@ -67,7 +68,11 @@ const HowDoWeFunction = () => {
           </Typography>
           <Typography
             variant="h5"
-            sx={{ width: { md: '80%', xs: '100%' }, height: '80%' }}
+            sx={{
+              width: { md: '80%', xs: '100%' },
+              height: '80%',
+              color: 'primary.contrastText',
+            }}
           >
             lPENCiL (Platform for Effective Enforcement for No Child Labour) an
             electronic platform for effective enforcement for no child labour

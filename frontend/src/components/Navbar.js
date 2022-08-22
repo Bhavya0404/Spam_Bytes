@@ -69,7 +69,7 @@ function DrawerAppBar(props) {
           width: '100%',
           height: '8vh',
           position: 'relative',
-          backgroundColor: 'rgba(255, 237, 211, 0.4)',
+          backgroundColor: '#E3ECF3',
         }}
       >
         <Toolbar
@@ -114,12 +114,16 @@ function DrawerAppBar(props) {
             ))}
             <Box>
               <Link to="/login" style={{ textDecoration: 'none' }}>
-                <Button variant="contained" size="large">
+                <Button variant="contained" color="primary" size="large">
                   Login
                 </Button>
               </Link>
-              <Link to="/register" style={{ textDecoration: 'none' }}>
-                <Button variant="outlined" size="large">
+              <Link
+                to="/register"
+                color="success"
+                style={{ textDecoration: 'none' }}
+              >
+                <Button variant="outlined" color="primary" size="large">
                   Signup
                 </Button>
               </Link>

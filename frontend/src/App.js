@@ -42,16 +42,21 @@ function App() {
   let globalTheme = createTheme({
     palette: {
       primary: {
-        main: '#FF5C58',
-        contrastText: '#FFEDD3',
+        main: '#192F4D',
+        contrastText: '#E3ECF3',
       },
       secondary: {
-        main: '#FE8F8F',
+        main: '#457B9D',
+        // light: '#E3ECF3',
         contrastText: '#000',
       },
       text: {
-        primary: '#FF5C58',
-        secondary: '#FE8F8F',
+        primary: '#192F4D',
+        secondary: '#457B9D',
+      },
+      success: {
+        main: '#F9C80E',
+        contrastText: '#E3ECF3',
       },
     },
     typography: {
