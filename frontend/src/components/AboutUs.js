@@ -72,7 +72,7 @@ const AboutUs = () => {
             About us
           </Typography>
           <Typography
-            variant="body1"
+            variant="body2"
             sx={{
               width: '100%',
               height: { md: '69%', xs: '70%' },
