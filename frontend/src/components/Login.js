@@ -113,7 +113,7 @@ const Login = ({ onChange }) => {
                 }}
               >
                 <Typography
-                  variant="h4"
+                  variant="h3"
                   component="p"
                   sx={{
                     fontWeight: 700,

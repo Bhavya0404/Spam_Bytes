@@ -67,7 +67,7 @@ const HowDoWeFunction = () => {
             How do we function
           </Typography>
           <Typography
-            variant="body1"
+            variant="body2"
             sx={{
               width: { md: '80%', xs: '100%' },
               height: '80%',
