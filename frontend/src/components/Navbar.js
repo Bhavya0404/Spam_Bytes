@@ -19,7 +19,7 @@ import theme from '../theme/globalTheme'
 import { Container } from '@mui/system'
 import { TextField, ThemeProvider } from '@mui/material'
 
-import logo from '../assets/images/logo.png'
+import logo from '../assets/images/logoblue.png'
 
 const drawerWidth = 240
 const navItems = ['Districts', 'Policy', 'Acts', 'NCLP', 'Guildlines']
