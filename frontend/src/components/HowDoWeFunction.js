@@ -46,14 +46,14 @@ const HowDoWeFunction = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: { xs: 'center', lg: 'flex-start' },
             marginLeft: { md: '100px', xs: 0 },
 
             // alignItems: 'center',
           }}
         >
           <Typography
-            variant="h3"
+            variant="h2"
             sx={{
               height: { md: '40%', xs: '20%' },
 
@@ -67,7 +67,7 @@ const HowDoWeFunction = () => {
             How do we function
           </Typography>
           <Typography
-            variant="h5"
+            variant="body1"
             sx={{
               width: { md: '80%', xs: '100%' },
               height: '80%',

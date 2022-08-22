@@ -106,7 +106,7 @@ function DrawerAppBar(props) {
                   key={item}
                   sx={{ color: 'black', textDecoration: 'none' }}
                 >
-                  <Typography variant="h5" sx={{ fontSize: { sm: '20px' } }}>
+                  <Typography variant="body1" sx={{ fontSize: { sm: '20px' } }}>
                     {item}
                   </Typography>
                 </Button>

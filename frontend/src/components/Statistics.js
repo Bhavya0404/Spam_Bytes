@@ -43,7 +43,7 @@ const Statistics = () => {
             </Typography>
 
             <Typography
-              variant="h2"
+              variant="subtitle1"
               sx={{
                 display: 'flex',
                 color: 'success.main',
@@ -53,7 +53,7 @@ const Statistics = () => {
               2500
             </Typography>
             <Typography
-              variant="h4"
+              variant="subtitle2"
               sx={{
                 height: '50px',
                 display: 'flex',
@@ -64,7 +64,7 @@ const Statistics = () => {
               Reported Cases
             </Typography>
             <Typography
-              variant="h2"
+              variant="subtitle1"
               sx={{
                 display: 'flex',
                 color: 'success.main',
@@ -74,7 +74,7 @@ const Statistics = () => {
               2500
             </Typography>
             <Typography
-              variant="h4"
+              variant="subtitle2"
               sx={{
                 height: '50px',
                 display: 'flex',
@@ -85,7 +85,7 @@ const Statistics = () => {
               Nodal Officers Appointed
             </Typography>
             <Typography
-              variant="h2"
+              variant="subtitle1"
               sx={{
                 display: 'flex',
                 color: 'success.main',
@@ -95,7 +95,7 @@ const Statistics = () => {
               2500
             </Typography>
             <Typography
-              variant="h4"
+              variant="subtitle2"
               sx={{
                 display: 'flex',
                 color: 'primary.contrastText',
