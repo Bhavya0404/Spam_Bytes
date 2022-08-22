@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React from 'react'
 import leftImage from '../assets/images/Rectangle_44.png'
-import rightImmg from '../assets/images/aboutUsKid.png'
+import rightImmg from '../assets/images/aboutKid.svg'
 const AboutUs = () => {
   return (
     <Box
@@ -20,7 +20,7 @@ const AboutUs = () => {
         sx={{
           minHeight: { xs: '70%' },
           maxWidth: { md: '50%', xs: '100%' },
-          height: { md: '80vh', xs: '100%' },
+          height: { md: 'auto', xs: '100%' },
 
           width: { md: '50%', xs: '100%' },
           position: 'relative',
@@ -60,12 +60,12 @@ const AboutUs = () => {
         >
           <Typography
             variant="h1"
-            color="primary.contrastText"
             sx={{
               height: { md: '20%', xs: '10%' },
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              color: { lg: 'primary.contrastText', xs: 'primary.main' },
               fontSize: { xs: '60px', sm: '70px', md: '80px' },
             }}
           >
@@ -78,6 +78,7 @@ const AboutUs = () => {
               height: { md: '69%', xs: '70%' },
               display: 'flex',
               justifyContent: 'center',
+              color: { md: 'primary.contrastText', xs: 'primary.main' },
             }}
           >
             PENCiL (Platform for Effective Enforcement for No Child Labour) an
