@@ -93,16 +93,20 @@ const ChildDetails = ({ ngo = false }) => {
   useEffect(() => {
     const getPayoutData = async () => {
       const pData = [];
-      if (!childData?.payouts) return;
-      for (const childPayoutId of childData.payouts) {
-        const headers = {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        };
-        const resp = await axios.get(
-          `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`,
-          { headers }
-        );
-        pData.push(resp?.data);
+      try {
+        if (!childData?.payouts) return;
+        for (const childPayoutId of childData.payouts) {
+          const headers = {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          };
+          const resp = await axios.get(
+            `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`,
+            { headers }
+          );
+          pData.push(resp?.data);
+        }
+      } catch (err) {
+        console.error(err);
       }
       setPayoutData(pData);
       setPayoutLoading(false);
@@ -565,7 +569,7 @@ const ChildDetails = ({ ngo = false }) => {
                         alt={childData?.name}
                         src={
                           childData?.img
-                            ? `data:image/png;base64, ${childData?.img}`
+                            ? `${childData?.img}`
                             : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
                         }
                         style={{

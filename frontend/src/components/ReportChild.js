@@ -21,8 +21,30 @@ const ReportChild = () => {
   const [email, setEmail] = useState("");
   const [pNo, setPnO] = useState("");
 
-  // const status = useSelector(getFoundChildStatus);
-  // const foundChildData = useSelector(selectFoundChild);
+  const [canSubmit, setCanSubmit] = useState(true);
+
+  const handleUpload = (e) => {
+    setCanSubmit(false);
+    const val = e.target.files[0];
+    const promise = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(val);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+    });
+    promise
+      .then((res) => {
+        toast.success("Image Uploaded");
+        setImg(res);
+        setCanSubmit(true);
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error(err);
+        setCanSubmit(true);
+      });
+    
+  };
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -218,18 +240,7 @@ const ReportChild = () => {
               component="label"
               type="file"
               value={img}
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  const reader = new FileReader();
-                  reader.onload = (rEvent) => {
-                    const bString = rEvent.target.result;
-                    setImg(btoa(bString));
-                  };
-                  reader.readAsBinaryString(file);
-                }
-                console.log(img);
-              }}
+              onChange={handleUpload}
             >
               Upload Image
               <input hidden accept="image/*" multiple type="file" />
@@ -237,6 +248,7 @@ const ReportChild = () => {
             <Button
               onClick={handleReportChild}
               size="large"
+              disabled={!canSubmit}
               sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
               variant="contained"
             >

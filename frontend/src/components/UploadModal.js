@@ -31,14 +31,19 @@ const UploadModal = ({
   const navigate = useNavigate();
   const handleUpload = async () => {
     const data = { img: imageFile };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     try {
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${id}`,
-        data
+        data,
+        { headers }
       );
       toast.success(resp?.data?.message);
     } catch (err) {
       console.error(err);
+      alert(err);
       toast.error(err?.response?.data?.message);
     }
     handleClose();

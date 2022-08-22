@@ -32,8 +32,6 @@ const ComplaintStatus = ({ heading, createBtn }) => {
   const [childData, setChildData] = useState({});
   const foundChildData = useSelector(selectFoundChild);
 
-  // const error = useSelector(getFoundChildError);
-
   const getChildData = () => {
     setChildData(foundChildData.find((child) => child._id === complaintNo));
     setCdHidden(false);
