@@ -10,11 +10,13 @@ const {
   login,
   modifyProfile,
 } = require("../controller/auth");
+const userSchema = require("../model/userSchema");
 
 const router = express.Router();
 router.post("/login", login);
-router.get("/", isAuthenticated, (req, res) => {
-  const user = req?.user;
+router.get("/", isAuthenticated, async (req, res) => {
+  const user = await userSchema.findById(req?.user?._id).exec();
+  
   return res.status(200).send({ user });
 });
 router.post("/register", registerUser);
