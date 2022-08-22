@@ -53,13 +53,13 @@ const HowDoWeFunction = () => {
           }}
         >
           <Typography
-            variant="h1"
+            variant="h3"
             sx={{
               height: { md: '40%', xs: '20%' },
 
               display: 'flex',
               alignItems: 'center',
-              fontSize: { xs: '80px' },
+              // fontSize: { xs: '80px' },
               marginBottom: '20px',
             }}
           >

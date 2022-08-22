@@ -27,14 +27,19 @@ import NCLP from './components/NCLP'
 import Acts from './components/Acts'
 import Logout from './components/Logout'
 import { Toaster } from 'react-hot-toast'
-import { Box, createTheme, ThemeProvider } from '@mui/material'
+import {
+  Box,
+  createTheme,
+  responsiveFontSizes,
+  ThemeProvider,
+} from '@mui/material'
 import AnimatedRoutes from './components/AnimatedRoutes'
 import UserProfile from './components/UserProfile'
 
 function App() {
   const location = useLocation()
 
-  const globalTheme = createTheme({
+  let globalTheme = createTheme({
     palette: {
       primary: {
         main: '#FF5C58',
@@ -52,17 +57,25 @@ function App() {
     typography: {
       fontFamily: 'Bebas Neue',
       h1: {
-        letterSpacing: '2rem',
+        letterSpacing: '1.5rem',
+        '@media (max-width:600px )': {
+          letterSpacing: 0,
+        },
       },
       h2: {
         letterSpacing: '1rem',
+        fontSize: '70px',
+      },
+      h3: {
+        letterSpacing: '0.7rem',
+        fontSize: '60px',
       },
       button: {
         fontFamily: 'Bebas Neue',
       },
     },
   })
-
+  globalTheme = responsiveFontSizes(globalTheme)
   return (
     <ThemeProvider theme={globalTheme}>
       <Box
