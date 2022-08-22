@@ -31,7 +31,6 @@ const AboutUs = () => {
         }}
       >
         <Box
-          component="img"
           sx={{
             width: { md: '90%', xs: 'auto' },
             height: { md: '90%' },
@@ -39,8 +38,11 @@ const AboutUs = () => {
             display: { md: 'flex', xs: 'none' },
             justifyContent: 'center',
             alignItems: 'center',
+            backgroundColor: 'primary.main',
+            borderRadius: 20,
+            zIndex: -1,
           }}
-          src={leftImage}
+          // src={leftImage}
         ></Box>
         <Container
           sx={{
@@ -53,10 +55,12 @@ const AboutUs = () => {
             alignContent: 'center',
             marginLeft: { md: '4%' },
             // alignItems: 'center',
+            color: 'primary.contrastText',
           }}
         >
           <Typography
             variant="h1"
+            color="primary.contrastText"
             sx={{
               height: { md: '20%', xs: '10%' },
               display: 'flex',
