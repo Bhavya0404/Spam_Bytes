@@ -61,6 +61,7 @@ export const MiddleNavbar = () => {
                 // color: "black",
                 fontSize: { xs: '1rem', md: '1.1rem', lg: '1.3', xl: '1.4' },
                 mt: '15px',
+                color: 'secondary.contrastText',
               }}
             >
               File a Complaint
@@ -82,6 +83,7 @@ export const MiddleNavbar = () => {
               width: '100%',
               height: '100%',
               backgroundColor: 'secondary.main',
+              color: 'secondary.contrastText',
               // background: 'rgba(254, 143, 143, 0.7)',
               display: 'flex',
               flexDirection: 'column',
@@ -102,6 +104,7 @@ export const MiddleNavbar = () => {
               variant="h4"
               sx={{
                 // color: "black",
+                color: 'secondary.contrastText',
                 fontSize: { xs: '1rem', md: '1rem', lg: '1.3', xl: '1.4' },
                 mt: '15px',
               }}
@@ -146,6 +149,7 @@ export const MiddleNavbar = () => {
               sx={{
                 // color: "black",
                 fontSize: { xs: '1rem', md: '1rem', lg: '1.3', xl: '1.4' },
+                color: 'secondary.contrastText',
                 mt: '15px',
               }}
             >
@@ -176,9 +180,11 @@ export const MiddleNavbar = () => {
             }}
           >
             <Box
+            
               component="img"
               sx={{
                 width: { xs: '15%', sm: '45%' },
+                
                 height: '45%',
               }}
               src={conferenceImg}
@@ -190,6 +196,7 @@ export const MiddleNavbar = () => {
                 // color: "black",
                 fontSize: { xs: '1rem', md: '1rem', lg: '1.3', xl: '1.4' },
                 mt: '15px',
+                color: 'secondary.contrastText',
               }}
             >
               Conference

@@ -48,7 +48,7 @@ function App() {
       secondary: {
         main: '#457B9D',
         // light: '#E3ECF3',
-        contrastText: '#000',
+        contrastText: '#E3ECF3',
       },
       text: {
         primary: '#192F4D',
@@ -75,8 +75,31 @@ function App() {
         letterSpacing: '0.7rem',
         fontSize: '60px',
       },
+      subtitle1: {
+        fontSize: '40px',
+        fontFamily: 'Montserrat',
+      },
+      subtitle2: {
+        fontSize: '35px',
+
+        fontFamily: 'Montserrat',
+      },
+      body1: {
+        fontSize: '30px',
+        fontFamily: 'Montserrat',
+      },
+      body2: {
+        fontSize: '25px',
+        fontFamily: 'Montserrat',
+      },
+      caption: {
+        fontFamily: 'Montserrat',
+      },
+      overline: {
+        fontFamily: 'Montserrat',
+      },
       button: {
-        fontFamily: 'Bebas Neue',
+        fontFamily: 'Montserrat',
       },
     },
   })
