@@ -140,7 +140,7 @@ const NodalProfile = () => {
                   </TableRow>
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                    <TableCell>{userData?.user?.email}</TableCell>
+                    <TableCell>{userData?.email}</TableCell>
                     <TableCell sx={{ fontWeight: "bold" }}>Password</TableCell>
                     <TableCell
                       sx={{
@@ -192,17 +192,9 @@ const NodalProfile = () => {
                     <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
                     <TableCell colSpan={3}>{userData?.name}</TableCell>
                   </TableRow>
-                  {/* <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold' }}>State</TableCell>
-                      <TableCell>{userData?.state}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 'bold' }}>District</TableCell>
-                      <TableCell>{userData?.district}</TableCell>
-                    </TableRow> */}
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>Email</TableCell>
-                    <TableCell>{userData?.user?.email}</TableCell>
+                    <TableCell>{userData?.email}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell sx={{ fontWeight: "bold" }}>Password</TableCell>
@@ -215,7 +207,7 @@ const NodalProfile = () => {
                         justifyContent: "center",
                       }}
                     >
-                      <Typography>*************</Typography>
+                      <Typography>*****************</Typography>
                       <Button
                         onClick={() => setPasswordModalOpen(true)}
                         type="text"

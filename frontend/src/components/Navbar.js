@@ -67,7 +67,7 @@ function DrawerAppBar(props) {
         component="nav"
         sx={{
           width: '100%',
-          height: '8vh',
+          height: 'auto',
           position: 'relative',
           backgroundColor: '#E3ECF3',
         }}
@@ -90,7 +90,7 @@ function DrawerAppBar(props) {
           </IconButton>
           <Box>
             <Link to="/">
-              <Box component="img" sx={{ height: '90px' }} src={logo}></Box>
+              <Box component="img" sx={{ height: '65px', objectFit: 'contain' }} src={logo}></Box>
             </Link>
           </Box>
           <Box

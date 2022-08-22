@@ -90,7 +90,7 @@ const HeroSection = () => {
               justifyContent: 'center',
             }}
           >
-            <Typography variant="h1">Pencil</Typography>
+            <Typography variant="h1">PENCIL</Typography>
             <Typography variant="subtitle1">
               (Platform for Effective Enforcement for No Child Labour)
             </Typography>

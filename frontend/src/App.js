@@ -60,7 +60,7 @@ function App() {
       },
     },
     typography: {
-      fontFamily: 'Bebas Neue',
+      fontFamily: 'Poppins',
       h1: {
         letterSpacing: '1.5rem',
         '@media (max-width:600px )': {
@@ -69,41 +69,41 @@ function App() {
       },
       h2: {
         letterSpacing: '1rem',
-        fontSize: '70px',
+        fontSize: '60px',
       },
       h3: {
         letterSpacing: '0.7rem',
-        fontSize: '60px',
+        fontSize: '50px',
       },
       h6: {
-        fontSize: '26px',
-        fontFamily: 'Montserrat',
+        fontSize: '20px',
+        fontFamily: 'Poppins',
       },
       subtitle1: {
-        fontSize: '30px',
-        fontFamily: 'Montserrat',
+        fontSize: '25px',
+        fontFamily: 'Poppins',
       },
       subtitle2: {
-        fontSize: '28px',
+        fontSize: '23px',
 
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
       },
       body1: {
         fontSize: '16px',
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
       },
       body2: {
-        fontSize: '18px',
-        fontFamily: 'Montserrat',
+        fontSize: '14px',
+        fontFamily: 'Poppins',
       },
       caption: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
       },
       overline: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
       },
       button: {
-        fontFamily: 'Montserrat',
+        fontFamily: 'Poppins',
       },
     },
   })

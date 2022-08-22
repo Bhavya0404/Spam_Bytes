@@ -4,7 +4,6 @@ import {
   getUsersError,
   getUsersStatus,
   selectAllUsers,
-  selectUserById,
 } from './usersSlice'
 
 const AllUser = () => {

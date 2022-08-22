@@ -33,17 +33,11 @@ function refresh() {
 
 const NodalDashboard = () => {
   refresh()
-
   const navigate = useNavigate()
-
   const statusFoundChild = useSelector(getFoundChildStatus)
   const foundChildData = useSelector(selectFoundChild)
-  // const errorFoundChild = useSelector(getFoundChildError);
-
   const statusNodal = useSelector(getNodalStatus)
   const nodalData = useSelector((state) => getNodal(state))
-  // const errorNodal = useSelector(getNodalError);
-
   const [childData, setChildData] = useState([])
 
   useEffect(() => {

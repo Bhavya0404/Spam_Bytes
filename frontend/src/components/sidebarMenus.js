@@ -1,32 +1,24 @@
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import SettingsIcon from '@mui/icons-material/Settings'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import LogoutIcon from '@mui/icons-material/Logout'
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import LogoutIcon from "@mui/icons-material/Logout";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 const menus = {
   user: {
-    header: 'User Dashboard',
-    nSections: 2,
+    header: "User Dashboard",
+    nSections: 1,
     sectionList: [
       [
         {
-          label: 'All Reported Children',
+          label: "All Reported Children",
           Icon: FormatListNumberedIcon,
-          link: '/in',
+          link: "/in",
         },
         {
-          label: 'User Profile',
+          label: "User Profile",
           Icon: AccountCircleIcon,
-          link: '/user/profile',
-        },
-      ],
-      [
-        {
-          label: 'Settings',
-          Icon: SettingsIcon,
-          link: '/in',
+          link: "/user/profile",
         },
       ],
     ],
@@ -37,55 +29,55 @@ const menus = {
     sectionList: [
       [
         {
-          label: 'Dashboard',
+          label: "Dashboard",
           Icon: DashboardIcon,
-          link: '/admin/',
+          link: "/admin/",
         },
       ],
       [
         {
           label: "Officer's Profile",
           Icon: AccountCircleIcon,
-          link: '/admin/profile',
+          link: "/admin/profile",
         },
         {
-          label: 'Logout',
+          label: "Logout",
           Icon: LogoutIcon,
-          link: '/logout',
+          link: "/logout",
         },
       ],
     ],
   },
   ngo: {
-    header: 'NGO Dashboard',
+    header: "NGO Dashboard",
     nSections: 2,
     sectionList: [
       [
         {
-          label: 'Dashboard',
+          label: "Dashboard",
           Icon: DashboardIcon,
-          link: '/ngo/',
+          link: "/ngo/",
         },
       ],
       [
         {
-          label: 'All Child',
+          label: "All Child",
           Icon: FormatListBulletedIcon,
           link: null,
         },
         {
-          label: 'Accepted Child',
+          label: "Accepted Child",
           Icon: AccountCircleIcon,
           link: null,
         },
         {
-          label: 'Logout',
+          label: "Logout",
           Icon: LogoutIcon,
-          link: '/logout',
+          link: "/logout",
         },
       ],
     ],
   },
-}
+};
 
-export default menus
+export default menus;
