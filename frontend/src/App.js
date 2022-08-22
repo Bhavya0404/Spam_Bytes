@@ -80,16 +80,16 @@ function App() {
         fontFamily: 'Montserrat',
       },
       subtitle2: {
-        fontSize: '25px',
+        fontSize: '28px',
 
         fontFamily: 'Montserrat',
       },
       body1: {
-        fontSize: '30px',
+        fontSize: '27px',
         fontFamily: 'Montserrat',
       },
       body2: {
-        fontSize: '20px',
+        fontSize: '25px',
         fontFamily: 'Montserrat',
       },
       caption: {
