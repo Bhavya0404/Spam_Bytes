@@ -75,6 +75,10 @@ function App() {
         letterSpacing: '0.7rem',
         fontSize: '60px',
       },
+      h6: {
+        fontSize: '26px',
+        fontFamily: 'Montserrat',
+      },
       subtitle1: {
         fontSize: '30px',
         fontFamily: 'Montserrat',
@@ -85,11 +89,11 @@ function App() {
         fontFamily: 'Montserrat',
       },
       body1: {
-        fontSize: '20px',
+        fontSize: '16px',
         fontFamily: 'Montserrat',
       },
       body2: {
-        fontSize: '26px',
+        fontSize: '18px',
         fontFamily: 'Montserrat',
       },
       caption: {
