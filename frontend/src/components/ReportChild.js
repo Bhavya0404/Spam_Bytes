@@ -204,7 +204,12 @@ const ReportChild = () => {
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
-          {!isAnon && (
+
+          <FormControlLabel
+            label="Report Anonymously"
+            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
+          />
+          {isAnon && (
             <>
               <TextField
                 required
@@ -226,10 +231,6 @@ const ReportChild = () => {
               />
             </>
           )}
-          <FormControlLabel
-            label="Report Anonymously"
-            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
-          />
 
           <Button
             variant="contained"
