@@ -16,7 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ComplaintStatus from "../../components/ComplaintStatus";
 import sidebarMenus from "../../components/sidebarMenus";
 import { useNavigate } from "react-router-dom";
-
+import { selectFoundChild } from "../foundchild/FoundChildSlice";
 const uTypes = {
   IN: "Individual",
   ADMIN: "Nodal Officer",
@@ -32,10 +32,16 @@ function refresh() {
 
 const UserDashboard = () => {
   const user = useSelector((state) => getUser(state));
+  const allChild = useSelector(selectFoundChild);
   const childByUser = useSelector((state) =>
     getFoundChildByUser(state, user?._id)
   );
 
+  const mail = user.email;
+  console.log(user.email)
+  allChild.forEach((child) => {
+    console.log(child)
+  })
   const navigate = useNavigate();
 
   refresh();
