@@ -605,7 +605,7 @@ const ChildDetails = ({ ngo = false }) => {
                           </TableRow>
                           <TableRow>
                             <TableCell>
-                              <ControlledAccordions/>
+                              <ControlledAccordions childData={childData}/>
                             </TableCell>
                           </TableRow>
                         </TableBody>
