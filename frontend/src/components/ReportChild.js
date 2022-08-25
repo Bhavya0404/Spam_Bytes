@@ -186,6 +186,7 @@ const ReportChild = () => {
               width: { lg: '60%', xs: '100%' },
               height: { lg: '100%', xs: 'auto' },
               backgroundColor: 'secondary.light',
+              borderRadius: '0 20px 20px 0',
             }}
           >
             <Container

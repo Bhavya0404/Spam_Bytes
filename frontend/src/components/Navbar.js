@@ -32,13 +32,15 @@ function DrawerAppBar(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        <img src={logo} alt="logo" />
-      </Typography>
+      <Box component="img" src={logo} sx={{ height: '50px' }} />
       <Divider variant="middle" />
-      <List>
+      <List sx={{ display: 'flex', flexDirection: 'column' }}>
         {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+          <ListItem
+            key={item}
+            disablePadding
+            sx={{ textDecoration: 'none', justifyContent: 'center' }}
+          >
             <ListItemButton
               sx={{ textAlign: 'center', textDecoration: 'none' }}
             >
