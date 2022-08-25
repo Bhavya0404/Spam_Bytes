@@ -27,8 +27,7 @@ const HomePage = () => {
         }}
       >
         {/* footer */}
-
-        <Map />
+        {/* <Map /> */}
         {/* footer */}
       </Box>
     </div>
