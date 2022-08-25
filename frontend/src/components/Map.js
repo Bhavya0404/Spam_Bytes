@@ -36,8 +36,12 @@ function Map() {
     worldSeries.mapPolygons.template.events.on('click', async (ev) => {
       var dataItem = ev.target.dataItem
       var data = dataItem.dataContext
-      console.log(data.name)
-      const resp = await axios.post('http://localhost:5000/stats/map', {state: data.name})
+
+      console.log(data)
+      window.location = `/state/${data?.name
+        .toLowerCase()
+        .split(' ')
+        .join('-')}`
     })
     var countrySeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
@@ -60,7 +64,7 @@ function Map() {
     }
   }, [])
 
-  return <div id="mapdiv" style={{ width: '800px', height: '600px' }}></div>
+  return <div id="mapdiv" style={{ width: '80%', height: '70%' }}></div>
 }
 
 export default Map

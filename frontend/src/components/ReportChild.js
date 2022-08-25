@@ -231,7 +231,9 @@ const ReportChild = () => {
           <TextField
             fullWidth
             sx={{ mt: "20px" }}
-            id="outlined-required"
+            id="outlined-multiline-static"
+            multiline
+            rows={4}
             label="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

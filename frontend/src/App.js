@@ -45,6 +45,12 @@ function App() {
 
   let globalTheme = createTheme({
     palette: {
+      common:{
+        black:'#000',
+        white:'#fff',
+
+      },
+      
       primary: {
         main: '#023e8a',
         dark: '#03045e',
