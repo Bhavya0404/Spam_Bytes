@@ -168,13 +168,18 @@ const Login = ({ onChange }) => {
                   />
 
                   <FormLabel id="userType" sx={{ marginTop: '20px' }}>
-                    Login as
+                    <Typography variant="subtitle2">Login as</Typography>
                   </FormLabel>
                   <RadioGroup
                     row
                     aria-labelledby="userType"
                     name="userTypeBut"
                     defaultValue="IN"
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      flexDirection: 'row',
+                    }}
                   >
                     <FormControlLabel
                       value="IN"
@@ -196,9 +201,20 @@ const Login = ({ onChange }) => {
                     />
                   </RadioGroup>
                 </FormControl>
-                <Button onClick={() => navigate('/forgotpassword')}>
-                  Forgot Password or Change password
-                </Button>
+                <Box
+                  sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                  }}
+                >
+                  <Button
+                    onClick={() => navigate('/forgotpassword')}
+                    sx={{ width: '50%', justifyContent: 'flex-end' }}
+                  >
+                    Forgot Password or Change password
+                  </Button>
+                </Box>
                 <Button
                   size="large"
                   variant="contained"
