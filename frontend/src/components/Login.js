@@ -16,7 +16,7 @@ import {
   RadioGroup,
 } from '@mui/material'
 import toast from 'react-hot-toast'
-
+import loginLogo from '../assets/images/loginFinal.svg'
 import Navbar from './Navbar'
 
 const Login = ({ onChange }) => {
@@ -32,11 +32,9 @@ const Login = ({ onChange }) => {
     setUserType(event.target.value)
   }
 
-
   const handleLogin = async () => {
     setEmailError(false)
     setPasswordError(false)
-    
 
     if (!email) {
       setEmailError(true)
@@ -46,8 +44,6 @@ const Login = ({ onChange }) => {
     if (!password) {
       setPasswordError(true)
       return
-
-  
     }
 
     try {
@@ -74,7 +70,7 @@ const Login = ({ onChange }) => {
   return (
     <div>
       <Navbar />
-      <Box
+      {/* <Box
       sx={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -112,17 +108,99 @@ const Login = ({ onChange }) => {
                   m: 'auto',
                 }}
               >
-                <Typography
-                  variant="h3"
-                  component="p"
-                  sx={{
-                    fontWeight: 700,
-                    mb: 7,
-                    fontSize: { xs: 25, sm: 35 },
-                  }}
-                >
-                  Welcome back
-                </Typography>
+               
+                
+              </Container>
+            </Grid>
+
+            <Grid
+              item
+              sm={5}
+              xs={12}
+              sx={{ display: { xs: 'none', lg: 'block' } }}
+            >
+              <Typography
+                variant="h4"
+                component="div"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: '#f5af19',
+                  height: '65vh',
+                  textAlign: 'center',
+                  color: 'white',
+                }}
+              >
+                Please LogIn
+              </Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+    
+    </Box> */}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            width: '80%',
+            height: { lg: '80%', xs: 'auto' },
+            marginTop: '100px',
+            display: 'flex',
+          }}
+        >
+          {/* for lg */}
+
+          <Box
+            sx={{
+              width: { lg: '40%' },
+              height: '100%',
+              backgroundColor: 'secondary.main',
+              display: { lg: 'flex', xs: 'none' },
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px 0 0 20px',
+            }}
+          >
+            <Box
+              component="img"
+              src={loginLogo}
+              sx={{ width: '70%', height: 'auto' }}
+            />
+          </Box>
+          <Box
+            sx={{
+              width: { lg: '60%', xs: '100%' },
+              height: { lg: '100%', xs: 'auto' },
+              backgroundColor: 'secondary.light',
+              borderRadius: '0 20px 20px 0',
+            }}
+          >
+            <Container
+              sx={{
+                padding: '5%',
+                width: { xs: '100%', md: '80%' },
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <Typography variant="h3">Welcome back</Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-evenly',
+                  height: '80%',
+                }}
+              >
                 <FormControl>
                   <TextField
                     sx={{
@@ -199,35 +277,11 @@ const Login = ({ onChange }) => {
                 >
                   LOGIN
                 </Button>
-              </Container>
-            </Grid>
-
-            <Grid
-              item
-              sm={5}
-              xs={12}
-              sx={{ display: { xs: 'none', lg: 'block' } }}
-            >
-              <Typography
-                variant="h4"
-                component="div"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f5af19',
-                  height: '65vh',
-                  textAlign: 'center',
-                  color: 'white',
-                }}
-              >
-                Please LogIn
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-    
-    </Box>
+              </Box>
+            </Container>
+          </Box>
+        </Box>
+      </Box>
     </div>
   )
 }
