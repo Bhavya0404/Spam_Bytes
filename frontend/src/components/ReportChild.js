@@ -43,7 +43,6 @@ const ReportChild = () => {
         toast.error(err);
         setCanSubmit(true);
       });
-    
   };
 
   useEffect(() => {
@@ -133,130 +132,127 @@ const ReportChild = () => {
       noValidate
       autoComplete="off"
     >
-      
-        <Paper
-          elevation={12}
+      <Paper
+        elevation={12}
+        sx={{
+          width: { xs: "320px", sm: "500px", md: "550px" },
+          height: { xs: "650px", sm: "650px", md: "700px", lg: "750px" },
+          backgroundColor: "#FFFFFF",
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <Container
           sx={{
-            width: { xs: "320px", sm: "500px", md: "550px" },
-            height: { xs: "650px", sm: "650px", md: "700px", lg: "750px" },
-            backgroundColor: "#FFFFFF",
-            display: "flex",
-            alignItems: "center",
-            textAlign: "center",
+            width: { xs: "80%", md: "70%" },
+            height: "75%",
           }}
         >
-          <Container
+          <Typography
+            variant="h4"
+            component="p"
             sx={{
-              width: { xs: "80%", md: "70%" },
-              height: "75%",
+              fontWeight: 600,
+              mb: 5,
+              fontSize: { xs: 25, sm: 32 },
             }}
           >
-            <Typography
-              variant="h4"
-              component="p"
-              sx={{
-                fontWeight: 600,
-                mb: 5,
-                fontSize: { xs: 25, sm: 32 },
-              }}
-            >
-              Report Child
-            </Typography>
+            Report Child
+          </Typography>
 
-            <TextField
-              id="outlined-basic"
-              fullWidth
-              required
-              label="Name"
-              variant="outlined"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              required
-              fullWidth
-              sx={{ mt: "20px" }}
-              id="outlined-required"
-              label="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
+          <TextField
+            id="outlined-basic"
+            fullWidth
+            required
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            required
+            fullWidth
+            sx={{ mt: "20px" }}
+            id="outlined-required"
+            label="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
 
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="District"
-              value={district}
-              onChange={(e) => setDistrict(e.target.value)}
-            />
-            <TextField
-              required
-              fullWidth
-              id="outlined-required"
-              label="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-            <FormControlLabel
-              label="Report Anonymously"
-              control={
-                <Checkbox onChange={(e) => setIsAnon(e.target.checked)} />
-              }
-            />
-            {isAnon && (
-              <>
-                <TextField
-                  required
-                  fullWidth
-                  type="email"
-                  id="outlined-required"
-                  label="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                  required
-                  fullWidth
-                  type="tel"
-                  id="outlined-required"
-                  label="Phone Number"
-                  value={pNo}
-                  onChange={(e) => setPnO(e.target.value)}
-                />
-              </>
-            )}
-            <Button
-              variant="contained"
-              sx={{ mt: "2px", width: "50%" }}
-              component="label"
-              type="file"
-              value={img}
-              onChange={handleUpload}
-            >
-              Upload Image
-              <input hidden accept="image/*" multiple type="file" />
-            </Button>
-            <Button
-              onClick={handleReportChild}
-              size="large"
-              disabled={!canSubmit}
-              sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
-              variant="contained"
-            >
-              Submit
-            </Button>
-          </Container>
-        </Paper>
-  
+          <TextField
+            required
+            fullWidth
+            id="outlined-required"
+            label="Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <TextField
+            required
+            fullWidth
+            id="outlined-required"
+            label="District"
+            value={district}
+            onChange={(e) => setDistrict(e.target.value)}
+          />
+          <TextField
+            required
+            fullWidth
+            id="outlined-required"
+            label="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+          {!isAnon && (
+            <>
+              <TextField
+                required
+                fullWidth
+                type="email"
+                id="outlined-required"
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                required
+                fullWidth
+                type="tel"
+                id="outlined-required"
+                label="Phone Number"
+                value={pNo}
+                onChange={(e) => setPnO(e.target.value)}
+              />
+            </>
+          )}
+          <FormControlLabel
+            label="Report Anonymously"
+            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
+          />
+
+          <Button
+            variant="contained"
+            sx={{ mt: "2px", width: "50%" }}
+            component="label"
+            type="file"
+            value={img}
+            onChange={handleUpload}
+          >
+            Upload Image
+            <input hidden accept="image/*" multiple type="file" />
+          </Button>
+          <Button
+            onClick={handleReportChild}
+            size="large"
+            disabled={!canSubmit}
+            sx={{ mt: "30px", backgroundColor: "black", width: "70%" }}
+            variant="contained"
+          >
+            Submit
+          </Button>
+        </Container>
+      </Paper>
     </Box>
   );
 };
