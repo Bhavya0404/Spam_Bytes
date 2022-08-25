@@ -70,75 +70,7 @@ const Login = ({ onChange }) => {
   return (
     <div>
       <Navbar />
-      {/* <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        '& > :not(style)': {
-          m: 1,
-          mt: 7,
-          width: '65%',
-          height: '65vh',
-        },
-      }}
-    >
-   
-        <Paper
-          elevation={12}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Grid container spacing={2}>
-            <Grid
-              item
-              sm={7}
-              xs={12}
-              sx={{
-                my: { xs: 'auto' },
-              }}
-            >
-              <Container
-                sx={{
-                  alignSelf: 'center',
-                  width: '70%',
-                  m: 'auto',
-                }}
-              >
-               
-                
-              </Container>
-            </Grid>
 
-            <Grid
-              item
-              sm={5}
-              xs={12}
-              sx={{ display: { xs: 'none', lg: 'block' } }}
-            >
-              <Typography
-                variant="h4"
-                component="div"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: '#f5af19',
-                  height: '65vh',
-                  textAlign: 'center',
-                  color: 'white',
-                }}
-              >
-                Please LogIn
-              </Typography>
-            </Grid>
-          </Grid>
-        </Paper>
-    
-    </Box> */}
       <Box
         sx={{
           width: '100%',
@@ -178,7 +110,7 @@ const Login = ({ onChange }) => {
           <Box
             sx={{
               width: { lg: '60%', xs: '100%' },
-              height: { lg: '100%', xs: 'auto' },
+              height: { lg: '100%', xs: '70%' },
               backgroundColor: 'secondary.light',
               borderRadius: '0 20px 20px 0',
             }}
@@ -192,7 +124,9 @@ const Login = ({ onChange }) => {
                 flexDirection: 'column',
               }}
             >
-              <Typography variant="h3">Welcome back</Typography>
+              <Box sx={{ minHeight: 'auto' }}>
+                <Typography variant="h3">Welcome back</Typography>
+              </Box>
               <Box
                 sx={{
                   display: 'flex',
