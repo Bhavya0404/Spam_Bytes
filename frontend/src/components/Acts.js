@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Typography } from '@mui/material'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import { Box } from '@mui/material'
 import Container from '@mui/material/Container'
 import Navbar from './Navbar'
@@ -130,7 +130,7 @@ const Acts = () => {
     <div>
       <Navbar />
       <box>
-      <AnimatedRoutes>
+     
       <Container>
       <Box sx={{ 
         position: 'relative',
@@ -187,7 +187,7 @@ const Acts = () => {
         </TableContainer>
         </Box>
           </Container>
-      </AnimatedRoutes>
+    
     </box>
     </div>
   )

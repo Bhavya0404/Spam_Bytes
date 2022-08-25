@@ -19,7 +19,7 @@ import { useSelector } from "react-redux";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 import { getUser } from "../features/users/usersSlice";
 import { toast } from "react-hot-toast";
 
@@ -110,7 +110,7 @@ const NodalProfile = () => {
   };
   return (
     <div>
-      <AnimatedRoutes>
+  
         <Box
           sx={{
             display: "flex",
@@ -330,7 +330,7 @@ const NodalProfile = () => {
             </Box>
           </Modal>
         </Box>
-      </AnimatedRoutes>
+   
     </div>
   );
 };

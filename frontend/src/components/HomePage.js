@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Navbar from '../components/Navbar'
 import HeroSection from './HeroSection'
 import AboutUs from './AboutUs'
@@ -26,7 +26,7 @@ const HomePage = () => {
           flexDirection: 'column',
         }}
       >
-        <AnimatedRoutes>
+      
           <HeroSection />
           <MiddleNavbar />
           <Statistics />
@@ -121,7 +121,7 @@ const HomePage = () => {
           </Box>
 
           {/* footer */}
-        </AnimatedRoutes>
+        
         
         
       </Box>

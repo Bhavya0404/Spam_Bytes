@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import { Typography, FormControlLabel, Checkbox } from "@mui/material";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 import { toast } from "react-hot-toast";
 
 const ReportChild = () => {
@@ -133,7 +133,7 @@ const ReportChild = () => {
       noValidate
       autoComplete="off"
     >
-      <AnimatedRoutes>
+      
         <Paper
           elevation={12}
           sx={{
@@ -256,7 +256,7 @@ const ReportChild = () => {
             </Button>
           </Container>
         </Paper>
-      </AnimatedRoutes>
+  
     </Box>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Box } from '@mui/material'
@@ -8,7 +8,7 @@ import Navbar from './Navbar'
 const Districts = () => {
   return (
     <div>
-      <AnimatedRoutes>
+   
       <Navbar />
       <Container>
       <Box sx={{ 
@@ -83,7 +83,7 @@ Registration of the District Project Society under the Societies Registration Ac
         </p>
         </Box>
           </Container>
-      </AnimatedRoutes>
+    
     </div>
   )
 }

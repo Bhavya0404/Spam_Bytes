@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import AnimatedRoutes from './AnimatedRoutes'
+
 
 const ForgotPassword = () => {
   const navigate = useNavigate()
@@ -47,7 +47,7 @@ const ForgotPassword = () => {
         justifyContent: 'center',
       }}
     >
-      <AnimatedRoutes>
+      
         <Paper
           sx={{
             display: 'flex',
@@ -95,7 +95,7 @@ const ForgotPassword = () => {
             </Button>
           </Box>
         </Paper>
-      </AnimatedRoutes>
+     
     </Box>
   )
 }
