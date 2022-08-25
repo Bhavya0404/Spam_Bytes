@@ -13,6 +13,7 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import { Button } from '@mui/material'
 
+import {Container} from '@mui/material'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import SideBar from '../components/Sidebar'
@@ -57,7 +58,28 @@ const AllTickets = () => {
                 <TableRow>
                     <TableCell>Chotu Bacha</TableCell>
                     <TableCell>Chotu Bacha</TableCell>
-                    <TableCell>Chotu Bacha</TableCell>
+                    <TableCell>
+                                <Container
+                                  sx={{
+                                    padding: "3px",
+                                    borderRadius: "100px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    // backgroundColor: getColor(
+                                    //   payoutDataId?.status
+                                    // )[0],
+                                  }}
+                                >
+                                  <Typography
+                                    sx={{
+                                    //   color: getColor(payoutDataId?.status)[1],
+                                    }}
+                                  >
+                                    {/* {capitalize(payoutDataId?.status)} */}
+                                  </Typography>
+                                </Container>
+                              </TableCell>
                     <TableCell>
                     <Button
                       size="medium"
