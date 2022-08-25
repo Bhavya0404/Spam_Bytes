@@ -37,11 +37,36 @@ const UserDashboard = () => {
     getFoundChildByUser(state, user?._id)
   );
 
-  const mail = user.email;
-  console.log(user.email)
+  let mail = user.email;
+  let reportCount = 0;
+  let complaintResolved = 0;
+  let complaintVerified = 0;
+
   allChild.forEach((child) => {
-    console.log(child)
-  })
+    if (mail === child?.reportedBy?.email) {
+      reportCount++;
+    }
+
+    if (
+      mail === child?.reportedBy?.email &&
+      child?.isVerified &&
+      child?.isAccepted
+    ) {
+      complaintResolved++;
+    }
+
+    if (
+      mail === child?.reportedBy?.email &&
+      child?.isVerified 
+    ) {
+      complaintVerified++;
+    }
+  });
+
+  // allChild.forEach((child) => {
+    
+  // });
+
   const navigate = useNavigate();
 
   refresh();
@@ -134,7 +159,7 @@ const UserDashboard = () => {
                 Children Reported
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>{childByUser?.length}</strong>
+                <strong>{reportCount}</strong>
               </Typography>
             </CardContent>
           </Card>
@@ -147,10 +172,10 @@ const UserDashboard = () => {
           >
             <CardContent>
               <Typography sx={{ fontSize: 24 }} gutterBottom>
-                Complaints Resolved
+                Complaints Verified
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>0</strong>
+                <strong>{complaintVerified}</strong>
               </Typography>
             </CardContent>
           </Card>
@@ -165,7 +190,7 @@ const UserDashboard = () => {
                 Complaints Resolved
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>0</strong>
+                <strong>{complaintResolved}</strong>
               </Typography>
             </CardContent>
           </Card>
