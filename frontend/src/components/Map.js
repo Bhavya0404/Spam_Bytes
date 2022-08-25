@@ -38,10 +38,7 @@ function Map() {
       var data = dataItem.dataContext
 
       console.log(data)
-      window.location = `/state/${data?.name
-        .toLowerCase()
-        .split(' ')
-        .join('-')}`
+      
     })
     var countrySeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
