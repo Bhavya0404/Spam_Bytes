@@ -713,7 +713,7 @@ const ChildDetails = ({ ngo = false }) => {
                             </Button>
                           </>
                         )}
-                      {!!!childData?.rzp_fundAcId && (
+                      {!ngo && !!!childData?.rzp_fundAcId && (
                         <Button
                           variant="contained"
                           onClick={() => setAccountVisible(true)}
@@ -723,7 +723,7 @@ const ChildDetails = ({ ngo = false }) => {
                         </Button>
                       )}
 
-                      {!!!childData?.rzp_contactId && (
+                      {!ngo && !!!childData?.rzp_contactId && (
                         <Button
                           variant="contained"
                           onClick={() => handleCreateContact()}
