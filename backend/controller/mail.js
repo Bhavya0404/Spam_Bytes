@@ -124,6 +124,11 @@ const sendMailResetPassword = async (tot, subject, body) => {
     }
   });
 };
+
+
+
+module.exports = { sendMail, sendMailChild, sendMailResetPassword };
+
 module.exports = {
   sendMail,
   sendMailChild,

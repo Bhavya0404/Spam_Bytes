@@ -32,7 +32,7 @@ const Statistics = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: { lg: 'center', xs: 'space-evenly' },
-          alignItems: 'center',
+          alignItems: { xs: 'center', lg: 'flex-start' },
         }}
       >
         <Box

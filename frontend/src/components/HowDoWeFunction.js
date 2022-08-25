@@ -8,7 +8,7 @@ const HowDoWeFunction = () => {
       sx={{
         height: { md: '90vh', xs: 'auto' },
         width: '100%',
-        marginTop: { md: '30px', xs: 0 },
+        marginTop: { xs: 0 },
         display: 'flex',
         justifyContent: 'space-between',
         backgroundColor: 'primary.main',

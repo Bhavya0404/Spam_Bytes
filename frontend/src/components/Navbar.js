@@ -39,9 +39,11 @@ function DrawerAppBar(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton
+              sx={{ textAlign: 'center', textDecoration: 'none' }}
+            >
               <Link to={`/${item}`}>
-                <ListItemText primary={item} />
+                <ListItemText sx={{ textDecoration: 'none' }} primary={item} />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -66,8 +68,8 @@ function DrawerAppBar(props) {
         sx={{
           width: '100%',
           height: 'auto',
-          position: 'relative',
-          backgroundColor: '#E3ECF3',
+          position: 'absolute',
+          backgroundColor: 'primary.main',
         }}
       >
         <Toolbar
@@ -98,20 +100,33 @@ function DrawerAppBar(props) {
           <Box
             sx={{
               display: { xs: 'none', sm: 'none', lg: 'flex' },
+              width: { lg: '45%', md: '20%' },
+              justifyContent: 'space-between',
+
+              display: { xs: 'none', sm: 'none', lg: 'flex' },
               width: { lg: '60%', md: '60%' },
               justifyContent: 'space-between',
             }}
           >
             {navItems.map((item) => (
-              <Button
-                key={item}
-                onClick={() => navigate(`/${item}`)}
-                sx={{ color: 'black', textDecoration: 'none' }}
-              >
-                <Typography variant="body1" sx={{ fontSize: { sm: '20px' } }}>
-                  {item}
-                </Typography>
-              </Button>
+              <Box>
+                <Button
+                  key={item}
+                  onClick={() => navigate(`/${item}`)}
+                  sx={{ color: 'black', textDecoration: 'none' }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'primary.contrastText',
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Button>
+              </Box>
             ))}
             <Box
               sx={{
@@ -122,23 +137,46 @@ function DrawerAppBar(props) {
                 gap: '10px',
               }}
             >
-              <Button
-                onClick={() => navigate('/login')}
-                variant="contained"
-                color="primary"
-                size="large"
-              >
-                Login
-              </Button>
-
-              <Button
-                onClick={() => navigate('/register')}
-                variant="outlined"
-                color="primary"
-                size="large"
-              >
-                Signup
-              </Button>
+              <Box>
+                <Button
+                  onClick={() => navigate('/login')}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                      color: 'common.white',
+                    }}
+                  >
+                    {' '}
+                    Login
+                  </Typography>
+                </Button>
+              </Box>
+              <Box>
+                <Button
+                  onClick={() => navigate('/register')}
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  style={{ color: 'black', background: 'white' }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                      color: 'common.black',
+                    }}
+                  >
+                    Signup
+                  </Typography>
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Toolbar>
