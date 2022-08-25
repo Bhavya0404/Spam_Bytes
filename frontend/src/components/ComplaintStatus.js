@@ -182,7 +182,7 @@ const ComplaintStatus = ({ heading, createBtn }) => {
                   alt={childData?.name}
                   src={
                     childData?.img
-                      ? `data:image/png;base64, ${childData?.img}`
+                      ? `${childData?.img}`
                       : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
                   }
                   style={{

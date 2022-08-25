@@ -5,9 +5,12 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import { Typography, FormControlLabel, Checkbox } from "@mui/material";
+import { Typography, Autocomplete } from "@mui/material";
 
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+
+import data from "../assets/dropdown.json";
 
 const ReportChild = () => {
   const [name, setName] = useState("");
@@ -16,12 +19,33 @@ const ReportChild = () => {
   const [address, setAddress] = useState("");
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
-
-  const [isAnon, setIsAnon] = useState(false);
   const [email, setEmail] = useState("");
   const [pNo, setPnO] = useState("");
+  const [districts, setDistricts] = useState([]);
 
   const [canSubmit, setCanSubmit] = useState(true);
+  const [loggedIn, setLoggedIn] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const headers = {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+        const resp = await axios.get("http://localhost:5000/auth/chkAuth", {
+          headers,
+        });
+        setLoggedIn(resp.data);
+      } catch (err) {
+        setLoggedIn({});
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    setDistrict("");
+    setDistricts(data.find((t) => t.name === state)?.districts);
+  }, [state]);
 
   const handleUpload = (e) => {
     setCanSubmit(false);
@@ -72,10 +96,10 @@ const ReportChild = () => {
         lng: pos.coords.longitude,
       };
 
-      if (isAnon) {
-        data = { ...data, isAnon, email, phoneNumber: pNo };
+      if (!loggedIn?.loggedIn) {
+        data = { ...data, isAnon: true, email, phoneNumber: pNo };
       } else {
-        data = { ...data, isAnon };
+        data = { ...data, isAnon: false };
       }
 
       try {
@@ -113,7 +137,6 @@ const ReportChild = () => {
         setState("");
         setDistrict("");
         setEmail("");
-        setIsAnon(false);
         setPnO("");
       }
     });
@@ -161,17 +184,51 @@ const ReportChild = () => {
             Report Child
           </Typography>
 
+          <Typography variant="h6" color={"primary"}>
+            You are reporting{" "}
+            {loggedIn?.loggedIn ? (
+              <Typography
+                component="span"
+                variant="h6"
+                color="primary"
+                sx={{ fontWeight: 600 }}
+              >
+                as {`${loggedIn?.user?.name}`}
+              </Typography>
+            ) : (
+              <Typography
+                component="span"
+                variant="h6"
+                color="primary"
+                sx={{ fontWeight: 600 }}
+              >
+                Anonymously
+              </Typography>
+            )}{" "}
+          </Typography>
+          {!loggedIn?.loggedIn ? (
+            <Link to="/login">
+              <Typography variant="h6" color="primary">
+                Login Now
+              </Typography>
+            </Link>
+          ) : (
+            <Link to="/logout">
+              <Typography variant="h6" color="primary">
+                Logout to report Anonymously
+              </Typography>
+            </Link>
+          )}
+
           <TextField
             id="outlined-basic"
             fullWidth
-            required
             label="Name"
             variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
-            required
             fullWidth
             sx={{ mt: "20px" }}
             id="outlined-multiline-static"
@@ -183,35 +240,40 @@ const ReportChild = () => {
           />
 
           <TextField
-            required
             fullWidth
             id="outlined-required"
             label="Address"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <TextField
-            required
-            fullWidth
-            id="outlined-required"
-            label="District"
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-          />
-          <TextField
-            required
-            fullWidth
-            id="outlined-required"
-            label="State"
+
+          <Autocomplete
+            id="state"
+            options={data.map((d) => d.name)}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="State" />}
             value={state}
-            onChange={(e) => setState(e.target.value)}
+            onChange={(_, dt) => {
+              setState(dt);
+            }}
           />
 
-          <FormControlLabel
-            label="Report Anonymously"
-            control={<Checkbox onChange={(e) => setIsAnon(e.target.checked)} />}
-          />
-          {isAnon && (
+          {districts?.length > 0 && (
+            <Autocomplete
+              id="district"
+              options={districts}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="District" />
+              )}
+              value={district}
+              onChange={(_, dt) => {
+                setDistrict(dt);
+              }}
+            />
+          )}
+
+          {!loggedIn?.loggedIn && (
             <>
               <TextField
                 required
@@ -223,7 +285,6 @@ const ReportChild = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
-                required
                 fullWidth
                 type="tel"
                 id="outlined-required"

@@ -1,9 +1,9 @@
 const Joi = require("joi");
 const schema = Joi.object().keys({
   name: Joi.string().min(4).max(40),
-  description: Joi.string().min(10).max(400).required(),
-  img: Joi.string().allow('', null),
-  address: Joi.string().min(6).max(300).required(),
+  description: Joi.string().allow("", null),
+  img: Joi.string(),
+  address: Joi.string().allow("", null),
   state: Joi.string().required(),
   district: Joi.string().required(),
   lastKnownLocation: Joi.array().items(Joi.number(), Joi.number()),
@@ -14,9 +14,7 @@ const schema = Joi.object().keys({
   compCompleted: Joi.boolean(),
   reportedBy: Joi.any(),
   email: Joi.string().email({ minDomainSegments: 2 }),
-  phoneNumber: Joi.string()
-    .length(10)
-    .pattern(/^[0-9]+$/),
+  phoneNumber: Joi.string().allow("", null),
   rzp_contactId: Joi.string(),
   rzp_fundAcId: Joi.string(),
   payouts: Joi.array(),
