@@ -55,7 +55,7 @@ function App() {
         main: '#e7c6ff',
         light: '#E3ECF3',
         dark: '#c8b6ff',
-        contrastText: '#E3ECF3',
+        contrastText: 'rgba(0, 0, 0, 0.5)',
       },
       text: {
         primary: '#192F4D',
@@ -84,33 +84,33 @@ function App() {
       },
       h6: {
         fontSize: '20px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       subtitle1: {
         fontSize: '25px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       subtitle2: {
         fontSize: '23px',
 
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       body1: {
         fontSize: '16px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       body2: {
         fontSize: '14px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       caption: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       overline: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       button: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
     },
   })
