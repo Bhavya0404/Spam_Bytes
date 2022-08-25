@@ -4,6 +4,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import HeroSection from './HeroSection'
 import AboutUs from './AboutUs'
+import Footer from './Footer'
 import HowDoWeFunction from './HowDoWeFunction'
 import { MiddleNavbar } from './MiddleNavbar'
 import Statistics from './Statistics'
@@ -16,7 +17,7 @@ import Map from './Map'
 const HomePage = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar/>
 
       <Box
         sx={{
@@ -26,10 +27,13 @@ const HomePage = () => {
           flexDirection: 'column',
         }}
       >
-        {/* footer */}
-
+        <HeroSection />
         <Map />
-        {/* footer */}
+        <AboutUs />
+        <HowDoWeFunction />
+        <Footer />
+
+     
       </Box>
     </div>
   )

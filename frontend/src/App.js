@@ -40,6 +40,12 @@ function App() {
 
   let globalTheme = createTheme({
     palette: {
+      common:{
+        black:'#000',
+        white:'#fff',
+
+      },
+      
       primary: {
         main: '#023e8a',
         dark: '#03045e',
@@ -79,33 +85,33 @@ function App() {
       },
       h6: {
         fontSize: '20px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       subtitle1: {
         fontSize: '25px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       subtitle2: {
         fontSize: '23px',
 
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       body1: {
         fontSize: '16px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       body2: {
         fontSize: '14px',
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       caption: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       overline: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
       button: {
-        fontFamily: 'Poppins',
+        fontFamily: 'Inika',
       },
     },
   })
