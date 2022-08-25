@@ -74,7 +74,6 @@ const Statistics = () => {
         <Box
           sx={{
             height: '23%',
-            textDecoration: 'underline',
             color: 'primary.contrastText',
           }}
         >
