@@ -131,6 +131,28 @@ const HeroSection = () => {
           </Box>
           <Box
             sx={{
+              height: { md: '10%', xs: '100px' },
+              width: { sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: 'primary.main',
+              borderRadius: '10px',
+              marginLeft: '15%',
+              marginTop: '5%'
+            }}
+          >
+            <Button onClick={() => navigate('/ComplaintStatus')}>
+              <Typography
+                variant="subtitle1"
+                sx={{ textTransform: 'capitalize', color: 'common.white' }}
+              >
+                Track Complaint
+              </Typography>
+            </Button>
+          </Box>
+          <Box
+            sx={{
               display: 'flex',
               flexDirection: 'column',
               width: '100%',
