@@ -1,9 +1,45 @@
 import React from 'react'
 import { Box, Typography } from '@mui/material'
 import map from '../assets/images/map.png'
-import Map from './Map'
+import {default as HMap}  from './Map'
+import { getNodalData } from '../features/nodal/NodalSlice'
+import { useSelector } from 'react-redux'
+import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
+import { set } from '../features/statistics/Statistics'
 
 const Statistics = () => {
+  const foundChildData = useSelector(selectFoundChild)
+  const nodalData = useSelector(getNodalData)
+  const stateData = useSelector(set)
+
+ const state = "Uttar Pradesh"
+  console.log(stateData)
+  let reportedCase = 0;
+  let nodalOfficers = 0;
+  let inSchool = 0;
+
+  foundChildData.forEach((child) => {
+    if (child.isVerified) {
+      if(child.state === state){
+        reportedCase++;
+      }
+      
+      if(child.state === state && child.inSchool){
+        inSchool++;
+      }
+    }
+  })
+
+  // console.log(reportedCase)
+  // console.log(inSchool)
+
+  // nodalData.forEach((nodal) => {
+  //   console.log(nodal)
+  // })
+
+
+  // console.log(reportedCase)
+
   return (
     <Box
       sx={{
@@ -23,7 +59,7 @@ const Statistics = () => {
           alignItems: 'center',
         }}
       >
-        <Map />
+        <HMap />
       </Box>
       <Box
         sx={{
@@ -46,7 +82,7 @@ const Statistics = () => {
         </Box>
         <Box sx={{ height: '15%' }}>
           <Typography variant="h3" sx={{ color: 'primary.light' }}>
-            2500+
+            {reportedCase}
           </Typography>
           <Typography
             variant="subtitle1"
@@ -63,18 +99,18 @@ const Statistics = () => {
             variant="subtitle1"
             sx={{ color: 'primary.contrastText' }}
           >
-            Reported Cases
+            Nodal Officers Appointed
           </Typography>
         </Box>
         <Box sx={{ height: '15%' }}>
           <Typography variant="h3" sx={{ color: 'primary.light' }}>
-            2500+
+            {inSchool}
           </Typography>
           <Typography
             variant="subtitle1"
             sx={{ color: 'primary.contrastText' }}
           >
-            Reported Cases
+            Children Enrolled in School
           </Typography>
         </Box>
       </Box>

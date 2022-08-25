@@ -2,26 +2,15 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import mainPic from '../assets/images/narendra.png'
 import React from 'react'
 import DonateButton from './DonateButton'
-import { useSelector } from 'react-redux'
-import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 import { useNavigate } from 'react-router-dom'
 import child from '../assets/images/child.svg'
 
+
 const HeroSection = () => {
-  const foundChildData = useSelector(selectFoundChild)
-  const hotspot = new Map()
   const navigate = useNavigate()
 
-  foundChildData.forEach((child) => {
-    if (child.isVerified) {
-      if (!hotspot.get(child.state)) {
-        hotspot.set(child.state, 1)
-      } else {
-        let number = hotspot.get(child.state)
-        hotspot.set(child.state, number + 1)
-      }
-    }
-  })
+
+ 
 
   return (
     <Box

@@ -66,4 +66,6 @@ const getNodalProfile = async (req, res) => {
   return res.status(200).json(nodalOfficer);
 };
 
+
+
 module.exports = { getNodal, verifyChild, updateChild, getNodalProfile };

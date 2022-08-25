@@ -4,6 +4,8 @@ import * as am5map from '@amcharts/amcharts5/map'
 import am5geodata_india2020Low from '@amcharts/amcharts5-geodata/india2020Low'
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 import axios from 'axios'
+import  {store} from '../app/store'
+import { set } from '../features/statistics/Statistics'
 
 function Map() {
   useLayoutEffect(() => {
@@ -37,11 +39,10 @@ function Map() {
       var dataItem = ev.target.dataItem
       var data = dataItem.dataContext
 
-      console.log(data)
-      window.location = `/state/${data?.name
-        .toLowerCase()
-        .split(' ')
-        .join('-')}`
+      // console.log(data)
+
+      store.dispatch(set(data.name))
+     
     })
     var countrySeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
@@ -63,6 +64,8 @@ function Map() {
       root.dispose()
     }
   }, [])
+
+     
 
   return <div id="mapdiv" style={{ width: '80%', height: '70%' }}></div>
 }
