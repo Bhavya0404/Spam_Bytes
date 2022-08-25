@@ -15,11 +15,11 @@ const HeroSection = () => {
 
   foundChildData.forEach((child) => {
     if (child.isVerified) {
-      if (!hotspot.get(child.district)) {
-        hotspot.set(child.district, 1)
+      if (!hotspot.get(child.state)) {
+        hotspot.set(child.state, 1)
       } else {
-        let number = hotspot.get(child.district)
-        hotspot.set(child.district, number + 1)
+        let number = hotspot.get(child.state)
+        hotspot.set(child.state, number + 1)
       }
     }
   })

@@ -16,7 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ComplaintStatus from "../../components/ComplaintStatus";
 import sidebarMenus from "../../components/sidebarMenus";
 import { useNavigate } from "react-router-dom";
-
+import { selectFoundChild } from "../foundchild/FoundChildSlice";
 const uTypes = {
   IN: "Individual",
   ADMIN: "Nodal Officer",
@@ -32,9 +32,40 @@ function refresh() {
 
 const UserDashboard = () => {
   const user = useSelector((state) => getUser(state));
+  const allChild = useSelector(selectFoundChild);
   const childByUser = useSelector((state) =>
     getFoundChildByUser(state, user?._id)
   );
+
+  let mail = user.email;
+  let reportCount = 0;
+  let complaintResolved = 0;
+  let complaintVerified = 0;
+
+  allChild.forEach((child) => {
+    if (mail === child?.reportedBy?.email) {
+      reportCount++;
+    }
+
+    if (
+      mail === child?.reportedBy?.email &&
+      child?.isVerified &&
+      child?.isAccepted
+    ) {
+      complaintResolved++;
+    }
+
+    if (
+      mail === child?.reportedBy?.email &&
+      child?.isVerified 
+    ) {
+      complaintVerified++;
+    }
+  });
+
+  // allChild.forEach((child) => {
+    
+  // });
 
   const navigate = useNavigate();
 
@@ -128,7 +159,7 @@ const UserDashboard = () => {
                 Children Reported
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>{childByUser?.length}</strong>
+                <strong>{reportCount}</strong>
               </Typography>
             </CardContent>
           </Card>
@@ -141,10 +172,10 @@ const UserDashboard = () => {
           >
             <CardContent>
               <Typography sx={{ fontSize: 24 }} gutterBottom>
-                Complaints Resolved
+                Complaints Verified
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>0</strong>
+                <strong>{complaintVerified}</strong>
               </Typography>
             </CardContent>
           </Card>
@@ -159,7 +190,7 @@ const UserDashboard = () => {
                 Complaints Resolved
               </Typography>
               <Typography sx={{ fontSize: 20 }} gutterBottom>
-                <strong>0</strong>
+                <strong>{complaintResolved}</strong>
               </Typography>
             </CardContent>
           </Card>

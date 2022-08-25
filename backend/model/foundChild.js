@@ -4,7 +4,7 @@ const foundchild = mongoose.Schema(
   {
     name: {
       type: String,
-      default: 'N/A'
+      default: "N/A",
     },
     description: String,
     img: String,
@@ -41,15 +41,24 @@ const foundchild = mongoose.Schema(
     },
     email: {
       type: String,
-      required: false
+      required: false,
     },
     phoneNumber: {
       type: String,
-      required: false
+      required: false,
     },
     rzp_contactId: String,
     rzp_fundAcId: String,
     payouts: {
+      type: Array,
+      default: [],
+    },
+    aadhar_no: String,
+    acceptedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ngo",
+    },
+    schemes: {
       type: Array,
       default: []
     }

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { getFoundChildById } from "../features/foundchild/FoundChildSlice";
 import Sidebar from "../components/Sidebar";
 import sidebarMenus from "../components/sidebarMenus";
+import ControlledAccordions from "../components/SchemePage";
 import {
   Box,
   Button,
@@ -67,6 +68,7 @@ const ChildDetails = ({ ngo = false }) => {
   const [addressEditValue, setAddressEditValue] = useState("");
   const [descriptionEditValue, setDescriptionEditValue] = useState("");
   const [nameEditValue, setNameEditValue] = useState("");
+  const [aadharNo, setAadharNo] = useState("");
   const [image, setImage] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
@@ -79,6 +81,7 @@ const ChildDetails = ({ ngo = false }) => {
   const [nameEdit, setNameEdit] = useState(false);
   const [addressEdit, setAddressEdit] = useState(false);
   const [descriptionEdit, setDescriptionEdit] = useState(false);
+  const [aadharEdit, setAadharEdit] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [mapOpen, setMapOpen] = useState(false);
 
@@ -89,6 +92,7 @@ const ChildDetails = ({ ngo = false }) => {
   const handleCloseNE = () => setNameEdit(false);
   const handleCloseAE = () => setAddressEdit(false);
   const handleCloseMP = () => setMapOpen(false);
+  const handleCloseAD = () => setAadharEdit(false);
 
   useEffect(() => {
     const getPayoutData = async () => {
@@ -128,9 +132,35 @@ const ChildDetails = ({ ngo = false }) => {
         { headers }
       );
       toast.success(resp?.data?.message, { id: notification });
+      navigate(0);
     } catch (err) {
       console.error(err);
       toast.error(err, { id: notification });
+    }
+  };
+
+  const handleLinkAadhar = async () => {
+    const notification = toast.loading("Linking Aadhar to the Child...");
+    if (aadharNo.length !== 12) {
+      toast.error("Invalid Aadhar Number", { id: notification });
+      return;
+    }
+    const data = { id: childId, aadhar_no: aadharNo };
+    try {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      const resp = await axios.put(
+        `http://localhost:5000/nodal/child/${childData?._id}`,
+        data,
+        { headers }
+      );
+
+      toast.success(resp?.data?.message, { id: notification });
+      navigate(0);
+    } catch (err) {
+      console.error(err);
+      toast.error("Error Occurred", { id: notification });
     }
   };
 
@@ -147,9 +177,10 @@ const ChildDetails = ({ ngo = false }) => {
         { headers }
       );
       toast.success(resp?.data?.message, { id: notification });
+      navigate(0);
     } catch (err) {
       console.error(err);
-      toast.error(err, { id: notification });
+      toast.error(err?.message, { id: notification });
     }
   };
 
@@ -184,7 +215,7 @@ const ChildDetails = ({ ngo = false }) => {
   const handleAccepted = async () => {
     const x = window.confirm("Do you want to mark child as Accepted? ");
     if (x) {
-      const body = { isAccepted: true };
+      const body = { isAccepted: true, acceptedBy: currentUser?._id };
       const headers = {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       };
@@ -471,6 +502,28 @@ const ChildDetails = ({ ngo = false }) => {
                           </TableRow>
                           <TableRow>
                             <TableCell>
+                              <Typography>Aadhar No.</Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography>
+                                {childData?.aadhar_no
+                                  ? "************ (Hidden)"
+                                  : "Not Added"}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              {!ngo && !childData?.aadhar_no && (
+                                <Button
+                                  variant="text"
+                                  onClick={() => setAadharEdit(true)}
+                                >
+                                  Add Aadhar No.
+                                </Button>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
                               <Typography>Is Verified</Typography>
                             </TableCell>
                             <TableCell>
@@ -550,6 +603,11 @@ const ChildDetails = ({ ngo = false }) => {
                               )}
                             </TableCell>
                           </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <ControlledAccordions childData={childData} ngo={ngo}  />
+                            </TableCell>
+                          </TableRow>
                         </TableBody>
                       </Table>
                     </TableContainer>
@@ -623,54 +681,56 @@ const ChildDetails = ({ ngo = false }) => {
                         gap: 1.25,
                       }}
                     >
-                      {!ngo && childData?.isVerified && (
-                        <>
-                          <Button
-                            variant="contained"
-                            sx={{ gap: 2 }}
-                            onClick={() => setPayoutVisible(true)}
-                          >
-                            <PaymentIcon />
-                            <Typography
-                              component="span"
-                              sx={{ textTransform: "capitalize" }}
-                            >
-                              Payout
-                            </Typography>
-                          </Button>
-                          <Button
-                            variant="contained"
-                            sx={{ gap: 2 }}
-                            onClick={() => setPayoutListVisible(true)}
-                          >
-                            <AccountBalanceIcon />
-                            <Typography
-                              component="span"
-                              sx={{ textTransform: "capitalize" }}
-                            >
-                              View Payouts
-                            </Typography>
-                          </Button>
-                          {!!!childData?.rzp_fundAcId && (
+                      {!ngo &&
+                        childData?.isVerified &&
+                        !!childData?.rzp_fundAcId && (
+                          <>
                             <Button
                               variant="contained"
-                              onClick={() => setAccountVisible(true)}
-                              disabled={!!childData?.rzp_fundAcId}
+                              sx={{ gap: 2 }}
+                              onClick={() => setPayoutVisible(true)}
                             >
-                              Create Fund Account
+                              <PaymentIcon />
+                              <Typography
+                                component="span"
+                                sx={{ textTransform: "capitalize" }}
+                              >
+                                Payout
+                              </Typography>
                             </Button>
-                          )}
+                            <Button
+                              variant="contained"
+                              sx={{ gap: 2 }}
+                              onClick={() => setPayoutListVisible(true)}
+                            >
+                              <AccountBalanceIcon />
+                              <Typography
+                                component="span"
+                                sx={{ textTransform: "capitalize" }}
+                              >
+                                View Payouts
+                              </Typography>
+                            </Button>
+                          </>
+                        )}
+                      {!ngo && !!!childData?.rzp_fundAcId && (
+                        <Button
+                          variant="contained"
+                          onClick={() => setAccountVisible(true)}
+                          disabled={!!childData?.rzp_fundAcId}
+                        >
+                          Create Fund Account
+                        </Button>
+                      )}
 
-                          {!!!childData?.rzp_contactId && (
-                            <Button
-                              variant="contained"
-                              onClick={() => handleCreateContact()}
-                              disabled={!!childData?.rzp_contactId}
-                            >
-                              Create Contact
-                            </Button>
-                          )}
-                        </>
+                      {!ngo && !!!childData?.rzp_contactId && (
+                        <Button
+                          variant="contained"
+                          onClick={() => handleCreateContact()}
+                          disabled={!!childData?.rzp_contactId}
+                        >
+                          Create Contact
+                        </Button>
                       )}
                     </Box>
                   </Box>
@@ -910,6 +970,34 @@ const ChildDetails = ({ ngo = false }) => {
                 <Typography sx={{ display: { xs: "none", lg: "inline" } }}>
                   Close
                 </Typography>
+              </Button>
+            </Container>
+          </Box>
+        </Modal>
+        <Modal
+          open={aadharEdit}
+          onClose={handleCloseAD}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Container
+              sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
+              <Typography component="h4" fontSize={30} textAlign="center">
+                Link Aadhar to Child
+              </Typography>
+              <TextField
+                type="number"
+                id="aadharNo"
+                placeholder="Enter Aadhar No. (12 Digit)"
+                value={aadharNo}
+                label="Aadhar No."
+                onChange={(e) => setAadharNo(e.target.value)}
+              />
+
+              <Button variant="contained" onClick={handleLinkAadhar}>
+                Link Aadhar
               </Button>
             </Container>
           </Box>

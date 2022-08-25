@@ -27,6 +27,7 @@ const HomePage = () => {
           flexDirection: 'column',
         }}
       >
+<<<<<<< HEAD
         <HeroSection />
         <Map />
         <AboutUs />
@@ -34,6 +35,12 @@ const HomePage = () => {
         <Footer />
 
      
+=======
+        <Statistics />
+        {/* footer */}
+        {/* <Map /> */}
+        {/* footer */}
+>>>>>>> 912cbf85c7196fae96e110a9bbf07420b28f67b5
       </Box>
     </div>
   )

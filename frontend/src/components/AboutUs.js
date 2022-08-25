@@ -1,106 +1,320 @@
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 import { Box, Container } from '@mui/system'
 import React from 'react'
-import leftImage from '../assets/images/Rectangle_44.png'
-import rightImmg from '../assets/images/aboutKid.svg'
+import right from '../assets/images/right.svg'
+import complaintImg from '../assets/images/complaint.svg'
+import announcement from '../assets/images/announce.svg'
+import complaint from '../assets/images/complaint.svg'
+import conference from '../assets/images/conference.svg'
+import media from '../assets/images/media.svg'
+import { Link } from 'react-router-dom'
 const AboutUs = () => {
   return (
     <Box
       sx={{
-        minHeight: { xs: '50vh' },
-        height: { md: '90vh', xs: 'auto' },
+        height: '100vh',
         width: '100%',
-        marginTop: { md: '30px', xs: 0 },
+        backgroundColor: 'secondary.main',
         display: 'flex',
-        justifyContent: 'center',
+        flexDirection: { md: 'row', xs: 'column' },
       }}
     >
-      {/* left */}
-      <Box
+      <Container
         sx={{
-          minHeight: { xs: '70%' },
-          maxWidth: { md: '50%', xs: '100%' },
-          height: { md: 'auto', xs: '100%' },
-
-          width: { md: '50%', xs: '100%' },
-          position: 'relative',
+          width: { md: '40%', xs: '100%' },
+          height: '100%',
           display: 'flex',
-          alignItems: 'center',
+          flexDirection: 'column',
           justifyContent: 'center',
-          marginLeft: { md: '4%', xs: 0 },
+          marginLeft: { md: '5%', xs: 0 },
+          // alignItems: 'center',
         }}
       >
         <Box
           sx={{
-            width: { md: '90%', xs: 'auto' },
-            height: { md: '90%' },
-            position: 'absolute',
-            display: { md: 'flex', xs: 'none' },
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: 'primary.main',
-            borderRadius: 20,
-            zIndex: -1,
-          }}
-          // src={leftImage}
-        ></Box>
-        <Container
-          sx={{
-            height: { md: '100%', xs: '100%' },
-            width: { md: '90%', xs: '100%' },
-            margin: { xs: 0 },
+            width: '100%',
+            height: '15%',
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignContent: 'center',
-            marginLeft: { md: '4%' },
-            // alignItems: 'center',
-            color: 'primary.contrastText',
+            justifyContent: { xs: 'center', md: 'flex-start' },
           }}
         >
           <Typography
-            variant="h1"
-            sx={{
-              height: { md: '20%', xs: '10%' },
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: { lg: 'primary.contrastText', xs: 'primary.main' },
-              fontSize: { xs: '60px', sm: '70px', md: '80px' },
-            }}
+            variant="h2"
+            sx={{ textDecoration: 'underline', color: 'primary.contrastText' }}
           >
-            About us
+            ABOUT US
           </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              width: '100%',
-              height: { md: '69%', xs: '70%' },
-              display: 'flex',
-              justifyContent: 'center',
-              color: { md: 'primary.contrastText', xs: 'primary.main' },
-            }}
-          >
+        </Box>
+        <Box>
+          <Typography variant="h6" sx={{ color: 'primary.contrastText' }}>
             PENCiL (Platform for Effective Enforcement for No Child Labour) an
             electronic platform for effective enforcement for no child labour
             developed by Ministry of Labour and Employment. PENCiL Portal has
             following components:Child Tracking System, Complaint Corner, State
             Government, National Child Labour Project, Convergence.
           </Typography>
-        </Container>
-      </Box>
+        </Box>
+      </Container>
       {/* right */}
-      <Box
+      <Container
         sx={{
+          width: { md: '60%', xs: '100%' },
           height: '100%',
-          width: '50%',
-          display: { md: 'flex', xs: 'none' },
-          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
+          marginLeft: { md: '5%', xs: 0 },
+          alignItems: 'center',
+          // backgroundColor: '#ffff',
         }}
       >
-        <Box component="img" src={rightImmg} />
-      </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '80%',
+            height: { md: '70%', xs: '90%' },
+            justifyContent: 'space-around',
+          }}
+        >
+          {/* inside data */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: { md: '25%', xs: '40%' },
+              justifyContent: 'space-between',
+              // margin: '2%',
+              marginBottom: '2%',
+            }}
+          >
+            <Divider
+              color=""
+              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box component="img" src={complaintImg} sx={{ width: '15%' }} />
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '60%',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ color: 'secondary.contrastText' }}
+                >
+                  File a complaint
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: '3%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Link to="/reportchild">
+                  <Box component="img" src={right} sx={{ width: '100%' }} />
+                </Link>
+              </Box>
+            </Box>
+          </Box>
+          {/* 2 */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: { md: '25%', xs: '40%' },
+              justifyContent: 'space-between',
+              // margin: '2%',
+              marginBottom: '2%',
+            }}
+          >
+            <Divider
+              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box component="img" src={announcement} sx={{ width: '15%' }} />
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '60%',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ color: 'secondary.contrastText' }}
+                >
+                  Announcement
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: '3%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Link to="/goverment">
+                  <Box component="img" src={right} sx={{ width: '100%' }} />
+                </Link>
+              </Box>
+            </Box>
+          </Box>
+          {/* 3 */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: { md: '25%', xs: '40%' },
+              justifyContent: 'space-between',
+              // margin: '2%',
+              marginBottom: '2%',
+            }}
+          >
+            <Divider
+              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box component="img" src={media} sx={{ width: '15%' }} />
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '60%',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ color: 'secondary.contrastText' }}
+                >
+                  Media
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: '3%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Link to="/reportchild">
+                  <Box component="img" src={right} sx={{ width: '100%' }} />
+                </Link>
+              </Box>
+            </Box>
+          </Box>
+
+          {/* 4 */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: { md: '25%', xs: '40%' },
+              justifyContent: 'space-between',
+              // margin: '2%',
+              marginBottom: '2%',
+            }}
+          >
+            <Divider
+              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              <Box component="img" src={conference} sx={{ width: '15%' }} />
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '60%',
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  sx={{ color: 'secondary.contrastText' }}
+                >
+                  Conference
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: '3%',
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Link to="/reportchild">
+                  <Box component="img" src={right} sx={{ width: '100%' }} />
+                </Link>
+              </Box>
+            </Box>
+
+            <Divider
+              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+            />
+          </Box>
+        </Box>
+      </Container>
     </Box>
   )
 }
