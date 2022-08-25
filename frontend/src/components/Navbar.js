@@ -18,10 +18,8 @@ import { useNavigate } from 'react-router-dom'
 
 import logo from '../assets/images/logoblue.png'
 
-
 const drawerWidth = 300
 const navItems = ['Districts', 'Policy', 'Acts', 'NCLP', 'Guildlines']
-
 
 function DrawerAppBar(props) {
   const navigate = useNavigate()
@@ -41,11 +39,11 @@ function DrawerAppBar(props) {
       <List>
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
-
-            <ListItemButton sx={{ textAlign: "center", textDecoration: 'none' }}>
-
+            <ListItemButton
+              sx={{ textAlign: 'center', textDecoration: 'none' }}
+            >
               <Link to={`/${item}`}>
-                <ListItemText sx={{textDecoration: 'none'}} primary={item} />
+                <ListItemText sx={{ textDecoration: 'none' }} primary={item} />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -68,12 +66,10 @@ function DrawerAppBar(props) {
       <AppBar
         component="nav"
         sx={{
-
-          width: "100%",
-          height: "auto",
-          position: "absolute",
-          backgroundColor: "primary.light",
-
+          width: '100%',
+          height: 'auto',
+          position: 'absolute',
+          backgroundColor: 'primary.main',
         }}
       >
         <Toolbar
@@ -103,72 +99,84 @@ function DrawerAppBar(props) {
           </Box>
           <Box
             sx={{
-
-              display: { xs: "none", sm: "none", lg: "flex" },
-              width: { lg: "45%", md: "20%" },
-              justifyContent: "space-between",
+              display: { xs: 'none', sm: 'none', lg: 'flex' },
+              width: { lg: '45%', md: '20%' },
+              justifyContent: 'space-between',
 
               display: { xs: 'none', sm: 'none', lg: 'flex' },
               width: { lg: '60%', md: '60%' },
               justifyContent: 'space-between',
-
             }}
           >
             {navItems.map((item) => (
               <Box>
-              <Button
-                key={item}
-                onClick={() => navigate(`/${item}`)}
-                sx={{ color: 'black', textDecoration: 'none' }}
-              >
-
-                <Typography variant="body1" sx={{ fontSize: { sm: "22px" }, textTransform: "capitalize"}}>
-
-                
-
-                  {item}
-                </Typography>
-              </Button>
+                <Button
+                  key={item}
+                  onClick={() => navigate(`/${item}`)}
+                  sx={{ color: 'black', textDecoration: 'none' }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: 'primary.contrastText',
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                    }}
+                  >
+                    {item}
+                  </Typography>
+                </Button>
               </Box>
             ))}
             <Box
               sx={{
-     display: 'flex',
+                display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 gap: '10px',
-
               }}
             >
               <Box>
-              <Button
-                onClick={() => navigate('/login')}
-                variant="contained"
-                color= 'primary'
-                size="large"
-              
-              
-              >
-                <Typography variant="body1" sx={{ fontSize: { sm: "22px" }, textTransform: "capitalize", color:'common.white'}}> Login</Typography>
-               
-              </Button></Box>
+                <Button
+                  onClick={() => navigate('/login')}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                      color: 'common.white',
+                    }}
+                  >
+                    {' '}
+                    Login
+                  </Typography>
+                </Button>
+              </Box>
               <Box>
-              <Button
-
-                onClick={() => navigate('/register')}
-                variant="outlined"
-                color="primary"
-
-                size="large"
-                style={{ color: "black", background: "white" }}
-              >
-                <Typography variant="body1" sx={{ fontSize: { sm: "22px" }, textTransform: "capitalize", color:'common.black' }}>Signup</Typography>
-                
-              </Button></Box>
-
-             
-              
+                <Button
+                  onClick={() => navigate('/register')}
+                  variant="outlined"
+                  color="primary"
+                  size="large"
+                  style={{ color: 'black', background: 'white' }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: { sm: '22px' },
+                      textTransform: 'capitalize',
+                      color: 'common.black',
+                    }}
+                  >
+                    Signup
+                  </Typography>
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Toolbar>

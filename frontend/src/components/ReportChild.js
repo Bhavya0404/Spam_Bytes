@@ -1,52 +1,51 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import { Button } from '@mui/material'
+import Container from '@mui/material/Container'
+import Paper from '@mui/material/Paper'
+import { Typography, Autocomplete } from '@mui/material'
 
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
-import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import { Typography, Autocomplete } from "@mui/material";
+import { toast } from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 
-import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
-
-import data from "../assets/dropdown.json";
+import data from '../assets/dropdown.json'
 
 const ReportChild = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [img, setImg] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [district, setDistrict] = useState("");
-  const [email, setEmail] = useState("");
-  const [pNo, setPnO] = useState("");
-  const [districts, setDistricts] = useState([]);
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [img, setImg] = useState('')
+  const [address, setAddress] = useState('')
+  const [state, setState] = useState('')
+  const [district, setDistrict] = useState('')
+  const [email, setEmail] = useState('')
+  const [pNo, setPnO] = useState('')
+  const [districts, setDistricts] = useState([])
 
-  const [canSubmit, setCanSubmit] = useState(true);
-  const [loggedIn, setLoggedIn] = useState({});
+  const [canSubmit, setCanSubmit] = useState(true)
+  const [loggedIn, setLoggedIn] = useState({})
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
         const headers = {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        };
-        const resp = await axios.get("http://localhost:5000/auth/chkAuth", {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+        const resp = await axios.get('http://localhost:5000/auth/chkAuth', {
           headers,
-        });
-        setLoggedIn(resp.data);
+        })
+        setLoggedIn(resp.data)
       } catch (err) {
-        setLoggedIn({});
+        setLoggedIn({})
       }
-    })();
-  }, []);
+    })()
+  }, [])
 
   useEffect(() => {
-    setDistrict("");
-    setDistricts(data.find((t) => t.name === state)?.districts);
-  }, [state]);
+    setDistrict('')
+    setDistricts(data.find((t) => t.name === state)?.districts)
+  }, [state])
 
   const handleUpload = (e) => {
     setCanSubmit(false)
@@ -97,12 +96,10 @@ const ReportChild = () => {
         lng: pos.coords.longitude,
       }
 
-
       if (!loggedIn?.loggedIn) {
-        data = { ...data, isAnon: true, email, phoneNumber: pNo };
+        data = { ...data, isAnon: true, email, phoneNumber: pNo }
       } else {
-        data = { ...data, isAnon: false };
-
+        data = { ...data, isAnon: false }
       }
 
       try {
@@ -133,22 +130,20 @@ const ReportChild = () => {
         )
         console.error(err)
       } finally {
-
-        setName("");
-        setAddress("");
-        setDescription("");
-        setImg("");
-        setState("");
-        setDistrict("");
-        setEmail("");
-        setPnO("");
-
+        setName('')
+        setAddress('')
+        setDescription('')
+        setImg('')
+        setState('')
+        setDistrict('')
+        setEmail('')
+        setPnO('')
       }
     })
   }
 
   return (
-    <div>
+    <Box>
       {/* <Navbar />
       <Box
         sx={{
@@ -448,24 +443,42 @@ const ReportChild = () => {
         <Box
           sx={{
             width: '80%',
->>>>>>> 5e7eb0a (added complete homepage)
 
             height: '80%',
+            display: 'flex',
           }}
         >
           {/* for lg */}
 
-          <Box sx={{ width: '40%', backgroundColor: 'primary.light' }}>
+          <Box
+            sx={{
+              width: '50%',
+              height: '100%',
+              backgroundColor: 'secondary.main',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '20px 0 0 20px',
+            }}
+          >
             <Box
               component="img"
-              src={reportedImg}
+              // src={reportedImg}
               sx={{ width: '70%', height: 'auto' }}
             />
           </Box>
-          <Box></Box>
+          <Box
+            sx={{
+              width: '50%',
+              height: '100%',
+              backgroundColor: 'secondary.light',
+            }}
+          >
+            helo
+          </Box>
         </Box>
       </Box>
-    </div>
+    </Box>
   )
 }
 
