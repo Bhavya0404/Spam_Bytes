@@ -5,13 +5,7 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
-import {
-  Typography,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Select,
-} from "@mui/material";
+import { Typography, Autocomplete } from "@mui/material";
 
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -49,6 +43,7 @@ const ReportChild = () => {
   }, []);
 
   useEffect(() => {
+    setDistrict("");
     setDistricts(data.find((t) => t.name === state)?.districts);
   }, [state]);
 
@@ -249,38 +244,32 @@ const ReportChild = () => {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <FormControl fullWidth>
-            <InputLabel id="state-select-label">State</InputLabel>
-            <Select
-              fullWidth
-              required
-              labelId="state-select-label"
-              id="state-select"
-              value={state}
-              label="State"
-              onChange={(e) => setState(e.target.value)}
-            >
-              {data?.map((dt) => (
-                <MenuItem value={dt.name}>{dt.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="district-select-label">District</InputLabel>
-            <Select
-              fullWidth
-              required
-              labelId="district-select-label"
-              id="district-select"
+
+          <Autocomplete
+            id="state"
+            options={data.map((d) => d.name)}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="State" />}
+            value={state}
+            onChange={(_, dt) => {
+              setState(dt);
+            }}
+          />
+
+          {districts?.length > 0 && (
+            <Autocomplete
+              id="district"
+              options={districts}
+              sx={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField {...params} label="District" />
+              )}
               value={district}
-              label="District"
-              onChange={(e) => setDistrict(e.target.value)}
-            >
-              {districts?.map((dt) => (
-                <MenuItem value={dt}>{dt}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+              onChange={(_, dt) => {
+                setDistrict(dt);
+              }}
+            />
+          )}
 
           {!loggedIn?.loggedIn && (
             <>
