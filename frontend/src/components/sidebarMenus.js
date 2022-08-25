@@ -3,6 +3,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import LogoutIcon from "@mui/icons-material/Logout";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import VerifiedIcon from '@mui/icons-material/Verified';
+import PendingIcon from '@mui/icons-material/Pending';
+import CallToActionIcon from '@mui/icons-material/CallToAction';
 
 const menus = {
   user: {
@@ -25,7 +28,7 @@ const menus = {
   },
   nodal: {
     header: "Nodal Officer's Dashboard",
-    nSections: 2,
+    nSections: 3,
     sectionList: [
       [
         {
@@ -33,19 +36,39 @@ const menus = {
           Icon: DashboardIcon,
           link: "/admin/",
         },
-      ],
-      [
         {
           label: "Officer's Profile",
           Icon: AccountCircleIcon,
           link: "/admin/profile",
         },
+      ],
+      [
+        {
+          label: "All Complaints",
+          Icon: CallToActionIcon,
+          link: "/admin/",
+        },
+        {
+          label: "Pending Complaints",
+          Icon: PendingIcon,
+          link: "/admin/",
+        },
+        {
+          label: "Resolved Complaint",
+          Icon: VerifiedIcon,
+          link: "/admin/",
+        },
+      ],
+      [
+       
         {
           label: "Logout",
           Icon: LogoutIcon,
           link: "/logout",
         },
+        
       ],
+      
     ],
   },
   ngo: {
