@@ -36,16 +36,12 @@ function Map() {
     worldSeries.mapPolygons.template.events.on('click', async (ev) => {
       var dataItem = ev.target.dataItem
       var data = dataItem.dataContext
-<<<<<<< HEAD
-      console.log(data.name)
-      const resp = await axios.post('http://localhost:5000/stats/map', {state: data.name})
-=======
+
       console.log(data)
       window.location = `/state/${data?.name
         .toLowerCase()
         .split(' ')
         .join('-')}`
->>>>>>> 3c39825 (added statistic)
     })
     var countrySeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
