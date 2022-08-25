@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { getFoundChildById } from "../features/foundchild/FoundChildSlice";
 import Sidebar from "../components/Sidebar";
 import sidebarMenus from "../components/sidebarMenus";
+import ControlledAccordions from "../components/SchemePage";
 import {
   Box,
   Button,
@@ -600,6 +601,11 @@ const ChildDetails = ({ ngo = false }) => {
                                   Assign School
                                 </Button>
                               )}
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell>
+                              <ControlledAccordions/>
                             </TableCell>
                           </TableRow>
                         </TableBody>
