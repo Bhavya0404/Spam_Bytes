@@ -5,12 +5,15 @@ import {default as HMap}  from './Map'
 import { getNodalData } from '../features/nodal/NodalSlice'
 import { useSelector } from 'react-redux'
 import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
+import { set } from '../features/statistics/Statistics'
 
 const Statistics = () => {
   const foundChildData = useSelector(selectFoundChild)
   const nodalData = useSelector(getNodalData)
-  
-  const state = "Uttar Pradesh"
+  const stateData = useSelector(set)
+
+ const state = "Uttar Pradesh"
+  console.log(stateData)
   let reportedCase = 0;
   let nodalOfficers = 0;
   let inSchool = 0;
@@ -27,12 +30,15 @@ const Statistics = () => {
     }
   })
 
+  // console.log(reportedCase)
+  // console.log(inSchool)
+
   // nodalData.forEach((nodal) => {
   //   console.log(nodal)
   // })
 
 
-  console.log(reportedCase)
+  // console.log(reportedCase)
 
   return (
     <Box
@@ -62,7 +68,7 @@ const Statistics = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: { lg: 'center', xs: 'space-evenly' },
-          alignItems: 'center',
+          alignItems: { xs: 'center', lg: 'flex-start' },
         }}
       >
         <Box

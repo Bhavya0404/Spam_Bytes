@@ -3,16 +3,22 @@ import mainPic from '../assets/images/narendra.png'
 import React from 'react'
 import DonateButton from './DonateButton'
 import { useNavigate } from 'react-router-dom'
+import child from '../assets/images/child.svg'
 
 
 const HeroSection = () => {
   const navigate = useNavigate()
+
+
+ 
+
   return (
     <Box
       sx={{
         width: { xs: '100%' },
         height: { sm: '100vh', xs: '100vh' },
         display: 'flex',
+        overflow: 'hidden',
       }}
     >
       <Box
@@ -34,7 +40,8 @@ const HeroSection = () => {
           }}
           src={mainPic}
         />
-        <Box
+
+        {/* <Box
           sx={{
             width: '100%',
             height: { lg: '100%', xs: '100vh' },
@@ -43,43 +50,73 @@ const HeroSection = () => {
             position: 'absolute',
             zIndex: '-1',
           }}
-        />
+        /> */}
       </Box>
 
       <Container
         sx={{
           position: 'relative',
-          color: 'white',
-          width: { sm: '50%', xs: '100%' },
+          color: 'common.white',
+          width: { sm: '100%', xs: '100%' },
           height: { sm: '100%', xs: '100vh' },
           display: 'flex',
           alignItems: 'center',
-          marginLeft: { sm: '200px', xs: 0 },
+          margin: { xs: 0 },
         }}
       >
         <Box
           sx={{
             display: 'flex',
             height: '100%',
+            width: '80%',
             justifyContent: 'space-evenly',
+            display: 'flex',
             flexDirection: 'column',
           }}
         >
           <Box
             sx={{
-              height: '60%',
+              height: { md: '50%', xs: '60%' },
+              width: { lg: '150%', md: '60%', sm: '100%', xs: '100%' },
+              marginTop: '40%',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
+              bgcolor: 'secondry.main',
+              borderRadius: '50px',
             }}
           >
-            <Typography variant="h1">PENCIL</Typography>
-            <Typography variant="subtitle1">
-              (Platform for Effective Enforcement for No Child Labour)
-            </Typography>
-            <Typography variant="subtitle1">
-              A Ministry of Labour and Employment initiative
-            </Typography>
+            <Box
+              sx={{
+                marginLeft: '10%',
+              }}
+            >
+              <Typography variant="h1">PENCIL</Typography>
+              <Typography variant="h4">
+                A Ministry of Labour and Employment Initiative
+              </Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              height: { md: '10%', xs: '100px' },
+              width: { sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: 'primary.main',
+              borderRadius: '10px',
+              marginLeft: '15%',
+            }}
+          >
+            <Button onClick={() => navigate('/reportchild')}>
+              <Typography
+                variant="subtitle1"
+                sx={{ textTransform: 'capitalize', color: 'common.white' }}
+              >
+                Register a Complaint
+              </Typography>
+            </Button>
           </Box>
           <Box
             sx={{
@@ -89,33 +126,17 @@ const HeroSection = () => {
               height: '40%',
               justifyContent: 'space-evenly',
             }}
-          >
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Box sx={{ marging: '10px' }}>
-                <DonateButton />
-              </Box>
-
-              <Button
-                variant="contained"
-                size="large"
-                sx={{ margin: '10px', width: '200px' }}
-                onClick={() => navigate('/reportchild')}
-              >
-                Report a Child!
-              </Button>
-
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => navigate('/complaintstatus')}
-                sx={{ margin: '10px', width: '200px' }}
-              >
-                Complaint status
-              </Button>
-            </Box>
-          </Box>
+          ></Box>
         </Box>
       </Container>
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+
+          display: { xs: 'none', lg: 'flex' },
+        }}
+      ></Box>
     </Box>
   )
 }
