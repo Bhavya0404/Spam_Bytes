@@ -1,118 +1,121 @@
-import "./App.css";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import ReportChild from "./components/ReportChild";
-import Navbar from "./components/Navbar";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import HomePage from "./components/HomePage";
-import VerificationPage from "./components/VerificationPage";
-import UserDashboard from "./features/users/UserDashboard";
+import './App.css'
+import Login from './components/Login'
+import Register from './components/Register'
+import ReportChild from './components/ReportChild'
+import Navbar from './components/Navbar'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import HomePage from './components/HomePage'
+import VerificationPage from './components/VerificationPage'
+import UserDashboard from './features/users/UserDashboard'
 // import AllUser from "./features/users/AllUser";
-import AllNgo from "./features/ngo/AllNgo";
-import NgoDashboard from "./features/ngo/NgoDashboard";
-import Districts from "./components/Districts";
-import Guidelines from "./components/Guildelines";
-import AllFoundChild from "./features/foundchild/AllFoundChild";
-import ComplaintStatusPage from "./features/foundchild/ComplaintStatusPage";
-import NodalDashboard from "./features/nodal/NodalDashboard";
-import ChildDetails from "./components/ChildDetails";
-import ChangePassword from "./components/ChangePassword";
-import ResetPassword from "./components/ResetPassword";
-import ForgotPassword from "./components/ForgotPassword";
-import NodalProfile from "./components/NodalProfile";
-import PolicyPage from "./components/PolicyPage";
-import Government from "./components/Goverment";
+import AllNgo from './features/ngo/AllNgo'
+import NgoDashboard from './features/ngo/NgoDashboard'
+import Districts from './components/Districts'
+import Guidelines from './components/Guildelines'
+import AllFoundChild from './features/foundchild/AllFoundChild'
+import ComplaintStatusPage from './features/foundchild/ComplaintStatusPage'
+import NodalDashboard from './features/nodal/NodalDashboard'
+import ChildDetails from './components/ChildDetails'
+import ChangePassword from './components/ChangePassword'
+import ResetPassword from './components/ResetPassword'
+import ForgotPassword from './components/ForgotPassword'
+import NodalProfile from './components/NodalProfile'
+import PolicyPage from './components/PolicyPage'
+import Government from './components/Goverment'
 
-import NCLP from "./components/NCLP";
-import Acts from "./components/Acts";
-import Logout from "./components/Logout";
-import { Toaster } from "react-hot-toast";
+import NCLP from './components/NCLP'
+import Acts from './components/Acts'
+import Logout from './components/Logout'
+import { Toaster } from 'react-hot-toast'
 import {
   Box,
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
-} from "@mui/material";
-
-import UserProfile from "./components/UserProfile";
+} from '@mui/material'
+import UserProfile from './components/UserProfile'
+import ChildComplaint from './components/ChildComplaint'
 
 function App() {
-  const location = useLocation();
+  const location = useLocation()
 
   let globalTheme = createTheme({
     palette: {
       primary: {
-        main: "#192F4D",
-        contrastText: "#E3ECF3",
+        main: '#023e8a',
+        dark: '#03045e',
+        light: '#00b4d8',
+        contrastText: '#E3ECF3',
       },
       secondary: {
-        main: "#457B9D",
-        // light: '#E3ECF3',
-        contrastText: "#E3ECF3",
+        main: '#e7c6ff',
+        light: '#E3ECF3',
+        dark: '#c8b6ff',
+        contrastText: '#E3ECF3',
       },
       text: {
-        primary: "#192F4D",
-        secondary: "#457B9D",
+        primary: '#192F4D',
+        secondary: '#457B9D',
       },
       success: {
-        main: "#F9C80E",
-        contrastText: "#E3ECF3",
+        main: '#F9C80E',
+        contrastText: '#E3ECF3',
       },
     },
     typography: {
-      fontFamily: "Poppins",
+      fontFamily: 'Poppins',
       h1: {
-        letterSpacing: "1.5rem",
-        "@media (max-width:600px )": {
+        letterSpacing: '1.5rem',
+        '@media (max-width:600px )': {
           letterSpacing: 0,
         },
       },
       h2: {
-        letterSpacing: "1rem",
-        fontSize: "60px",
+        letterSpacing: '1rem',
+        fontSize: '60px',
       },
       h3: {
-        letterSpacing: "0.7rem",
-        fontSize: "50px",
+        letterSpacing: '0.7rem',
+        fontSize: '50px',
       },
       h6: {
-        fontSize: "20px",
-        fontFamily: "Poppins",
+        fontSize: '20px',
+        fontFamily: 'Poppins',
       },
       subtitle1: {
-        fontSize: "25px",
-        fontFamily: "Poppins",
+        fontSize: '25px',
+        fontFamily: 'Poppins',
       },
       subtitle2: {
-        fontSize: "23px",
+        fontSize: '23px',
 
-        fontFamily: "Poppins",
+        fontFamily: 'Poppins',
       },
       body1: {
-        fontSize: "16px",
-        fontFamily: "Poppins",
+        fontSize: '16px',
+        fontFamily: 'Poppins',
       },
       body2: {
-        fontSize: "14px",
-        fontFamily: "Poppins",
+        fontSize: '14px',
+        fontFamily: 'Poppins',
       },
       caption: {
-        fontFamily: "Poppins",
+        fontFamily: 'Poppins',
       },
       overline: {
-        fontFamily: "Poppins",
+        fontFamily: 'Poppins',
       },
       button: {
-        fontFamily: "Poppins",
+        fontFamily: 'Poppins',
       },
     },
-  });
-  globalTheme = responsiveFontSizes(globalTheme);
+  })
+  globalTheme = responsiveFontSizes(globalTheme)
   return (
     <ThemeProvider theme={globalTheme}>
       <Box
         sx={{
-          width: "100%",
+          width: '100%',
           // display: 'flex',
           // flexDirection: 'column',
         }}
@@ -149,6 +152,7 @@ function App() {
           <Route path="/foundchild" element={<AllFoundChild />} />
           <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
           <Route path="/child/:childId" element={<ChildDetails />} />
+          <Route path="/childcomplaint" element={<ChildComplaint/>}/>
 
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
@@ -156,7 +160,7 @@ function App() {
         </Routes>
       </Box>
     </ThemeProvider>
-  );
+  )
 }
 
-export default App;
+export default App
