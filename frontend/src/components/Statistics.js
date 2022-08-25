@@ -13,7 +13,7 @@ const Statistics = () => {
   const stateData = useSelector(set)
 
  const state = "Uttar Pradesh"
-  console.log(stateData)
+  console.log(stateData.state)
   let reportedCase = 0;
   let nodalOfficers = 0;
   let inSchool = 0;
