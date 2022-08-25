@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 
 
-export default function ControlledAccordions({childData}) {
+export default function ControlledAccordions({childData, ngo = false}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -81,13 +81,13 @@ export default function ControlledAccordions({childData}) {
                                   <CancelIcon sx={{ color: "red" }} />
                                 )}
                               </Typography>
-        <Button
+         {ngo && (<Button
             variant="text"
             disabled={childData?.schemes.find(name => name === "The special schools/Rehabilitation Centres provide") }
             onClick={() => assignScheme("The special schools/Rehabilitation Centres provide")}
           >
             Availed
-          </Button>
+          </Button>)}
 
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -114,13 +114,13 @@ export default function ControlledAccordions({childData}) {
                                   <CancelIcon sx={{ color: "red" }} />
                                 )}
                               </Typography>
-        <Button
+       {ngo && ( <Button
             variant="text"
             disabled={childData?.schemes.find(name => name === "Present Status of NCLP Scheme") }
             onClick={() => assignScheme("Present Status of NCLP Scheme")}
           >
             Availed
-          </Button>
+          </Button>)}
       </Accordion>
       
       </Container>
