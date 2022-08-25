@@ -58,6 +58,10 @@ const foundchild = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "ngo",
     },
+    schemes: {
+      type: Array,
+      default: []
+    }
   },
   { timestamps: true }
 );

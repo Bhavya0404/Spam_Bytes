@@ -159,10 +159,25 @@ const updateComplaint = async (req, res) => {
   }
 };
 
+const assignScheme = async (req, res) => {
+  const body = req?.body;
+  const schemeName = body?.scheme;
+  const {id: childId} = req?.params;
+
+  const childData = await foundChild.findById(childId).exec();
+  if(!childData) {
+    return res.status(404).send({message: 'Child not found'})
+  }
+  childData.schemes.push(schemeName);
+  await childData.save();
+  return res.status(200).send({message: 'Enrolled in Scheme'});
+}
+
 module.exports = {
   reportChild,
   createComplaint,
   getAllComplaints,
   getComplaintById,
   updateComplaint,
+  assignScheme
 };
