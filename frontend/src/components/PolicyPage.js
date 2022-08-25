@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import pol from '../images/How-to-develop-and-implement-a-new-company-policy-1.jpg'
 import { Stack } from '@mui/material'
 import Box from '@mui/material/Box'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Navbar from './Navbar'
 import Container from '@mui/material/Container'
 
@@ -23,7 +23,7 @@ const PolicyPage = () => {
         height: '50rem',
       }}
     >
-      <AnimatedRoutes>
+      
       <Container>
       <Box sx={{ 
         position: 'relative',
@@ -84,7 +84,7 @@ const PolicyPage = () => {
               </Typography>
               </Box>
           </Container>
-      </AnimatedRoutes>
+      
     </Box>
     </div>
   )

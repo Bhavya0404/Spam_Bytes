@@ -1,12 +1,12 @@
 import React from "react";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 
 const Government = () => {
   return (
-    <AnimatedRoutes>
+    
       
         
     <Container>
@@ -122,7 +122,7 @@ const Government = () => {
     </Box>
           </Container>
       
-    </AnimatedRoutes>
+  
   );
 };
 

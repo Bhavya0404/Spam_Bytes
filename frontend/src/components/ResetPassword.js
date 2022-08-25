@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
-import AnimatedRoutes from './AnimatedRoutes'
+
 
 const ResetPassword = () => {
   const navigate = useNavigate()
@@ -56,7 +56,7 @@ const ResetPassword = () => {
         justifyContent: 'center',
       }}
     >
-      <AnimatedRoutes>
+  
         <Paper
           sx={{
             display: 'flex',
@@ -91,7 +91,7 @@ const ResetPassword = () => {
             Reset Password
           </Button>
         </Paper>
-      </AnimatedRoutes>
+     
     </Box>
   )
 }

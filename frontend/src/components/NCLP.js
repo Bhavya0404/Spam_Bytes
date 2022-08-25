@@ -1,7 +1,7 @@
 import { Box } from '@mui/material'
 import React from 'react'
 import pic from '../images/architecture.png'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Stack } from '@mui/material'
@@ -11,7 +11,7 @@ const NCLP = () => {
   return (
     <div>
       <Navbar />
-      <AnimatedRoutes>
+      
         <Container>
           <Box
             sx={{
@@ -141,7 +141,7 @@ const NCLP = () => {
             </p>
           </Box>
         </Container>
-      </AnimatedRoutes>
+      
     </div>
   )
 }

@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 import Navbar from "./Navbar";
 import toast from "react-hot-toast";
 
@@ -58,7 +58,7 @@ const Register = () => {
           justifyContent: "center",
         }}
       >
-        <AnimatedRoutes>
+    
           <Paper
             elevation={12}
             sx={{
@@ -162,7 +162,7 @@ const Register = () => {
               </Button>
             </Container>
           </Paper>
-        </AnimatedRoutes>
+     
       </Box>
     </div>
   );

@@ -16,7 +16,7 @@ import {
   RadioGroup,
 } from '@mui/material'
 import toast from 'react-hot-toast'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Navbar from './Navbar'
 
 const Login = ({ onChange }) => {
@@ -87,7 +87,7 @@ const Login = ({ onChange }) => {
         },
       }}
     >
-      <AnimatedRoutes>
+   
         <Paper
           elevation={12}
           sx={{
@@ -226,7 +226,7 @@ const Login = ({ onChange }) => {
             </Grid>
           </Grid>
         </Paper>
-      </AnimatedRoutes>
+    
     </Box>
     </div>
   )

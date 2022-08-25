@@ -3,7 +3,7 @@ import old from '../images/nclp_guildline_old.png'
 import neww from '../images/new_ncil_guildlines.png'
 import { Box, Stack } from '@mui/material'
 import { Typography } from '@mui/material'
-import AnimatedRoutes from './AnimatedRoutes'
+
 import Navbar from './Navbar'
 import Container from '@mui/material/Container'
 
@@ -13,7 +13,7 @@ const Guidelines = () => {
   return (
     <div>
     <Navbar />
-      <AnimatedRoutes>
+     
 
       <Container>
       <Box sx={{ 
@@ -56,7 +56,7 @@ const Guidelines = () => {
 
         </Box>
           </Container>
-      </AnimatedRoutes>
+      
 
     </div>
   )

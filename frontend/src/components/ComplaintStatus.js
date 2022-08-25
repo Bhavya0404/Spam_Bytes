@@ -15,7 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useSelector } from "react-redux";
 import { selectFoundChild } from "../features/foundchild/FoundChildSlice";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 
 const steps = [
   { status: "Reported" },
@@ -58,7 +58,7 @@ const ComplaintStatus = ({ heading, createBtn }) => {
   };
   return (
     <Card sx={{ flex: 1 }}>
-      <AnimatedRoutes>
+      
         <CardContent>
           <Box
             sx={{
@@ -195,7 +195,7 @@ const ComplaintStatus = ({ heading, createBtn }) => {
             </Box>
           )}
         </CardContent>
-      </AnimatedRoutes>
+    
     </Card>
   );
 };

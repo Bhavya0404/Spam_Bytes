@@ -22,7 +22,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import LocationIcon from "@mui/icons-material/LocationOn";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import AnimatedRoutes from "./AnimatedRoutes";
+
 import toast from "react-hot-toast";
 
 const style = {
@@ -112,8 +112,7 @@ const NodalProfile = () => {
   };
   return (
     <div>
-      <AnimatedRoutes>
-        <Box
+              <Box
           sx={{
             display: "flex",
             gap: 2,
@@ -383,7 +382,7 @@ const NodalProfile = () => {
             </Box>
           </Modal>
         </Box>
-      </AnimatedRoutes>
+     
     </div>
   );
 };
