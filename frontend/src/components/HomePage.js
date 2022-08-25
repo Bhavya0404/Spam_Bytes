@@ -26,6 +26,7 @@ const HomePage = () => {
           flexDirection: 'column',
         }}
       >
+        <AboutUs />
         {/* footer */}
         {/* <Map /> */}
         {/* footer */}
