@@ -6,6 +6,8 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import VerifiedIcon from '@mui/icons-material/Verified';
 import PendingIcon from '@mui/icons-material/Pending';
 import CallToActionIcon from '@mui/icons-material/CallToAction';
+import { store } from "../app/store";
+import {pending,resolved, reset} from "../features/ticket/TicketSlice";
 
 const menus = {
   user: {
@@ -46,17 +48,23 @@ const menus = {
         {
           label: "All Complaints",
           Icon: CallToActionIcon,
-          link: "/alltickets/",
+          link: null,
+          onClick: () => {
+            store.dispatch(reset())
+            window.location.href = '/alltickets/';
+          }
         },
         {
           label: "Pending Complaints",
           Icon: PendingIcon,
-          link: "/admin/",
+          link: null,
+          onClick: () => store.dispatch(pending())
         },
         {
           label: "Resolved Complaint",
           Icon: VerifiedIcon,
-          link: "/admin/",
+          link: null,
+          onClick: () => store.dispatch(resolved()),
         },
       ],
       [

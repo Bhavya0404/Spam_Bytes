@@ -33,7 +33,7 @@ function refresh() {
 
 const NodalDashboard = () => {
   refresh()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const statusFoundChild = useSelector(getFoundChildStatus)
   const foundChildData = useSelector(selectFoundChild)
   const statusNodal = useSelector(getNodalStatus)

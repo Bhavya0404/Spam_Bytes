@@ -3,6 +3,7 @@ import * as am5 from '@amcharts/amcharts5'
 import * as am5map from '@amcharts/amcharts5/map'
 import am5geodata_india2020Low from '@amcharts/amcharts5-geodata/india2020Low'
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
+import axios from 'axios'
 
 function Map() {
   useLayoutEffect(() => {
@@ -32,10 +33,11 @@ function Map() {
       fill: colors.getIndex(1),
     })
 
-    worldSeries.mapPolygons.template.events.on('click', (ev) => {
+    worldSeries.mapPolygons.template.events.on('click', async (ev) => {
       var dataItem = ev.target.dataItem
       var data = dataItem.dataContext
       console.log(data.name)
+      const resp = await axios.post('http://localhost:5000/stats/map', {state: data.name})
     })
     var countrySeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = 250;
 
-const Sidebar = ({ window, nSections, sectionList, header, func }) => {
+const Sidebar = ({ window, nSections, sectionList, header, func, onClick }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerClose = () => setMobileOpen(!mobileOpen);
   const drawer = (
@@ -29,20 +29,29 @@ const Sidebar = ({ window, nSections, sectionList, header, func }) => {
         </Typography>
       </Toolbar>
       <Divider />
-      {[...Array(nSections).keys()].map((i,idx) => (
+      {[...Array(nSections).keys()].map((i, idx) => (
         <>
           <List key={idx}>
-            {sectionList[i].map(({ label, Icon, link }, idx1) => (
+            {sectionList[i].map(({ label, Icon, link, onClick }, idx1) => (
               <ListItem key={idx1} disablePadding>
-                {link ? (
+                {link && !onClick ? (
                   <ListItemButton component={Link} to={link}>
                     <ListItemIcon>
                       <Icon />
                     </ListItemIcon>
                     <ListItemText primary={label} />
                   </ListItemButton>
+                ) : !link && !!onClick ? (
+                  <ListItemButton onClick={onClick}>
+                    <ListItemIcon>
+                      <Icon />
+                    </ListItemIcon>
+                    <ListItemText primary={label} />
+                  </ListItemButton>
                 ) : (
-                  <ListItemButton onClick={() => func(label.includes('All Child'))}>
+                  <ListItemButton
+                    onClick={() => func(label.includes("All Child"))}
+                  >
                     <ListItemIcon>
                       <Icon />
                     </ListItemIcon>

@@ -19,6 +19,9 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import sidebarMenus from "../components/sidebarMenus";
 import axios from "axios";
 import { yellow, green } from "@mui/material/colors";
+import { useSelector } from "react-redux";
+import { store } from "../app/store";
+import { reset } from "../features/ticket/TicketSlice";
 
 const getColor = (status) => {
   if (status === true) return [green[50], green[600]];
@@ -26,6 +29,7 @@ const getColor = (status) => {
 };
 
 const AllTickets = () => {
+  const resolve = useSelector(state => state.ticketslice.resolve);
   const navigate = useNavigate();
   const [allTickets, setAllTickets] = useState([]);
   useEffect(() => {
@@ -38,12 +42,20 @@ const AllTickets = () => {
           "http://localhost:5000/pencil/complaints",
           { headers }
         );
-        setAllTickets(resp?.data);
+        const data = resp?.data;
+        console.log(resolve);
+        if (resolve === true) {
+          setAllTickets(data.filter((t) => t.resolved === true))
+        } else if (resolve === false) {
+          setAllTickets(data.filter(t => t.resolved === false));
+        } else {
+          setAllTickets(data);
+        }
       } catch (err) {
         console.error(err);
       }
     })();
-  }, []);
+  }, [resolve]);
   return (
     <Box
       sx={{
@@ -77,7 +89,8 @@ const AllTickets = () => {
           </TableHead>
 
           <TableBody>
-            {allTickets.map((ticket) => (
+            {allTickets.map((ticket) =>
+            (
               <TableRow>
                 <TableCell>{ticket?.child?.name}</TableCell>
                 <TableCell>{ticket?.description}</TableCell>
