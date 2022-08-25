@@ -54,7 +54,7 @@ const HeroSection = () => {
           src={mainPic}
         />
         
-        <Box
+        {/* <Box
           sx={{
             width: '100%',
             height: { lg: '100%', xs: '100vh' },
@@ -63,7 +63,7 @@ const HeroSection = () => {
             position: 'absolute',
             zIndex: '-1',
           }}
-        />
+        /> */}
       </Box>
 
       <Container
@@ -114,8 +114,8 @@ const HeroSection = () => {
           </Box>
           <Box
           sx={{
-            height:  {  md: '50px', xs: '100px' },
-            width:{lg: '150%', md:'60%', sm:'100%', xs:'100%'},
+            height:  {  md: '10%', xs: '100px' },
+            width:{ md:'100%', sm:'100%', xs:'100%'},
             marginTop: '5%',
             display: 'flex',
             flexDirection: 'column',
@@ -126,7 +126,7 @@ const HeroSection = () => {
               <Button
                 onClick={() => navigate('/reportchild')}
               >
-                <Typography variant='subtitle1' sx={{ textTransform: "capitalize", color:'common.white'}}>Register a Complaint</Typography>
+                <Typography variant='subtitle1' sx={{ textTransform: "capitalize", color:'common.white' }}>Register a Complaint</Typography>
               </Button>
             
           </Box>
@@ -154,15 +154,7 @@ const HeroSection = () => {
           display:{xs:'none',lg:'flex'},
         }}>
           
-          <Box component="img"
-          sx={{
-            width: '1500px',
-            height: '100%',
-           
-           
-                   
-          }}
-          />
+          
 
         </Box>
     </Box>

@@ -18,7 +18,6 @@ const HomePage = () => {
   return (
     <div>
       <Navbar/>
-
       <Box
         sx={{
           position: 'relative',
@@ -27,20 +26,11 @@ const HomePage = () => {
           flexDirection: 'column',
         }}
       >
-<<<<<<< HEAD
         <HeroSection />
-        <Map />
+        <Statistics/>
         <AboutUs />
         <HowDoWeFunction />
         <Footer />
-
-     
-=======
-        <Statistics />
-        {/* footer */}
-        {/* <Map /> */}
-        {/* footer */}
->>>>>>> 912cbf85c7196fae96e110a9bbf07420b28f67b5
       </Box>
     </div>
   )
