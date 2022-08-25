@@ -162,7 +162,7 @@ function App() {
           <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/alltickets" element={<AllTickets />} />
-          <Route exact path="/ticketdetails" element={<TicketDetails />} />
+          <Route exact path="/ticketdetails/:id" element={<TicketDetails />} />
 
         </Routes>
       </Box>

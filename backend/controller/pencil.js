@@ -4,6 +4,7 @@ const { sendMail } = require("../controller/mail");
 const userSchema = require("../model/userSchema");
 const complaintSchema = require("../model/complaint");
 const logger = require("../logger");
+const mongoose = require("mongoose");
 
 // Validators
 const foundChildValidator = require("../validation/foundChildValidator");
@@ -101,7 +102,7 @@ const getAllComplaints = async (req, res) => {
     if (!childData) continue;
     data.push({
       _id: compl?._id,
-      status: compl?.resolved,
+      resolved: compl?.resolved,
       description: compl?.description,
       child: {
         _id: childData?._id,
@@ -112,11 +113,56 @@ const getAllComplaints = async (req, res) => {
         _id: childData?.acceptedBy?._id,
         name: childData?.acceptedBy?.name,
       },
-      timestamp: compl?.createdAt
+      timestamp: compl?.createdAt,
     });
   }
 
   return res.status(200).send(data);
 };
 
-module.exports = { reportChild, createComplaint, getAllComplaints };
+const getComplaintById = async (req, res) => {
+  const { id } = req?.params;
+  const complaint = await complaintSchema.findById(id).exec();
+  const childData = await foundChild
+    .findOne({ aadhar_no: complaint?.aadhar_no })
+    .populate("acceptedBy")
+    .exec();
+  return res.status(200).send({
+    _id: complaint?._id,
+    resolved: complaint?.resolved,
+    description: complaint?.description,
+    child: {
+      _id: childData?._id,
+      name: childData?.name,
+      img: childData?.img,
+    },
+    ngo: {
+      _id: childData?.acceptedBy?._id,
+      name: childData?.acceptedBy?.name,
+    },
+    timestamp: complaint?.createdAt,
+  });
+};
+
+const updateComplaint = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No complaint found with id ${id}`);
+
+  try {
+    const complaint = await complaintSchema.findByIdAndUpdate(id, {
+      $set: req.body,
+    });
+    return res.json(complaint);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+module.exports = {
+  reportChild,
+  createComplaint,
+  getAllComplaints,
+  getComplaintById,
+  updateComplaint,
+};

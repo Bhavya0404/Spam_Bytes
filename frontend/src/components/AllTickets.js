@@ -1,32 +1,54 @@
+import React, { useState, useEffect } from "react";
 
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 
-import { useNavigate } from 'react-router-dom'
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { Button } from "@mui/material";
 
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import { Button } from '@mui/material'
+import { Container } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import SideBar from "../components/Sidebar";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import sidebarMenus from "../components/sidebarMenus";
+import axios from "axios";
+import { yellow, green } from "@mui/material/colors";
 
-import {Container} from '@mui/material'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import SideBar from '../components/Sidebar'
-import CancelIcon from '@mui/icons-material/Cancel'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
-import sidebarMenus from '../components/sidebarMenus'
+const getColor = (status) => {
+  if (status === true) return [green[50], green[600]];
+  else return [yellow[50], yellow[900]];
+};
+
 const AllTickets = () => {
+  const navigate = useNavigate();
+  const [allTickets, setAllTickets] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const headers = {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      };
+      try {
+        const resp = await axios.get(
+          "http://localhost:5000/pencil/complaints",
+          { headers }
+        );
+        setAllTickets(resp?.data);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
   return (
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
+        display: "flex",
+        justifyContent: "space-between",
       }}
     >
       <SideBar
@@ -38,10 +60,10 @@ const AllTickets = () => {
       {/* Table for XL Screens to L Screens */}
       <TableContainer
         sx={{
-          display: { xs: 'none', lg: 'inherit' },
-          mx: '20px',
-          mt: '100px',
-          maxHeight: '500px',
+          display: { xs: "none", lg: "inherit" },
+          mx: "20px",
+          mt: "100px",
+          maxHeight: "500px",
         }}
       >
         <Table stickyHeader component={Paper}>
@@ -54,58 +76,56 @@ const AllTickets = () => {
             </TableRow>
           </TableHead>
 
-            <TableBody>
-                <TableRow>
-                    <TableCell>Chotu Bacha</TableCell>
-                    <TableCell>Chotu Bacha</TableCell>
-                    <TableCell>
-                                <Container
-                                  sx={{
-                                    padding: "3px",
-                                    borderRadius: "100px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    // backgroundColor: getColor(
-                                    //   payoutDataId?.status
-                                    // )[0],
-                                  }}
-                                >
-                                  <Typography
-                                    sx={{
-                                    //   color: getColor(payoutDataId?.status)[1],
-                                    }}
-                                  >
-                                    {/* {capitalize(payoutDataId?.status)} */}
-                                  </Typography>
-                                </Container>
-                              </TableCell>
-                    <TableCell>
-                    <Button
-                      size="medium"
-                      variant="contained"
-                    //   onClick={() => navigate(`/ngo/child/${child?._id}`)}
+          <TableBody>
+            {allTickets.map((ticket) => (
+              <TableRow>
+                <TableCell>{ticket?.child?.name}</TableCell>
+                <TableCell>{ticket?.description}</TableCell>
+                <TableCell>
+                  <Container
+                    sx={{
+                      padding: "3px",
+                      borderRadius: "100px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: getColor(ticket?.resolved)[0],
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        color: getColor(ticket?.resolved)[1],
+                      }}
                     >
-                      <ArrowRightAltIcon />
-                      <Typography
-                        component="span"
-                        sx={{
-                          display: { xs: 'none', md: 'block' },
-                          fontSize: '14px',
-                        }}
-                      >
-                        View Details
-                      </Typography>
-                      
-                    </Button>
-                    </TableCell>
-                </TableRow>
-            </TableBody>
-          
+                      {ticket?.resolved ? "Resolved" : "Pending"}
+                    </Typography>
+                  </Container>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    size="medium"
+                    variant="contained"
+                    onClick={() => navigate(`/ticketdetails/${ticket?._id}`)}
+                  >
+                    <ArrowRightAltIcon />
+                    <Typography
+                      component="span"
+                      sx={{
+                        display: { xs: "none", md: "block" },
+                        fontSize: "14px",
+                      }}
+                    >
+                      View Details
+                    </Typography>
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
-      </Box>
-  )
-}
+    </Box>
+  );
+};
 
-export default AllTickets
+export default AllTickets;
