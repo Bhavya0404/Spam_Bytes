@@ -34,7 +34,11 @@ import {
   ThemeProvider,
 } from '@mui/material'
 import UserProfile from './components/UserProfile'
+
+import AllTickets from './components/AllTickets'
+
 import ChildComplaint from './components/ChildComplaint'
+import TicketDetails from './components/TicketDetails'
 
 function App() {
   const location = useLocation()
@@ -157,6 +161,9 @@ function App() {
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
+          <Route exact path="/alltickets" element={<AllTickets />} />
+          <Route exact path="/ticketdetails" element={<TicketDetails />} />
+
         </Routes>
       </Box>
     </ThemeProvider>
