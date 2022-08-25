@@ -46,7 +46,7 @@ const menus = {
         {
           label: "All Complaints",
           Icon: CallToActionIcon,
-          link: "/admin/",
+          link: "/alltickets/",
         },
         {
           label: "Pending Complaints",
