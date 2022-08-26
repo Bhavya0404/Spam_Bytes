@@ -20,6 +20,7 @@ import reportedImg from '../assets/images/report.svg'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import data from '../assets/dropdown.json'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import App from './voicenote'
 
 const ReportChild = () => {
   const [name, setName] = useState('')
@@ -389,6 +390,7 @@ const ReportChild = () => {
                       </Accordion>
                     </Box>
                   </Box>
+                                <App/>
                 </Box>
                 <Box
                   sx={{
