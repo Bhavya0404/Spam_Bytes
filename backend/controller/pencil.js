@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 
 // Validators
 const foundChildValidator = require("../validation/foundChildValidator");
+const schemesModel = require("../model/schemes");
 
 const reportChild = async (req, res) => {
   const body = req?.body;
@@ -159,19 +160,25 @@ const updateComplaint = async (req, res) => {
   }
 };
 
+
 const assignScheme = async (req, res) => {
   const body = req?.body;
   const schemeName = body?.scheme;
-  const {id: childId} = req?.params;
+  const scheme = await schemesModel.findOne({ name: schemeName }).exec();
+  if (!scheme) {
+    return res.status(400).send({ message: "Assign Scheme" });
+  }
+  const { id: childId } = req?.params;
 
   const childData = await foundChild.findById(childId).exec();
-  if(!childData) {
-    return res.status(404).send({message: 'Child not found'})
+  if (!childData) {
+    return res.status(404).send({ message: "Child not found" });
   }
-  childData.schemes.push(schemeName);
+  childData.schemes.push(scheme);
   await childData.save();
-  return res.status(200).send({message: 'Enrolled in Scheme'});
-}
+  return res.status(200).send({ message: "Enrolled in Scheme" });
+};
+
 
 module.exports = {
   reportChild,
@@ -179,5 +186,5 @@ module.exports = {
   getAllComplaints,
   getComplaintById,
   updateComplaint,
-  assignScheme
+  assignScheme,
 };
