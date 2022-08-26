@@ -11,9 +11,9 @@ const Statistics = () => {
   const foundChildData = useSelector(selectFoundChild);
   const state = useSelector((state) => state.statename.state);
 
-  let reportedCase = 0;
+  const [reportedCase, setReportedCase] = useState(0);
   const [nodalOfficers, setNodalOfficers] = useState(0);
-  let inSchool = 0;
+  const [inSchool, setInSchool] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -26,24 +26,15 @@ const Statistics = () => {
           { state },
           { headers }
         );
-        setNodalOfficers(resp?.data?.count);
+        console.log(resp?.data);
+        setNodalOfficers(resp?.data?.nodalCount);
+        setReportedCase(resp?.data?.childrenReported);
+        setInSchool(resp?.data?.childrenResolved);
       } catch (err) {
         console.error(err);
       }
     })();
   }, [state]);
-
-  foundChildData.forEach((child) => {
-    if (child.isVerified) {
-      if (child.state === state) {
-        reportedCase++;
-      }
-
-      if (child.state === state && child.inSchool) {
-        inSchool++;
-      }
-    }
-  });
 
   return (
     <Box
