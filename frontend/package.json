@@ -28,6 +28,7 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.3.0",
+    "react-map-gl-geocoder": "^2.2.0",
     "react-mic": "^12.4.6",
     "react-redux": "^8.0.2",
     "react-responsive-carousel": "^3.2.23",
