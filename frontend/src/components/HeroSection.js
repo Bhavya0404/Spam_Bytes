@@ -15,6 +15,7 @@ const HeroSection = () => {
         height: { sm: '100vh', xs: '100vh' },
         display: 'flex',
         overflow: 'hidden',
+        mt: "-19px"
       }}
     >
       <Box
