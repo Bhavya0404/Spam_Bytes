@@ -294,6 +294,8 @@ const ReportChild = () => {
                       <input hidden accept="image/*" multiple type="file" />
                     </Button>
                   </Box>
+                  <App/>
+
 
                   <Box>
                     {!loggedIn?.loggedIn && (
@@ -390,7 +392,7 @@ const ReportChild = () => {
                       </Accordion>
                     </Box>
                   </Box>
-                                <App/>
+                                
                 </Box>
                 <Box
                   sx={{
