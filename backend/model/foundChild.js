@@ -61,7 +61,7 @@ const foundchild = mongoose.Schema(
     },
     schemes: {
       type: Array,
-      default: [schemesModel],
+      default: []
     },
   },
   { timestamps: true }
