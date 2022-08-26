@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import {
   getFoundChildById,
   getFoundChildStatus,
-} from "../features/foundchild/FoundChildSlice";
-import Sidebar from "../components/Sidebar";
-import sidebarMenus from "../components/sidebarMenus";
-import ControlledAccordions from "../components/SchemePage";
+} from '../features/foundchild/FoundChildSlice'
+import Sidebar from '../components/Sidebar'
+import sidebarMenus from '../components/sidebarMenus'
+import ControlledAccordions from '../components/SchemePage'
 import {
   Box,
   Button,
@@ -25,373 +25,373 @@ import {
   TableHead,
   capitalize,
   Skeleton,
-} from "@mui/material";
-import { red, yellow, green, grey } from "@mui/material/colors";
-import CancelIcon from "@mui/icons-material/Cancel";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import PaymentIcon from "@mui/icons-material/Payment";
-import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { formatMoney } from "accounting";
-import axios from "axios";
-import EditButton from "./EditButton";
-import EditModal from "./EditModal";
-import UploadModal from "./UploadModal";
-import MapModal from "./MapModal";
-import { getNodal } from "../features/nodal/NodalSlice";
-import { selectAllNgo } from "../features/ngo/ngoSlice";
-import { toast } from "react-hot-toast";
+} from '@mui/material'
+import { red, yellow, green, grey } from '@mui/material/colors'
+import CancelIcon from '@mui/icons-material/Cancel'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import PaymentIcon from '@mui/icons-material/Payment'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import { formatMoney } from 'accounting'
+import axios from 'axios'
+import EditButton from './EditButton'
+import EditModal from './EditModal'
+import UploadModal from './UploadModal'
+import MapModal from './MapModal'
+import { getNodal } from '../features/nodal/NodalSlice'
+import { selectAllNgo } from '../features/ngo/ngoSlice'
+import { toast } from 'react-hot-toast'
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: { xs: "200px", lg: "400px" },
-  bgcolor: "background.paper",
-  borderRadius: "10px",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: { xs: '200px', lg: '400px' },
+  bgcolor: 'background.paper',
+  borderRadius: '10px',
   p: 4,
-};
+}
 
 const payoutModalstyle = {
   ...style,
-  width: { xs: "400px", md: "600px", lg: "800px" },
-};
+  width: { xs: '400px', md: '600px', lg: '800px' },
+}
 
 const ChildDetails = ({ ngo = false }) => {
-  const navigate = useNavigate();
-  const currentUser = useSelector(ngo ? selectAllNgo : getNodal);
+  const navigate = useNavigate()
+  const currentUser = useSelector(ngo ? selectAllNgo : getNodal)
 
-  const { childId } = useParams();
-  const childData = useSelector((state) => getFoundChildById(state, childId));
-  const loading = useSelector(getFoundChildStatus);
-  const [accountNumber, setAccountNumber] = useState("");
-  const [ifsc, setIfsc] = useState("");
-  const [amount, setAmount] = useState(0);
+  const { childId } = useParams()
+  const childData = useSelector((state) => getFoundChildById(state, childId))
+  const loading = useSelector(getFoundChildStatus)
+  const [accountNumber, setAccountNumber] = useState('')
+  const [ifsc, setIfsc] = useState('')
+  const [amount, setAmount] = useState(0)
 
-  const [addressEditValue, setAddressEditValue] = useState("");
-  const [descriptionEditValue, setDescriptionEditValue] = useState("");
-  const [nameEditValue, setNameEditValue] = useState("");
-  const [aadharNo, setAadharNo] = useState("");
-  const [image, setImage] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [addressEditValue, setAddressEditValue] = useState('')
+  const [descriptionEditValue, setDescriptionEditValue] = useState('')
+  const [nameEditValue, setNameEditValue] = useState('')
+  const [aadharNo, setAadharNo] = useState('')
+  const [image, setImage] = useState('')
+  const [imageFile, setImageFile] = useState(null)
 
   // Modal States
-  const [accountVisible, setAccountVisible] = useState(false);
-  const [payoutVisible, setPayoutVisible] = useState(false);
-  const [payoutListVisible, setPayoutListVisible] = useState(false);
-  const [payoutData, setPayoutData] = useState([]);
-  const [payoutLoading, setPayoutLoading] = useState(true);
-  const [nameEdit, setNameEdit] = useState(false);
-  const [addressEdit, setAddressEdit] = useState(false);
-  const [descriptionEdit, setDescriptionEdit] = useState(false);
-  const [aadharEdit, setAadharEdit] = useState(false);
-  const [uploadOpen, setUploadOpen] = useState(false);
-  const [mapOpen, setMapOpen] = useState(false);
+  const [accountVisible, setAccountVisible] = useState(false)
+  const [payoutVisible, setPayoutVisible] = useState(false)
+  const [payoutListVisible, setPayoutListVisible] = useState(false)
+  const [payoutData, setPayoutData] = useState([])
+  const [payoutLoading, setPayoutLoading] = useState(true)
+  const [nameEdit, setNameEdit] = useState(false)
+  const [addressEdit, setAddressEdit] = useState(false)
+  const [descriptionEdit, setDescriptionEdit] = useState(false)
+  const [aadharEdit, setAadharEdit] = useState(false)
+  const [uploadOpen, setUploadOpen] = useState(false)
+  const [mapOpen, setMapOpen] = useState(false)
 
-  const handleCloseAV = () => setAccountVisible(false);
-  const handleClosePM = () => setPayoutVisible(false);
-  const handleClosePL = () => setPayoutListVisible(false);
-  const handleCloseDE = () => setDescriptionEdit(false);
-  const handleCloseNE = () => setNameEdit(false);
-  const handleCloseAE = () => setAddressEdit(false);
-  const handleCloseMP = () => setMapOpen(false);
-  const handleCloseAD = () => setAadharEdit(false);
+  const handleCloseAV = () => setAccountVisible(false)
+  const handleClosePM = () => setPayoutVisible(false)
+  const handleClosePL = () => setPayoutListVisible(false)
+  const handleCloseDE = () => setDescriptionEdit(false)
+  const handleCloseNE = () => setNameEdit(false)
+  const handleCloseAE = () => setAddressEdit(false)
+  const handleCloseMP = () => setMapOpen(false)
+  const handleCloseAD = () => setAadharEdit(false)
 
   useEffect(() => {
     const getPayoutData = async () => {
-      const pData = [];
+      const pData = []
       try {
-        if (!childData?.payouts) return;
+        if (!childData?.payouts) return
         for (const childPayoutId of childData.payouts) {
           const headers = {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          };
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          }
           const resp = await axios.get(
             `http://localhost:5000/nodal/payoutStatus/${childPayoutId}`,
-            { headers }
-          );
-          pData.push(resp?.data);
+            { headers },
+          )
+          pData.push(resp?.data)
         }
       } catch (err) {
-        console.error(err);
+        console.error(err)
       }
-      setPayoutData(pData);
-      setPayoutLoading(false);
-    };
-    if (ngo) return;
-    getPayoutData();
-  }, [childData?.payouts, ngo]);
+      setPayoutData(pData)
+      setPayoutLoading(false)
+    }
+    if (ngo) return
+    getPayoutData()
+  }, [childData?.payouts, ngo])
 
   const handleCreateContact = async () => {
-    const notification = toast.loading("Creating Contact...");
-    const data = { id: childId };
+    const notification = toast.loading('Creating Contact...')
+    const data = { id: childId }
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.post(
         `http://localhost:5000/nodal/createContact`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error(err, { id: notification });
+      console.error(err)
+      toast.error(err, { id: notification })
     }
-  };
+  }
 
   const handleLinkAadhar = async () => {
-    const notification = toast.loading("Linking Aadhar to the Child...");
+    const notification = toast.loading('Linking Aadhar to the Child...')
     if (aadharNo.length !== 12) {
-      toast.error("Invalid Aadhar Number", { id: notification });
-      return;
+      toast.error('Invalid Aadhar Number', { id: notification })
+      return
     }
-    const data = { id: childId, aadhar_no: aadharNo };
+    const data = { id: childId, aadhar_no: aadharNo }
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
         data,
-        { headers }
-      );
+        { headers },
+      )
 
-      toast.success(resp?.data?.message, { id: notification });
-      navigate(0);
+      toast.success(resp?.data?.message, { id: notification })
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error("Error Occurred", { id: notification });
+      console.error(err)
+      toast.error('Error Occurred', { id: notification })
     }
-  };
+  }
 
   const createFundAcHandler = async (childId) => {
-    const data = { id: childId, ac_no: accountNumber, ifsc };
-    const notification = toast.loading("Creating Fund A/c...");
+    const data = { id: childId, ac_no: accountNumber, ifsc }
+    const notification = toast.loading('Creating Fund A/c...')
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.post(
         `http://localhost:5000/nodal/addBankAc`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error(err?.message, { id: notification });
+      console.error(err)
+      toast.error(err?.message, { id: notification })
     }
-  };
+  }
 
   const processPayoutForChild = async (childId) => {
-    const data = { id: childId, amount };
-    const notification = toast.loading(`Processing Payout of INR ${amount}...`);
+    const data = { id: childId, amount }
+    const notification = toast.loading(`Processing Payout of INR ${amount}...`)
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.post(
         `http://localhost:5000/nodal/processPayout`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      setAmount(0);
-      handleClosePM();
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      setAmount(0)
+      handleClosePM()
+      navigate(0)
     } catch (err) {
-      console.error(err);
+      console.error(err)
       toast.error(err?.response?.data?.error?.description, {
         id: notification,
-      });
-      setAmount(0);
+      })
+      setAmount(0)
     }
-  };
+  }
 
-  const [acceptChild, setAcceptChild] = useState(false);
-  const [verified, setVerifiedChild] = useState(false);
-  const [hasSchool, setHasSchool] = useState(false);
+  const [acceptChild, setAcceptChild] = useState(false)
+  const [verified, setVerifiedChild] = useState(false)
+  const [hasSchool, setHasSchool] = useState(false)
 
   const handleAccepted = async () => {
-    const x = window.confirm("Do you want to mark child as Accepted? ");
+    const x = window.confirm('Do you want to mark child as Accepted? ')
     if (x) {
-      const body = { isAccepted: true, acceptedBy: currentUser?._id };
+      const body = { isAccepted: true, acceptedBy: currentUser?._id }
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       try {
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
           body,
-          { headers }
-        );
-        toast.success(resp?.data?.message);
-        setAcceptChild(true);
-        navigate(0);
+          { headers },
+        )
+        toast.success(resp?.data?.message)
+        setAcceptChild(true)
+        navigate(0)
       } catch (err) {
-        console.error(err);
-        toast.error(err?.response?.data?.message);
+        console.error(err)
+        toast.error(err?.response?.data?.message)
       }
     }
-  };
+  }
 
   const handleVerified = async () => {
-    const x = window.confirm("Do you want to mark child as Accepted? ");
+    const x = window.confirm('Do you want to mark child as Accepted? ')
     if (x) {
-      const body = { isVerified: true };
+      const body = { isVerified: true }
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       try {
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
           body,
-          { headers }
-        );
-        toast.success(resp?.data?.message);
-        setVerifiedChild(true);
-        navigate(0);
+          { headers },
+        )
+        toast.success(resp?.data?.message)
+        setVerifiedChild(true)
+        navigate(0)
       } catch (err) {
-        console.error(err);
-        toast.error(err?.response?.data?.message);
+        console.error(err)
+        toast.error(err?.response?.data?.message)
       }
     }
-  };
+  }
 
   const handleAllotedSchool = async () => {
     const x = window.confirm(
-      "Do you want to mark the child as 'Enrolled in School' ? "
-    );
+      "Do you want to mark the child as 'Enrolled in School' ? ",
+    )
     if (x) {
-      const body = { inSchool: true };
+      const body = { inSchool: true }
       try {
         const headers = {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        };
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
         const resp = await axios.put(
           `http://localhost:5000/nodal/child/${childData?._id}`,
           body,
-          { headers }
-        );
-        toast.success(resp?.data?.message);
-        setHasSchool(true);
-        navigate(0);
+          { headers },
+        )
+        toast.success(resp?.data?.message)
+        setHasSchool(true)
+        navigate(0)
       } catch (err) {
-        console.error(err);
-        toast.error(err?.response?.data?.message);
+        console.error(err)
+        toast.error(err?.response?.data?.message)
       }
     }
-  };
+  }
 
   const getColor = (status) => {
-    if (status === "processed") return [green[50], green[600]];
-    if (status === "processing") return [yellow[50], yellow[900]];
+    if (status === 'processed') return [green[50], green[600]]
+    if (status === 'processing') return [yellow[50], yellow[900]]
     if (
-      status === "reversed" ||
-      status === "rejected" ||
-      status === "cancelled"
+      status === 'reversed' ||
+      status === 'rejected' ||
+      status === 'cancelled'
     )
-      return [red[50], red[600]];
-    return [grey[50], grey[600]];
-  };
+      return [red[50], red[600]]
+    return [grey[50], grey[600]]
+  }
 
   const handleNameChange = async () => {
-    const data = { name: nameEditValue };
-    const notification = toast.loading("Updating Name...");
+    const data = { name: nameEditValue }
+    const notification = toast.loading('Updating Name...')
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      setNameEditValue("");
-      setNameEdit(false);
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      setNameEditValue('')
+      setNameEdit(false)
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error(err?.response?.data?.message, { id: notification });
+      console.error(err)
+      toast.error(err?.response?.data?.message, { id: notification })
     }
-  };
+  }
   const handleAddressChange = async () => {
-    const data = { address: addressEditValue };
-    const notification = toast.loading("Updating Address...");
+    const data = { address: addressEditValue }
+    const notification = toast.loading('Updating Address...')
     try {
       const headers = {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      };
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      }
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      setAddressEditValue("");
-      setAddressEdit(false);
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      setAddressEditValue('')
+      setAddressEdit(false)
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error(err?.response?.data?.message, { id: notification });
+      console.error(err)
+      toast.error(err?.response?.data?.message, { id: notification })
     }
-  };
+  }
   const handleDescriptionChange = async () => {
-    const data = { description: descriptionEditValue };
-    const notification = toast.loading("Updating Description...");
+    const data = { description: descriptionEditValue }
+    const notification = toast.loading('Updating Description...')
     const headers = {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    };
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    }
     try {
       const resp = await axios.put(
         `http://localhost:5000/nodal/child/${childData?._id}`,
         data,
-        { headers }
-      );
-      toast.success(resp?.data?.message, { id: notification });
-      setDescriptionEditValue("");
-      setDescriptionEdit(false);
-      navigate(0);
+        { headers },
+      )
+      toast.success(resp?.data?.message, { id: notification })
+      setDescriptionEditValue('')
+      setDescriptionEdit(false)
+      navigate(0)
     } catch (err) {
-      console.error(err);
-      toast.error(err?.response?.data?.message, { id: notification });
+      console.error(err)
+      toast.error(err?.response?.data?.message, { id: notification })
     }
-  };
+  }
   const handleUpload = (e) => {
-    const val = e.target.files[0];
+    const val = e.target.files[0]
     const promise = new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(val);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = () => reject(reader.error);
-    });
+      const reader = new FileReader()
+      reader.readAsDataURL(val)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = () => reject(reader.error)
+    })
     promise
       .then((res) => {
-        toast.success("Image Uploaded");
-        setImageFile(res);
-        setUploadOpen(true);
+        toast.success('Image Uploaded')
+        setImageFile(res)
+        setUploadOpen(true)
       })
       .catch((err) => {
-        console.error(err);
-        toast.error(err);
-      });
-  };
+        console.error(err)
+        toast.error(err)
+      })
+  }
   function getRandomInt(max) {
-    return Math.random() * (max - 6) + 6;
+    return Math.random() * (max - 6) + 6
   }
   return (
     <div>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
+          display: 'flex',
+          justifyContent: 'space-between',
         }}
       >
         {ngo ? (
@@ -408,25 +408,35 @@ const ChildDetails = ({ ngo = false }) => {
           />
         )}
 
-        {loading !== "Succeeded" ? (
-          <Skeleton variant="rectangular" width={210} height={118} />
+        {loading !== 'Succeeded' ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Skeleton variant="rectangular" width={210} height={118} />
+          </Box>
         ) : (
           <Container maxWidth={false}>
-            <Card sx={{ flex: 1, mt: "100px" }}>
+            <Card sx={{ flex: 1, mt: '100px' }}>
               <CardContent>
                 <Box
                   sx={{
-                    marginTop: "1rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    marginTop: '1rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                   }}
                 >
                   <Typography
                     sx={{
                       fontSize: 20,
-                      textAlign: "center",
-                      marginBottom: "1rem",
+                      textAlign: 'center',
+                      marginBottom: '1rem',
                     }}
                   >
                     Details of {childData?.name}
@@ -435,12 +445,12 @@ const ChildDetails = ({ ngo = false }) => {
                   <Container
                     maxWidth={false}
                     sx={{
-                      display: "flex",
-                      flexDirection: { xs: "column", md: "row" },
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: "30px",
-                      gap: "30px",
+                      display: 'flex',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginTop: '30px',
+                      gap: '30px',
                     }}
                   >
                     <Box
@@ -536,8 +546,8 @@ const ChildDetails = ({ ngo = false }) => {
                               <TableCell>
                                 <Typography>
                                   {childData?.aadhar_no
-                                    ? "************ (Hidden)"
-                                    : "Not Added"}
+                                    ? '************ (Hidden)'
+                                    : 'Not Added'}
                                 </Typography>
                               </TableCell>
                               <TableCell>
@@ -558,9 +568,9 @@ const ChildDetails = ({ ngo = false }) => {
                               <TableCell>
                                 <Typography>
                                   {childData?.isVerified || verified ? (
-                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                    <CheckCircleIcon sx={{ color: 'green' }} />
                                   ) : (
-                                    <CancelIcon sx={{ color: "red" }} />
+                                    <CancelIcon sx={{ color: 'red' }} />
                                   )}
                                 </Typography>
                               </TableCell>
@@ -583,9 +593,9 @@ const ChildDetails = ({ ngo = false }) => {
                               <TableCell>
                                 <Typography>
                                   {childData?.isAccepted || acceptChild ? (
-                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                    <CheckCircleIcon sx={{ color: 'green' }} />
                                   ) : (
-                                    <CancelIcon sx={{ color: "red" }} />
+                                    <CancelIcon sx={{ color: 'red' }} />
                                   )}
                                 </Typography>
                               </TableCell>
@@ -610,9 +620,9 @@ const ChildDetails = ({ ngo = false }) => {
                               <TableCell>
                                 <Typography>
                                   {childData?.inSchool || hasSchool ? (
-                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                    <CheckCircleIcon sx={{ color: 'green' }} />
                                   ) : (
-                                    <CancelIcon sx={{ color: "red" }} />
+                                    <CancelIcon sx={{ color: 'red' }} />
                                   )}
                                 </Typography>
                               </TableCell>
@@ -646,16 +656,16 @@ const ChildDetails = ({ ngo = false }) => {
                     </Box>
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
                         gap: 1.75,
                       }}
                     >
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           gap: 3,
                         }}
                       >
@@ -664,12 +674,12 @@ const ChildDetails = ({ ngo = false }) => {
                           src={
                             childData?.img
                               ? `${childData?.img}`
-                              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
+                              : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png'
                           }
                           style={{
-                            objectFit: "contain",
-                            height: "250px",
-                            width: "200px",
+                            objectFit: 'contain',
+                            height: '250px',
+                            width: '200px',
                           }}
                         />
                         {!ngo && (
@@ -681,7 +691,7 @@ const ChildDetails = ({ ngo = false }) => {
                             <AddAPhotoIcon />
                             <Typography
                               component="span"
-                              sx={{ textTransform: "capitalize" }}
+                              sx={{ textTransform: 'capitalize' }}
                             >
                               Upload Photograph
                             </Typography>
@@ -703,7 +713,7 @@ const ChildDetails = ({ ngo = false }) => {
                           <LocationOnIcon />
                           <Typography
                             component="span"
-                            sx={{ textTransform: "capitalize" }}
+                            sx={{ textTransform: 'capitalize' }}
                           >
                             View Location
                           </Typography>
@@ -711,9 +721,9 @@ const ChildDetails = ({ ngo = false }) => {
                       </Box>
                       <Box
                         sx={{
-                          display: { xs: "grid", md: "flex" },
-                          flexDirection: { md: "column" },
-                          gridTemplateColumns: "repeat(2, 1fr)",
+                          display: { xs: 'grid', md: 'flex' },
+                          flexDirection: { md: 'column' },
+                          gridTemplateColumns: 'repeat(2, 1fr)',
                           gap: 1.25,
                         }}
                       >
@@ -729,7 +739,7 @@ const ChildDetails = ({ ngo = false }) => {
                                 <PaymentIcon />
                                 <Typography
                                   component="span"
-                                  sx={{ textTransform: "capitalize" }}
+                                  sx={{ textTransform: 'capitalize' }}
                                 >
                                   Payout
                                 </Typography>
@@ -742,7 +752,7 @@ const ChildDetails = ({ ngo = false }) => {
                                 <AccountBalanceIcon />
                                 <Typography
                                   component="span"
-                                  sx={{ textTransform: "capitalize" }}
+                                  sx={{ textTransform: 'capitalize' }}
                                 >
                                   View Payouts
                                 </Typography>
@@ -786,7 +796,7 @@ const ChildDetails = ({ ngo = false }) => {
         >
           <Box sx={style}>
             <Container
-              sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
             >
               <Typography component="h4" fontSize={30} textAlign="center">
                 Enter Account Details
@@ -827,7 +837,7 @@ const ChildDetails = ({ ngo = false }) => {
         >
           <Box sx={style}>
             <Container
-              sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
             >
               <Typography component="h4" fontSize={30} textAlign="center">
                 Process Payout
@@ -859,7 +869,7 @@ const ChildDetails = ({ ngo = false }) => {
           <Box sx={payoutModalstyle}>
             <Container>
               <Typography
-                sx={{ fontSize: 30, marginBottom: "10px", textAlign: "center" }}
+                sx={{ fontSize: 30, marginBottom: '10px', textAlign: 'center' }}
                 component="h4"
               >
                 Payout Details of {childData?.name}
@@ -870,7 +880,7 @@ const ChildDetails = ({ ngo = false }) => {
                 <>
                   {/* Small to Large Screen Table */}
                   <TableContainer
-                    sx={{ display: { xs: "inherit", lg: "none" } }}
+                    sx={{ display: { xs: 'inherit', lg: 'none' } }}
                   >
                     <Table>
                       <TableHead>
@@ -883,27 +893,27 @@ const ChildDetails = ({ ngo = false }) => {
                       <TableBody>
                         {childData?.payouts?.map((payout, i) => {
                           const payoutDataId = payoutData.find(
-                            (pD) => pD.id === payout
-                          );
+                            (pD) => pD.id === payout,
+                          )
                           return (
                             <TableRow key={i}>
                               <TableCell>{payout?.slice(0, 9)}...</TableCell>
                               <TableCell>
                                 {new Date(
-                                  payoutDataId?.created_at * 1000
-                                ).toLocaleDateString("en-in")}
+                                  payoutDataId?.created_at * 1000,
+                                ).toLocaleDateString('en-in')}
                               </TableCell>
 
                               <TableCell>
                                 <Container
                                   sx={{
-                                    padding: "3px",
-                                    borderRadius: "100px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
+                                    padding: '3px',
+                                    borderRadius: '100px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     backgroundColor: getColor(
-                                      payoutDataId?.status
+                                      payoutDataId?.status,
                                     )[0],
                                   }}
                                 >
@@ -917,7 +927,7 @@ const ChildDetails = ({ ngo = false }) => {
                                 </Container>
                               </TableCell>
                             </TableRow>
-                          );
+                          )
                         })}
                       </TableBody>
                     </Table>
@@ -925,7 +935,7 @@ const ChildDetails = ({ ngo = false }) => {
 
                   {/* Large and above Screens */}
                   <TableContainer
-                    sx={{ display: { xs: "none", lg: "inherit" } }}
+                    sx={{ display: { xs: 'none', lg: 'inherit' } }}
                   >
                     <Table>
                       <TableHead>
@@ -940,20 +950,20 @@ const ChildDetails = ({ ngo = false }) => {
                       <TableBody>
                         {childData?.payouts?.map((payout, i) => {
                           const payoutDataId = payoutData.find(
-                            (pD) => pD.id === payout
-                          );
+                            (pD) => pD.id === payout,
+                          )
                           return (
                             <TableRow key={i}>
                               <TableCell>{payout}</TableCell>
                               <TableCell>
                                 {new Date(
-                                  payoutDataId?.created_at * 1000
+                                  payoutDataId?.created_at * 1000,
                                 ).toDateString()}
                               </TableCell>
                               <TableCell>
                                 <Typography component="span">
                                   {formatMoney(payoutDataId?.amount, {
-                                    symbol: "₹ ",
+                                    symbol: '₹ ',
                                     precision: 2,
                                   })}
                                 </Typography>
@@ -961,13 +971,13 @@ const ChildDetails = ({ ngo = false }) => {
                               <TableCell>
                                 <Container
                                   sx={{
-                                    padding: "3px",
-                                    borderRadius: "100px",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
+                                    padding: '3px',
+                                    borderRadius: '100px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     backgroundColor: getColor(
-                                      payoutDataId?.status
+                                      payoutDataId?.status,
                                     )[0],
                                   }}
                                 >
@@ -981,12 +991,12 @@ const ChildDetails = ({ ngo = false }) => {
                                 </Container>
                               </TableCell>
                               <TableCell>
-                                {payoutDataId?.status !== "processed"
-                                  ? "N/A"
+                                {payoutDataId?.status !== 'processed'
+                                  ? 'N/A'
                                   : payoutDataId?.utr}
                               </TableCell>
                             </TableRow>
-                          );
+                          )
                         })}
                       </TableBody>
                     </Table>
@@ -995,16 +1005,16 @@ const ChildDetails = ({ ngo = false }) => {
               )}
               <Button
                 sx={{
-                  marginTop: "10px",
-                  gap: "4px",
+                  marginTop: '10px',
+                  gap: '4px',
                   backgroundColor: red[500],
-                  "&:hover": { backgroundColor: red[700] },
+                  '&:hover': { backgroundColor: red[700] },
                 }}
                 onClick={handleClosePL}
                 variant="contained"
               >
                 <CancelIcon />
-                <Typography sx={{ display: { xs: "none", lg: "inline" } }}>
+                <Typography sx={{ display: { xs: 'none', lg: 'inline' } }}>
                   Close
                 </Typography>
               </Button>
@@ -1019,7 +1029,7 @@ const ChildDetails = ({ ngo = false }) => {
         >
           <Box sx={style}>
             <Container
-              sx={{ display: "flex", flexDirection: "column", gap: "10px" }}
+              sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
             >
               <Typography component="h4" fontSize={30} textAlign="center">
                 Link Aadhar to Child
@@ -1044,9 +1054,9 @@ const ChildDetails = ({ ngo = false }) => {
           handleEdit={handleNameChange}
           open={nameEdit}
           editField={{
-            type: "text",
-            label: "Name",
-            placeholder: "Enter Name",
+            type: 'text',
+            label: 'Name',
+            placeholder: 'Enter Name',
             value: nameEditValue,
             handleChange: setNameEditValue,
           }}
@@ -1056,9 +1066,9 @@ const ChildDetails = ({ ngo = false }) => {
           handleEdit={handleAddressChange}
           open={addressEdit}
           editField={{
-            type: "textarea",
-            label: "Address",
-            placeholder: "Enter Address",
+            type: 'textarea',
+            label: 'Address',
+            placeholder: 'Enter Address',
             value: addressEditValue,
             handleChange: setAddressEditValue,
           }}
@@ -1068,9 +1078,9 @@ const ChildDetails = ({ ngo = false }) => {
           handleEdit={handleDescriptionChange}
           open={descriptionEdit}
           editField={{
-            type: "textarea",
-            label: "Description",
-            placeholder: "Enter Description",
+            type: 'textarea',
+            label: 'Description',
+            placeholder: 'Enter Description',
             value: descriptionEditValue,
             handleChange: setDescriptionEditValue,
           }}
@@ -1097,7 +1107,7 @@ const ChildDetails = ({ ngo = false }) => {
         />
       </Box>
     </div>
-  );
-};
+  )
+}
 
-export default ChildDetails;
+export default ChildDetails

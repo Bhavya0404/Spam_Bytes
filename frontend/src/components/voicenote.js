@@ -1,15 +1,18 @@
 import React from "react";
 import vmsg from "vmsg";
+import Button from "@mui/material/Button";
+import Box from '@mui/material/Box'
+
 
 const recorder = new vmsg.Recorder({
-  wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm"
+  wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
 });
 
 class App extends React.Component {
   state = {
     isLoading: false,
     isRecording: false,
-    recordings: []
+    recordings: [],
   };
   record = async () => {
     this.setState({ isLoading: true });
@@ -19,7 +22,7 @@ class App extends React.Component {
       this.setState({
         isLoading: false,
         isRecording: false,
-        recordings: this.state.recordings.concat(URL.createObjectURL(blob))
+        recordings: this.state.recordings.concat(URL.createObjectURL(blob)),
       });
     } else {
       try {
@@ -37,11 +40,30 @@ class App extends React.Component {
     const { isLoading, isRecording, recordings } = this.state;
     return (
       <React.Fragment>
-        <button  disabled={isLoading} onClick={this.record}>
-          {isRecording ? "Stop" : "Record"}
-        </button>
+        <Box
+                    sx={{
+                      height: '10%',
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+        <Button
+          variant="contained"
+          sx={{ 
+            position: 'relative',
+                        width: { lg: '50%', xs: '45%' },
+                        backgroundColor: 'secondary.main',
+                        color: 'primary.contrastColor',
+          }}
+          disabled={isLoading}
+          onClick={this.record}
+        >
+          {isRecording ? "Stop" : "Record Audio"}
+        </Button></Box>
         <ul style={{ listStyle: "none", padding: 0 }}>
-          {recordings.map(url => (
+          {recordings.map((url) => (
             <li key={url}>
               <audio src={url} controls />
             </li>

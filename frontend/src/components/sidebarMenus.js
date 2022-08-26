@@ -8,6 +8,7 @@ import PendingIcon from '@mui/icons-material/Pending';
 import CallToActionIcon from '@mui/icons-material/CallToAction';
 import { store } from "../app/store";
 import {pending,resolved, reset} from "../features/ticket/TicketSlice";
+import ReportIcon from '@mui/icons-material/Report';
 
 const menus = {
   user: {
@@ -24,6 +25,11 @@ const menus = {
           label: "User Profile",
           Icon: AccountCircleIcon,
           link: "/user/profile",
+        },
+        {
+          label: "Report Child",
+          Icon: ReportIcon,
+          link: "/reportchild",
         },
       ],
     ],
