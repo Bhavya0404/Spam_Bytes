@@ -7,6 +7,7 @@ import announcement from '../assets/images/announce.svg'
 import complaint from '../assets/images/complaint.svg'
 import conference from '../assets/images/conference.svg'
 import media from '../assets/images/media.svg'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import { Link } from 'react-router-dom'
 const AboutUs = () => {
   return (
@@ -38,10 +39,7 @@ const AboutUs = () => {
             justifyContent: { xs: 'center', md: 'flex-start' },
           }}
         >
-          <Typography
-            variant="h2"
-            sx={{  color: 'primary.contrastText' }}
-          >
+          <Typography variant="h2" sx={{ color: 'primary.contrastText' }}>
             ABOUT US
           </Typography>
         </Box>
@@ -113,10 +111,7 @@ const AboutUs = () => {
                   width: '60%',
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ color: 'primary.light' }}
-                >
+                <Typography variant="h4" sx={{ color: 'primary.light' }}>
                   File a complaint
                 </Typography>
               </Box>
@@ -147,9 +142,7 @@ const AboutUs = () => {
               marginBottom: '2%',
             }}
           >
-            <Divider
-              sx={{ borderBottomWidth: 2, color: 'primary.lightt' }}
-            />
+            <Divider sx={{ borderBottomWidth: 2, color: 'primary.lightt' }} />
             <Box
               sx={{
                 display: 'flex',
@@ -171,10 +164,7 @@ const AboutUs = () => {
                   width: '60%',
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ color: 'primary.light' }}
-                >
+                <Typography variant="h4" sx={{ color: 'primary.light' }}>
                   Announcement
                 </Typography>
               </Box>
@@ -228,10 +218,7 @@ const AboutUs = () => {
                   width: '60%',
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ color: 'primary.light' }}
-                >
+                <Typography variant="h4" sx={{ color: 'primary.light' }}>
                   Donate
                 </Typography>
               </Box>
@@ -263,9 +250,7 @@ const AboutUs = () => {
               marginBottom: '2%',
             }}
           >
-            <Divider
-              sx={{ borderBottomWidth: 2, color: 'primary.light' }}
-            />
+            <Divider sx={{ borderBottomWidth: 2, color: 'primary.light' }} />
             <Box
               sx={{
                 display: 'flex',
@@ -287,10 +272,7 @@ const AboutUs = () => {
                   width: '60%',
                 }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ color: 'primary.light' }}
-                >
+                <Typography variant="h4" sx={{ color: 'primary.light' }}>
                   Conference
                 </Typography>
               </Box>

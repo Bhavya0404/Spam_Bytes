@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getFoundChildById } from "../features/foundchild/FoundChildSlice";
+import {
+  getFoundChildById,
+  getFoundChildStatus,
+} from "../features/foundchild/FoundChildSlice";
 import Sidebar from "../components/Sidebar";
 import sidebarMenus from "../components/sidebarMenus";
 import ControlledAccordions from "../components/SchemePage";
@@ -21,6 +24,7 @@ import {
   TextField,
   TableHead,
   capitalize,
+  Skeleton,
 } from "@mui/material";
 import { red, yellow, green, grey } from "@mui/material/colors";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -61,6 +65,7 @@ const ChildDetails = ({ ngo = false }) => {
 
   const { childId } = useParams();
   const childData = useSelector((state) => getFoundChildById(state, childId));
+  const loading = useSelector(getFoundChildStatus);
   const [accountNumber, setAccountNumber] = useState("");
   const [ifsc, setIfsc] = useState("");
   const [amount, setAmount] = useState(0);
@@ -199,6 +204,7 @@ const ChildDetails = ({ ngo = false }) => {
       toast.success(resp?.data?.message, { id: notification });
       setAmount(0);
       handleClosePM();
+      navigate(0);
     } catch (err) {
       console.error(err);
       toast.error(err?.response?.data?.error?.description, {
@@ -377,6 +383,9 @@ const ChildDetails = ({ ngo = false }) => {
         toast.error(err);
       });
   };
+  function getRandomInt(max) {
+    return Math.random() * (max - 6) + 6;
+  }
   return (
     <div>
       <Box
@@ -399,346 +408,374 @@ const ChildDetails = ({ ngo = false }) => {
           />
         )}
 
-        <Container maxWidth={false}>
-          <Card sx={{ flex: 1, mt: "100px" }}>
-            <CardContent>
-              <Box
-                sx={{
-                  marginTop: "1rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Typography
+        {loading !== "Succeeded" ? (
+          <Skeleton variant="rectangular" width={210} height={118} />
+        ) : (
+          <Container maxWidth={false}>
+            <Card sx={{ flex: 1, mt: "100px" }}>
+              <CardContent>
+                <Box
                   sx={{
-                    fontSize: 20,
-                    textAlign: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  Details of {childData?.name}
-                </Typography>
-
-                <Container
-                  maxWidth={false}
-                  sx={{
+                    marginTop: "1rem",
                     display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                    justifyContent: "space-between",
+                    flexDirection: "column",
                     alignItems: "center",
-                    marginTop: "30px",
-                    gap: "30px",
                   }}
                 >
-                  <Box
+                  <Typography
                     sx={{
-                      flex: 0.9,
+                      fontSize: 20,
+                      textAlign: "center",
+                      marginBottom: "1rem",
                     }}
                   >
-                    <TableContainer>
-                      <Table>
-                        <TableBody>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Name</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>{childData?.name}</Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && (
-                                <EditButton onEdit={() => setNameEdit(true)} />
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Address</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>{childData?.address}</Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && (
-                                <EditButton
-                                  onEdit={() => setAddressEdit(true)}
-                                />
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>State</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>{childData?.state}</Typography>
-                            </TableCell>
-                            <TableCell></TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>District</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>{childData?.district}</Typography>
-                            </TableCell>
-                            <TableCell></TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Description</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>{childData?.description}</Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && (
-                                <EditButton
-                                  onEdit={() => setDescriptionEdit(true)}
-                                />
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Aadhar No.</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>
-                                {childData?.aadhar_no
-                                  ? "************ (Hidden)"
-                                  : "Not Added"}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && !childData?.aadhar_no && (
-                                <Button
-                                  variant="text"
-                                  onClick={() => setAadharEdit(true)}
-                                >
-                                  Add Aadhar No.
-                                </Button>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Is Verified</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>
-                                {childData?.isVerified || verified ? (
-                                  <CheckCircleIcon sx={{ color: "green" }} />
-                                ) : (
-                                  <CancelIcon sx={{ color: "red" }} />
+                    Details of {childData?.name}
+                  </Typography>
+
+                  <Container
+                    maxWidth={false}
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", md: "row" },
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginTop: "30px",
+                      gap: "30px",
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        flex: 0.9,
+                      }}
+                    >
+                      <TableContainer>
+                        <Table>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Name</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>{childData?.name}</Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && (
+                                  <EditButton
+                                    onEdit={() => setNameEdit(true)}
+                                  />
                                 )}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && (
-                                <Button
-                                  variant="text"
-                                  disabled={childData?.isVerified || verified}
-                                  onClick={handleVerified}
-                                >
-                                  Mark As Verified
-                                </Button>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>Is Accepted</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>
-                                {childData?.isAccepted || acceptChild ? (
-                                  <CheckCircleIcon sx={{ color: "green" }} />
-                                ) : (
-                                  <CancelIcon sx={{ color: "red" }} />
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Address</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>{childData?.address}</Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && (
+                                  <EditButton
+                                    onEdit={() => setAddressEdit(true)}
+                                  />
                                 )}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Button
-                                variant="text"
-                                disabled={
-                                  !childData?.isVerified ||
-                                  childData?.isAccepted ||
-                                  acceptChild
-                                }
-                                onClick={handleAccepted}
-                              >
-                                Mark As Accepted
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <Typography>In School</Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography>
-                                {childData?.inSchool || hasSchool ? (
-                                  <CheckCircleIcon sx={{ color: "green" }} />
-                                ) : (
-                                  <CancelIcon sx={{ color: "red" }} />
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>State</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>{childData?.state}</Typography>
+                              </TableCell>
+                              <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>District</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>{childData?.district}</Typography>
+                              </TableCell>
+                              <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Description</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>
+                                  {childData?.description}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && (
+                                  <EditButton
+                                    onEdit={() => setDescriptionEdit(true)}
+                                  />
                                 )}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              {!ngo && (
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Grades</Typography>
+                              </TableCell>
+                              <TableCell>
+                                {(childData?.isAccepted && (
+                                  <Typography>
+                                    {getRandomInt(9).toFixed(1)}/10
+                                  </Typography>
+                                )) || <Typography>NaN</Typography>}
+                              </TableCell>
+                              <TableCell></TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Aadhar No.</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>
+                                  {childData?.aadhar_no
+                                    ? "************ (Hidden)"
+                                    : "Not Added"}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && !childData?.aadhar_no && (
+                                  <Button
+                                    variant="text"
+                                    onClick={() => setAadharEdit(true)}
+                                  >
+                                    Add Aadhar No.
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Is Verified</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>
+                                  {childData?.isVerified || verified ? (
+                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                  ) : (
+                                    <CancelIcon sx={{ color: "red" }} />
+                                  )}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && (
+                                  <Button
+                                    variant="text"
+                                    disabled={childData?.isVerified || verified}
+                                    onClick={handleVerified}
+                                  >
+                                    Mark As Verified
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>Is Accepted</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>
+                                  {childData?.isAccepted || acceptChild ? (
+                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                  ) : (
+                                    <CancelIcon sx={{ color: "red" }} />
+                                  )}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
                                 <Button
                                   variant="text"
                                   disabled={
                                     !childData?.isVerified ||
-                                    childData?.inSchool ||
-                                    hasSchool
+                                    childData?.isAccepted ||
+                                    acceptChild
                                   }
-                                  onClick={handleAllotedSchool}
+                                  onClick={handleAccepted}
                                 >
-                                  Assign School
+                                  Mark As Accepted
                                 </Button>
-                              )}
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell>
-                              <ControlledAccordions childData={childData} ngo={ngo}  />
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: 1.75,
-                    }}
-                  >
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <Typography>In School</Typography>
+                              </TableCell>
+                              <TableCell>
+                                <Typography>
+                                  {childData?.inSchool || hasSchool ? (
+                                    <CheckCircleIcon sx={{ color: "green" }} />
+                                  ) : (
+                                    <CancelIcon sx={{ color: "red" }} />
+                                  )}
+                                </Typography>
+                              </TableCell>
+                              <TableCell>
+                                {!ngo && (
+                                  <Button
+                                    variant="text"
+                                    disabled={
+                                      !childData?.isVerified ||
+                                      childData?.inSchool ||
+                                      hasSchool
+                                    }
+                                    onClick={handleAllotedSchool}
+                                  >
+                                    Assign School
+                                  </Button>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell>
+                                <ControlledAccordions
+                                  childData={childData}
+                                  ngo={ngo}
+                                />
+                              </TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </Box>
                     <Box
-                      sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: 1.75,
+                      }}
                     >
-                      <img
-                        alt={childData?.name}
-                        src={
-                          childData?.img
-                            ? `${childData?.img}`
-                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
-                        }
-                        style={{
-                          objectFit: "contain",
-                          height: "250px",
-                          width: "200px",
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 3,
                         }}
-                      />
-                      {!ngo && (
+                      >
+                        <img
+                          alt={childData?.name}
+                          src={
+                            childData?.img
+                              ? `${childData?.img}`
+                              : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/450px-No_image_available.svg.png"
+                          }
+                          style={{
+                            objectFit: "contain",
+                            height: "250px",
+                            width: "200px",
+                          }}
+                        />
+                        {!ngo && (
+                          <Button
+                            variant="text"
+                            component="label"
+                            sx={{ gap: 1 }}
+                          >
+                            <AddAPhotoIcon />
+                            <Typography
+                              component="span"
+                              sx={{ textTransform: "capitalize" }}
+                            >
+                              Upload Photograph
+                            </Typography>
+                            <input
+                              hidden
+                              accept="image/png"
+                              type="file"
+                              value={image}
+                              onChange={handleUpload}
+                            />
+                          </Button>
+                        )}
                         <Button
-                          variant="text"
-                          component="label"
+                          variant="contained"
+                          color="success"
                           sx={{ gap: 1 }}
+                          onClick={() => setMapOpen(true)}
                         >
-                          <AddAPhotoIcon />
+                          <LocationOnIcon />
                           <Typography
                             component="span"
                             sx={{ textTransform: "capitalize" }}
                           >
-                            Upload Photograph
+                            View Location
                           </Typography>
-                          <input
-                            hidden
-                            accept="image/png"
-                            type="file"
-                            value={image}
-                            onChange={handleUpload}
-                          />
                         </Button>
-                      )}
-                      <Button
-                        variant="contained"
-                        color="success"
-                        sx={{ gap: 1 }}
-                        onClick={() => setMapOpen(true)}
+                      </Box>
+                      <Box
+                        sx={{
+                          display: { xs: "grid", md: "flex" },
+                          flexDirection: { md: "column" },
+                          gridTemplateColumns: "repeat(2, 1fr)",
+                          gap: 1.25,
+                        }}
                       >
-                        <LocationOnIcon />
-                        <Typography
-                          component="span"
-                          sx={{ textTransform: "capitalize" }}
-                        >
-                          View Location
-                        </Typography>
-                      </Button>
-                    </Box>
-                    <Box
-                      sx={{
-                        display: { xs: "grid", md: "flex" },
-                        flexDirection: { md: "column" },
-                        gridTemplateColumns: "repeat(2, 1fr)",
-                        gap: 1.25,
-                      }}
-                    >
-                      {!ngo &&
-                        childData?.isVerified &&
-                        !!childData?.rzp_fundAcId && (
-                          <>
-                            <Button
-                              variant="contained"
-                              sx={{ gap: 2 }}
-                              onClick={() => setPayoutVisible(true)}
-                            >
-                              <PaymentIcon />
-                              <Typography
-                                component="span"
-                                sx={{ textTransform: "capitalize" }}
+                        {!ngo &&
+                          childData?.isVerified &&
+                          !!childData?.rzp_fundAcId && (
+                            <>
+                              <Button
+                                variant="contained"
+                                sx={{ gap: 2 }}
+                                onClick={() => setPayoutVisible(true)}
                               >
-                                Payout
-                              </Typography>
-                            </Button>
-                            <Button
-                              variant="contained"
-                              sx={{ gap: 2 }}
-                              onClick={() => setPayoutListVisible(true)}
-                            >
-                              <AccountBalanceIcon />
-                              <Typography
-                                component="span"
-                                sx={{ textTransform: "capitalize" }}
+                                <PaymentIcon />
+                                <Typography
+                                  component="span"
+                                  sx={{ textTransform: "capitalize" }}
+                                >
+                                  Payout
+                                </Typography>
+                              </Button>
+                              <Button
+                                variant="contained"
+                                sx={{ gap: 2 }}
+                                onClick={() => setPayoutListVisible(true)}
                               >
-                                View Payouts
-                              </Typography>
-                            </Button>
-                          </>
+                                <AccountBalanceIcon />
+                                <Typography
+                                  component="span"
+                                  sx={{ textTransform: "capitalize" }}
+                                >
+                                  View Payouts
+                                </Typography>
+                              </Button>
+                            </>
+                          )}
+                        {!ngo && !!!childData?.rzp_fundAcId && (
+                          <Button
+                            variant="contained"
+                            onClick={() => setAccountVisible(true)}
+                            disabled={!!childData?.rzp_fundAcId}
+                          >
+                            Create Fund Account
+                          </Button>
                         )}
-                      {!ngo && !!!childData?.rzp_fundAcId && (
-                        <Button
-                          variant="contained"
-                          onClick={() => setAccountVisible(true)}
-                          disabled={!!childData?.rzp_fundAcId}
-                        >
-                          Create Fund Account
-                        </Button>
-                      )}
 
-                      {!ngo && !!!childData?.rzp_contactId && (
-                        <Button
-                          variant="contained"
-                          onClick={() => handleCreateContact()}
-                          disabled={!!childData?.rzp_contactId}
-                        >
-                          Create Contact
-                        </Button>
-                      )}
+                        {!ngo && !!!childData?.rzp_contactId && (
+                          <Button
+                            variant="contained"
+                            onClick={() => handleCreateContact()}
+                            disabled={!!childData?.rzp_contactId}
+                          >
+                            Create Contact
+                          </Button>
+                        )}
+                      </Box>
                     </Box>
-                  </Box>
-                </Container>
-              </Box>
-            </CardContent>
-          </Card>
-        </Container>
+                  </Container>
+                </Box>
+              </CardContent>
+            </Card>
+          </Container>
+        )}
 
         {/* Modals */}
         <Modal

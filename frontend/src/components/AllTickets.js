@@ -9,7 +9,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Button, Skeleton } from "@mui/material";
 
 import { Container } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -20,8 +20,6 @@ import sidebarMenus from "../components/sidebarMenus";
 import axios from "axios";
 import { yellow, green } from "@mui/material/colors";
 import { useSelector } from "react-redux";
-import { store } from "../app/store";
-import { reset } from "../features/ticket/TicketSlice";
 
 const getColor = (status) => {
   if (status === true) return [green[50], green[600]];
@@ -29,7 +27,8 @@ const getColor = (status) => {
 };
 
 const AllTickets = () => {
-  const resolve = useSelector(state => state.ticketslice.resolve);
+  const resolve = useSelector((state) => state.ticketslice.resolve);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [allTickets, setAllTickets] = useState([]);
   useEffect(() => {
@@ -45,12 +44,13 @@ const AllTickets = () => {
         const data = resp?.data;
         console.log(resolve);
         if (resolve === true) {
-          setAllTickets(data.filter((t) => t.resolved === true))
+          setAllTickets(data.filter((t) => t.resolved === true));
         } else if (resolve === false) {
-          setAllTickets(data.filter(t => t.resolved === false));
+          setAllTickets(data.filter((t) => t.resolved === false));
         } else {
           setAllTickets(data);
         }
+        setLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -69,74 +69,81 @@ const AllTickets = () => {
         header={sidebarMenus.nodal.header}
       />
 
-      {/* Table for XL Screens to L Screens */}
-      <TableContainer
-        sx={{
-          display: { xs: "none", lg: "inherit" },
-          mx: "20px",
-          mt: "100px",
-          maxHeight: "500px",
-        }}
-      >
-        <Table stickyHeader component={Paper}>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
+      {loading ? (
+        <Skeleton variant="rectangular" width={210} height={118} />
+      ) : (
+        <>
+          {/* Table for XL Screens to L Screens */}
+          <TableContainer
+            sx={{
+              display: { xs: "none", lg: "inherit" },
+              mx: "20px",
+              mt: "100px",
+              maxHeight: "500px",
+            }}
+          >
+            <Table stickyHeader component={Paper}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Description</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Actions</TableCell>
+                </TableRow>
+              </TableHead>
 
-          <TableBody>
-            {allTickets.map((ticket) =>
-            (
-              <TableRow>
-                <TableCell>{ticket?.child?.name}</TableCell>
-                <TableCell>{ticket?.description}</TableCell>
-                <TableCell>
-                  <Container
-                    sx={{
-                      padding: "3px",
-                      borderRadius: "100px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      backgroundColor: getColor(ticket?.resolved)[0],
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: getColor(ticket?.resolved)[1],
-                      }}
-                    >
-                      {ticket?.resolved ? "Resolved" : "Pending"}
-                    </Typography>
-                  </Container>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    size="medium"
-                    variant="contained"
-                    onClick={() => navigate(`/ticketdetails/${ticket?._id}`)}
-                  >
-                    <ArrowRightAltIcon />
-                    <Typography
-                      component="span"
-                      sx={{
-                        display: { xs: "none", md: "block" },
-                        fontSize: "14px",
-                      }}
-                    >
-                      View Details
-                    </Typography>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              <TableBody>
+                {allTickets.map((ticket) => (
+                  <TableRow>
+                    <TableCell>{ticket?.child?.name}</TableCell>
+                    <TableCell>{ticket?.description}</TableCell>
+                    <TableCell>
+                      <Container
+                        sx={{
+                          padding: "3px",
+                          borderRadius: "100px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          backgroundColor: getColor(ticket?.resolved)[0],
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            color: getColor(ticket?.resolved)[1],
+                          }}
+                        >
+                          {ticket?.resolved ? "Resolved" : "Pending"}
+                        </Typography>
+                      </Container>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        size="medium"
+                        variant="contained"
+                        onClick={() =>
+                          navigate(`/ticketdetails/${ticket?._id}`)
+                        }
+                      >
+                        <ArrowRightAltIcon />
+                        <Typography
+                          component="span"
+                          sx={{
+                            display: { xs: "none", md: "block" },
+                            fontSize: "14px",
+                          }}
+                        >
+                          View Details
+                        </Typography>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
     </Box>
   );
 };

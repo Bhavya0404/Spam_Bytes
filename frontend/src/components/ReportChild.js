@@ -2,7 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import { Button } from '@mui/material'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Divider,
+  Icon,
+} from '@mui/material'
 import Container from '@mui/material/Container'
 import Paper from '@mui/material/Paper'
 import { Typography, Autocomplete } from '@mui/material'
@@ -10,7 +17,9 @@ import Navbar from '../components/Navbar'
 import { toast } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import reportedImg from '../assets/images/report.svg'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import data from '../assets/dropdown.json'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 const ReportChild = () => {
   const [name, setName] = useState('')
@@ -25,7 +34,7 @@ const ReportChild = () => {
 
   const [canSubmit, setCanSubmit] = useState(true)
   const [loggedIn, setLoggedIn] = useState({})
-
+  const [open, setOpen] = useState(true)
   useEffect(() => {
     ;(async () => {
       try {
@@ -152,6 +161,7 @@ const ReportChild = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: '#E3ECF3',
         }}
       >
         <Box
@@ -193,168 +203,217 @@ const ReportChild = () => {
               sx={{
                 padding: '5%',
                 width: { xs: '100%', md: '80%' },
-                height: '100%',
+                height: { lg: '100%', xs: '100vh' },
                 display: 'flex',
                 flexDirection: 'column',
               }}
             >
-              <Typography variant="h3">Report Child</Typography>
               <Box
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  height: { lg: '5%', sm: '10%' },
-                }}
-              >
-                <Typography variant="body2" color={'secondry.main'}>
-                  You are reporting{' '}
-                  {loggedIn?.loggedIn ? (
-                    <Typography
-                      component="span"
-                      variant="body1"
-                      color="primary"
-                      sx={{ fontWeight: 600 }}
-                    >
-                      as {`${loggedIn?.user?.name}`}
-                    </Typography>
-                  ) : (
-                    <Typography
-                      component="span"
-                      variant="h6"
-                      color="primary"
-                      sx={{ fontWeight: 600 }}
-                    >
-                      Anonymously
-                    </Typography>
-                  )}{' '}
-                </Typography>
-
-                {!loggedIn?.loggedIn ? (
-                  <Link to="/login">
-                    <Typography variant="h6" color="primary">
-                      Login Now
-                    </Typography>
-                  </Link>
-                ) : (
-                  <Link to="/logout">
-                    <Typography variant="h6" color="primary">
-                      Logout to report Anonymously
-                    </Typography>
-                  </Link>
-                )}
-              </Box>
-              <Box
-                sx={{
+                  height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-evenly',
-                  height: { lg: '70%' },
+                  alignItems: 'center',
                 }}
               >
-                <TextField
-                  id="outlined-basic"
-                  fullWidth
-                  label="Name"
-                  variant="outlined"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                <TextField
-                  fullWidth
-                  id="outlined-multiline-static"
-                  multiline
-                  rows={4}
-                  label="Description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-
-                <TextField
-                  fullWidth
-                  id="outlined-required"
-                  label="Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-
-                <Autocomplete
-                  id="state"
-                  options={data.map((d) => d.name)}
-                  sx={{ width: 300 }}
-                  renderInput={(params) => (
-                    <TextField {...params} label="State" />
-                  )}
-                  value={state}
-                  onChange={(_, dt) => {
-                    setState(dt)
-                  }}
-                />
-
-                {districts?.length > 0 && (
-                  <Autocomplete
-                    id="district"
-                    options={districts}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                      <TextField {...params} label="District" />
-                    )}
-                    value={district}
-                    onChange={(_, dt) => {
-                      setDistrict(dt)
+                <Box>
+                  <Box sx={{ minHeight: '10%' }}>
+                    <Typography variant="h3">Report Child</Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      height: { lg: '5%', xs: '10%', sm: '7%' },
                     }}
-                  />
-                )}
+                  >
+                    <Typography variant="body2" color={'secondry.main'}>
+                      You are reporting{' '}
+                      {loggedIn?.loggedIn ? (
+                        <Typography
+                          component="span"
+                          variant="body1"
+                          color="primary"
+                          sx={{ fontWeight: 600 }}
+                        >
+                          as {`${loggedIn?.user?.name}`}
+                        </Typography>
+                      ) : (
+                        <Typography
+                          component="span"
+                          variant="h6"
+                          color="primary.light"
+                          sx={{ fontWeight: 600 }}
+                        >
+                          Anonymously
+                        </Typography>
+                      )}{' '}
+                    </Typography>
 
-                {!loggedIn?.loggedIn && (
-                  <>
-                    <TextField
-                      required
-                      fullWidth
-                      type="email"
-                      id="outlined-required"
-                      label="Email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <TextField
-                      fullWidth
-                      type="tel"
-                      id="outlined-required"
-                      label="Phone Number"
-                      value={pNo}
-                      onChange={(e) => setPnO(e.target.value)}
-                    />
-                  </>
-                )}
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: { xs: '20%' },
-                  justifyContent: 'space-evenly',
-                }}
-              >
-                <Button
-                  variant="contained"
-                  sx={{ width: '50%' }}
-                  component="label"
-                  type="file"
-                  value={img}
-                  onChange={handleUpload}
+                    {!loggedIn?.loggedIn ? (
+                      <Link to="/login">
+                        <Typography variant="h6" color="primary">
+                          Login Now
+                        </Typography>
+                      </Link>
+                    ) : (
+                      <Link to="/logout">
+                        <Typography variant="h6" color="primary">
+                          Logout to report Anonymously
+                        </Typography>
+                      </Link>
+                    )}
+                  </Box>
+                </Box>
+                <Box sx={{ height: '100%', marginTop: '3%', width: '70%' }}>
+                  <Box
+                    sx={{
+                      height: '10%',
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      sx={{
+                        position: 'relative',
+                        width: { lg: '50%', xs: '45%' },
+                        backgroundColor: 'secondary.main',
+                        color: 'primary.contrastColor',
+                      }}
+                      component="label"
+                      type="file"
+                      value={img}
+                      onChange={handleUpload}
+                    >
+                      Upload Image
+                      <input hidden accept="image/*" multiple type="file" />
+                    </Button>
+                  </Box>
+
+                  <Box>
+                    {!loggedIn?.loggedIn && (
+                      <>
+                        <TextField
+                          required
+                          fullWidth
+                          type="email"
+                          id="outlined-required"
+                          label="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                        />
+                      </>
+                    )}
+                  </Box>
+                  <Box sx={{ width: '100%', height: '10%', marginTop: '3%' }}>
+                    <Box sx={{ width: '100%', display: 'flex' }}>
+                      <Accordion sx={{ width: '100%' }}>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <Typography>
+                            Additional child details (Optional)?
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              justifyContent: 'space-evenly',
+                              height: { lg: '70%' },
+                              gap: '10px',
+                            }}
+                          >
+                            <TextField
+                              id="outlined-basic"
+                              fullWidth
+                              label="Name"
+                              variant="outlined"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                            />
+                            <TextField
+                              fullWidth
+                              id="outlined-multiline-static"
+                              multiline
+                              rows={4}
+                              label="Description"
+                              value={description}
+                              onChange={(e) => setDescription(e.target.value)}
+                            />
+
+                            <TextField
+                              fullWidth
+                              id="outlined-required"
+                              label="Address"
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
+
+                            <Autocomplete
+                              id="state"
+                              options={data.map((d) => d.name)}
+                              sx={{ width: 300 }}
+                              renderInput={(params) => (
+                                <TextField {...params} label="State" />
+                              )}
+                              value={state}
+                              onChange={(_, dt) => {
+                                setState(dt)
+                              }}
+                            />
+
+                            {districts?.length > 0 && (
+                              <Autocomplete
+                                id="district"
+                                options={districts}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => (
+                                  <TextField {...params} label="District" />
+                                )}
+                                value={district}
+                                onChange={(_, dt) => {
+                                  setDistrict(dt)
+                                }}
+                              />
+                            )}
+                          </Box>
+                        </AccordionDetails>
+                      </Accordion>
+                    </Box>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: { lg: 'row', xs: 'row' },
+                    height: { xs: '5%' },
+                    width: '100%',
+                    justifyContent: 'space-evenly',
+                  }}
                 >
-                  Upload Image
-                  <input hidden accept="image/*" multiple type="file" />
-                </Button>
-                <Button
-                  onClick={handleReportChild}
-                  size="large"
-                  disabled={!canSubmit}
-                  sx={{ backgroundColor: 'black', width: '70%' }}
-                  variant="contained"
-                >
-                  Submit
-                </Button>
+                  <Button
+                    onClick={handleReportChild}
+                    sx={{
+                      position: 'relative',
+                      width: { lg: '40%', xs: '45%' },
+                      backgroundColor: 'secondary.main',
+                      color: 'primary.contrastColor',
+                    }}
+                    disabled={!canSubmit}
+                    variant="contained"
+                  >
+                    Submit
+                  </Button>
+                </Box>
               </Box>
             </Container>
           </Box>
