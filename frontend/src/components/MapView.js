@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import * as mapboxgl from "mapbox-gl";
 import { Box } from "@mui/material";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoib21pY3JvbmRldnMiLCJhIjoiY2w0dzk5YTZyMTY4ajNlcGh0enNtOGhneSJ9.Hv9f-Tp7pSeeMA4RVxvPOw";
@@ -22,6 +23,12 @@ const MapView = ({
       style: "mapbox://styles/mapbox/streets-v11",
       center: cloc,
       zoom: 12,
+    });
+    const geocoder = new MapboxGeocoder({
+      // Initialize the geocoder
+      accessToken: mapboxgl.accessToken, // Set the access token
+      mapboxgl: mapboxgl, // Set the mapbox-gl instance
+      marker: false, // Do not use the default marker style
     });
 
     async function getRoute(end) {
@@ -118,6 +125,34 @@ const MapView = ({
         },
         paint: {
           "circle-radius": 10,
+          "circle-color": "#171D1C",
+        },
+      });
+      map.addLayer({
+        id: "destination",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {
+                  description: `<strong>${
+                    ngo ? "NGO's Location" : "Nodal Office's Location"
+                  }</strong>`,
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [0, 0],
+                },
+              },
+            ],
+          },
+        },
+        paint: {
+          "circle-radius": 10,
           "circle-color": "#da1700",
         },
       });
@@ -127,7 +162,7 @@ const MapView = ({
       closeButton: false,
       closeOnClick: false,
     });
-
+    map.addControl(geocoder);
     map.on("mouseenter", "origin", (e) => {
       map.getCanvas().style.cursor = "pointer";
       const desc = e.features[0].properties.description;
@@ -180,5 +215,7 @@ const MapView = ({
     </Box>
   );
 };
+
+// Add the geocoder to the map
 
 export default MapView;
