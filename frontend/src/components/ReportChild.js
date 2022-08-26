@@ -12,6 +12,8 @@ import { Link } from 'react-router-dom'
 import reportedImg from '../assets/images/report.svg'
 import data from '../assets/dropdown.json'
 
+
+
 const ReportChild = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -141,6 +143,8 @@ const ReportChild = () => {
       }
     })
   }
+
+  
 
   return (
     <Box>
