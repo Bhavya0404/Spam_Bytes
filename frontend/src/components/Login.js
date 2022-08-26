@@ -78,6 +78,7 @@ const Login = ({ onChange }) => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: '#E3ECF3',
         }}
       >
         <Box
