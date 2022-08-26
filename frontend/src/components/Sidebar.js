@@ -25,7 +25,7 @@ const Sidebar = ({ window, nSections, sectionList, header, func, onClick }) => {
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
         <Typography sx={{ textAlign: "center", fontSize: 20 }}>
-          <strong>PENCIL</strong>
+          <Link to="/" style={{ textDecoration: 'none' , color: 'black'}}><strong>PENCIL</strong></Link>
         </Typography>
       </Toolbar>
       <Divider />
