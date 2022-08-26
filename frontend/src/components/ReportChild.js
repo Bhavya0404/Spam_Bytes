@@ -390,7 +390,7 @@ const ReportChild = () => {
                       </Accordion>
                     </Box>
                   </Box>
-                                <App/>
+                  <App />
                 </Box>
                 <Box
                   sx={{
