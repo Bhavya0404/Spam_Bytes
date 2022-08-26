@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const schemesModel = require("./schemes");
 
 const foundchild = mongoose.Schema(
   {
@@ -60,8 +61,8 @@ const foundchild = mongoose.Schema(
     },
     schemes: {
       type: Array,
-      default: []
-    }
+      default: [schemesModel],
+    },
   },
   { timestamps: true }
 );
