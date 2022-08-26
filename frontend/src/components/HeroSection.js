@@ -4,10 +4,10 @@ import React from "react";
 import DonateButton from "./DonateButton";
 import { useNavigate } from "react-router-dom";
 
-import { Carousel } from "react-bootstrap";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from "react-bootstrap";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 import mainPic1 from "../assets/images/main1.jpg";
 import mainPic2 from "../assets/images/main2.jpg";
@@ -20,7 +20,7 @@ const HeroSection = () => {
   return (
     <Box
       sx={{
-        width: { xs: "100%" },
+        width: "100%",
         height: { sm: "100vh", xs: "100vh" },
         display: "flex",
         overflow: "hidden",
@@ -36,7 +36,7 @@ const HeroSection = () => {
           zIndex: '0',
         }}
       >
-        <Carousel fade={true} pause={false}>
+        {/* <Carousel fade={true} pause={false}>
           <Carousel.Item interval={2000}>
             <img className="d-block w-100" src={mainPic1} alt="First slide" height={'725px'}/>
             
@@ -49,7 +49,8 @@ const HeroSection = () => {
             <img className="d-block w-100" src={mainPic3} alt="Third slide" height={'725px'} />
         
           </Carousel.Item>
-        </Carousel>
+        </Carousel> */}
+        <img className="d-block w-100" src={mainPic3} alt="Third slide" height={'725px'} />
         </Box>
         
 

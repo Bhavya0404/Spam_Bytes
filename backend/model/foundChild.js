@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const schemesModel = require("./schemes");
 
 const foundchild = mongoose.Schema(
   {
