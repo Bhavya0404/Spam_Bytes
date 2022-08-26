@@ -98,61 +98,61 @@ const Footer = () => {
             justifyContent: "space-around",
           }}
         >
-          <a href="https://www.india.gov.in/">
+          <a href="https://www.digitalindia.gov.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link10}
             />
           </a>
 
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://wcd.nic.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link9}
             />
           </a>
 
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://labour.gov.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link8}
             />
           </a>
 
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://www.epfindia.gov.in/site_en/index.php">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link7}
             />
           </a>
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://www.esic.nic.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link6}
             />
           </a>
 
@@ -185,47 +185,47 @@ const Footer = () => {
             />
           </a>
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://ncpcr.gov.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link2}
             />
           </a>
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://www.nic.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link3}
             />
           </a>
 
-          <a href="https://www.india.gov.in/">
+          <a href="https://www.mha.gov.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link4}
             />
           </a>
           
-          <a href="https://www.india.gov.in/">
+          <a href="https://labour.gov.in/">
             <Box
               component="img"
               sx={{
                 width: "120px",
                 height: "53px",
               }}
-              src={link1}
+              src={link5}
             />
           </a>
           
