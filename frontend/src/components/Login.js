@@ -85,7 +85,7 @@ const Login = ({ onChange }) => {
           sx={{
             width: '80%',
             height: { lg: '80%', xs: 'auto' },
-            marginTop: '100px',
+            marginTop: '-100px',
             display: 'flex',
           }}
         >
