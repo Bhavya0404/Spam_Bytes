@@ -45,23 +45,22 @@ function App() {
 
   let globalTheme = createTheme({
     palette: {
-      common:{
-        black:'#000',
-        white:'#fff',
-
+      common: {
+        black: '#000',
+        white: '#fff',
       },
-      
+
       primary: {
-        main: '#023e8a',
+        main: '#192F4D',
         dark: '#03045e',
-        light: '#00b4d8',
+        light: '#F9C80E',
         contrastText: '#E3ECF3',
       },
       secondary: {
-        main: '#e7c6ff',
-        light: '#E3ECF3',
+        main: '#457B9D',
+        light: '#fff',
         dark: '#c8b6ff',
-        contrastText: 'rgba(0, 0, 0, 0.5)',
+        contrastText: '#E3ECF3',
       },
       text: {
         primary: '#192F4D',
@@ -162,14 +161,13 @@ function App() {
           <Route path="/foundchild" element={<AllFoundChild />} />
           <Route path="/complaintstatus" element={<ComplaintStatusPage />} />
           <Route path="/child/:childId" element={<ChildDetails />} />
-          <Route path="/childcomplaint" element={<ChildComplaint/>}/>
+          <Route path="/childcomplaint" element={<ChildComplaint />} />
 
           <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/passwordReset/:token/:id" element={<ResetPassword />} />
           <Route exact path="/forgotpassword" element={<ForgotPassword />} />
           <Route exact path="/alltickets" element={<AllTickets />} />
           <Route exact path="/ticketdetails/:id" element={<TicketDetails />} />
-
         </Routes>
       </Box>
     </ThemeProvider>

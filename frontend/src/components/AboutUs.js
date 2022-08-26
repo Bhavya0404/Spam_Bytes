@@ -40,7 +40,7 @@ const AboutUs = () => {
         >
           <Typography
             variant="h2"
-            sx={{ textDecoration: 'underline', color: 'primary.contrastText' }}
+            sx={{  color: 'primary.contrastText' }}
           >
             ABOUT US
           </Typography>
@@ -115,7 +115,7 @@ const AboutUs = () => {
               >
                 <Typography
                   variant="h4"
-                  sx={{ color: 'secondary.contrastText' }}
+                  sx={{ color: 'primary.light' }}
                 >
                   File a complaint
                 </Typography>
@@ -129,7 +129,7 @@ const AboutUs = () => {
                   justifyContent: 'center',
                 }}
               >
-                <Link to="/reportchild">
+                <Link to="/ChildComplaint">
                   <Box component="img" src={right} sx={{ width: '100%' }} />
                 </Link>
               </Box>
@@ -148,7 +148,7 @@ const AboutUs = () => {
             }}
           >
             <Divider
-              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+              sx={{ borderBottomWidth: 2, color: 'primary.lightt' }}
             />
             <Box
               sx={{
@@ -173,7 +173,7 @@ const AboutUs = () => {
               >
                 <Typography
                   variant="h4"
-                  sx={{ color: 'secondary.contrastText' }}
+                  sx={{ color: 'primary.light' }}
                 >
                   Announcement
                 </Typography>
@@ -230,9 +230,9 @@ const AboutUs = () => {
               >
                 <Typography
                   variant="h4"
-                  sx={{ color: 'secondary.contrastText' }}
+                  sx={{ color: 'primary.light' }}
                 >
-                  Media
+                  Donate
                 </Typography>
               </Box>
               <Box
@@ -244,9 +244,9 @@ const AboutUs = () => {
                   justifyContent: 'center',
                 }}
               >
-                <Link to="/reportchild">
+                <a href="https://rzp.io/l/j1mJC49tXe">
                   <Box component="img" src={right} sx={{ width: '100%' }} />
-                </Link>
+                </a>
               </Box>
             </Box>
           </Box>
@@ -264,7 +264,7 @@ const AboutUs = () => {
             }}
           >
             <Divider
-              sx={{ borderBottomWidth: 2, color: 'secondary.contrastText' }}
+              sx={{ borderBottomWidth: 2, color: 'primary.light' }}
             />
             <Box
               sx={{
@@ -289,7 +289,7 @@ const AboutUs = () => {
               >
                 <Typography
                   variant="h4"
-                  sx={{ color: 'secondary.contrastText' }}
+                  sx={{ color: 'primary.light' }}
                 >
                   Conference
                 </Typography>

@@ -17,7 +17,7 @@ import Map from './Map'
 const HomePage = () => {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Box
         sx={{
           position: 'relative',
@@ -27,10 +27,10 @@ const HomePage = () => {
         }}
       >
         <HeroSection />
-        <Statistics/>
+        <Statistics />
         <AboutUs />
         <HowDoWeFunction />
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </div>
   )

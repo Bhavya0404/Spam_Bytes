@@ -2,28 +2,16 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import mainPic from '../assets/images/narendra.png'
 import React from 'react'
 import DonateButton from './DonateButton'
-import { useSelector } from 'react-redux'
-import { selectFoundChild } from '../features/foundchild/FoundChildSlice'
 import { useNavigate } from 'react-router-dom'
 import child from '../assets/images/child.svg'
 
 
 const HeroSection = () => {
-  const foundChildData = useSelector(selectFoundChild)
-  const hotspot = new Map()
   const navigate = useNavigate()
 
-  foundChildData.forEach((child) => {
-    if (child.isVerified) {
-      if (!hotspot.get(child.state)) {
-        hotspot.set(child.state, 1)
-      } else {
-        let number = hotspot.get(child.state)
-        hotspot.set(child.state, number + 1)
-      }
-    }
-  })
+
  
+
   return (
     <Box
       sx={{
@@ -40,7 +28,6 @@ const HeroSection = () => {
           position: 'absolute',
           display: 'flex',
           justifyContent: 'center',
-          
         }}
       >
         <Box
@@ -53,7 +40,7 @@ const HeroSection = () => {
           }}
           src={mainPic}
         />
-        
+
         {/* <Box
           sx={{
             width: '100%',
@@ -74,7 +61,7 @@ const HeroSection = () => {
           height: { sm: '100%', xs: '100vh' },
           display: 'flex',
           alignItems: 'center',
-          margin: {  xs: 0 },
+          margin: { xs: 0 },
         }}
       >
         <Box
@@ -85,50 +72,73 @@ const HeroSection = () => {
             justifyContent: 'space-evenly',
             display: 'flex',
             flexDirection: 'column',
-            
           }}
         >
           <Box
             sx={{
-              height:  {  md: '50%', xs: '60%' },
-              width:{lg: '150%', md:'60%', sm:'100%', xs:'100%'},
+              height: { md: '50%', xs: '60%' },
+              width: { lg: '150%', md: '60%', sm: '100%', xs: '100%' },
               marginTop: '40%',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              bgcolor:"primary.light",
-              borderRadius:"50px"
+              bgcolor: 'secondry.main',
+              borderRadius: '50px',
             }}
           >
             <Box
-            sx={{
-              marginLeft: '10%',
-
-            }}>
+              sx={{
+                marginLeft: '10%',
+              }}
+            >
               <Typography variant="h1">PENCIL</Typography>
-            <Typography variant="h4" >
-              A Ministry of Labour and Employment Initiative
-            </Typography>
+              <Typography variant="h4">
+                A Ministry of Labour and Employment Initiative
+              </Typography>
             </Box>
-            
           </Box>
           <Box
-          sx={{
-            height:  {  md: '10%', xs: '100px' },
-            width:{ md:'100%', sm:'100%', xs:'100%'},
-            marginTop: '5%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            bgcolor:"primary.light",
-            borderRadius:"50px",
-            }}>
-              <Button
-                onClick={() => navigate('/reportchild')}
+            sx={{
+              height: { md: '10%', xs: '100px' },
+              width: { sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: 'primary.main',
+              borderRadius: '10px',
+              marginLeft: '15%',
+            }}
+          >
+            <Button onClick={() => navigate('/reportchild')}>
+              <Typography
+                variant="subtitle1"
+                sx={{ textTransform: 'capitalize', color: 'common.white' }}
               >
-                <Typography variant='subtitle1' sx={{ textTransform: "capitalize", color:'common.white' }}>Register a Complaint</Typography>
-              </Button>
-            
+                Register a Complaint
+              </Typography>
+            </Button>
+          </Box>
+          <Box
+            sx={{
+              height: { md: '10%', xs: '100px' },
+              width: { sm: '50%' },
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              bgcolor: 'primary.main',
+              borderRadius: '10px',
+              marginLeft: '15%',
+              marginTop: '5%'
+            }}
+          >
+            <Button onClick={() => navigate('/ComplaintStatus')}>
+              <Typography
+                variant="subtitle1"
+                sx={{ textTransform: 'capitalize', color: 'common.white' }}
+              >
+                Track Complaint
+              </Typography>
+            </Button>
           </Box>
           <Box
             sx={{
@@ -138,25 +148,17 @@ const HeroSection = () => {
               height: '40%',
               justifyContent: 'space-evenly',
             }}
-          >
-          </Box>
-          
-
+          ></Box>
         </Box>
-        
       </Container>
       <Box
         sx={{
-          
           width: '100%',
           height: '100%',
-          
-          display:{xs:'none',lg:'flex'},
-        }}>
-          
-          
 
-        </Box>
+          display: { xs: 'none', lg: 'flex' },
+        }}
+      ></Box>
     </Box>
   )
 }

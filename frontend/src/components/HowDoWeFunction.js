@@ -74,7 +74,7 @@ const HowDoWeFunction = () => {
               color: 'primary.contrastText',
             }}
           >
-            lPENCiL (Platform for Effective Enforcement for No Child Labour) an
+            PENCiL (Platform for Effective Enforcement for No Child Labour) an
             electronic platform for effective enforcement for no child labour
             developed by Ministry of Labour and Employment. PENCiL Portal has
             following components:Child Tracking System, Complaint Corner, State
