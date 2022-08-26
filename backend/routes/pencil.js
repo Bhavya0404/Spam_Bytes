@@ -5,6 +5,8 @@ const {
   createComplaint,
   getComplaintById,
   updateComplaint,
+  getAllSchemes,
+  addScheme,
 } = require("../controller/pencil");
 const { getNodalCount } = require("../controller/stats");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");

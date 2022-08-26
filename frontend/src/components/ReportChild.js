@@ -197,7 +197,8 @@ const ReportChild = () => {
               sx={{
                 padding: '5%',
                 width: { xs: '100%', md: '80%' },
-                height: '100%',
+                height: { lg: '100%', xs: '100vh' },
+
                 display: 'flex',
                 flexDirection: 'column',
               }}
@@ -336,7 +337,7 @@ const ReportChild = () => {
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'column',
+                  flexDirection: { lg: 'column', xs: 'row' },
                   height: { xs: '15%' },
                   justifyContent: 'space-evenly',
                 }}
@@ -344,7 +345,7 @@ const ReportChild = () => {
                 <Button
                   variant="contained"
                   sx={{
-                    width: '50%',
+                    width: { lg: '50%', xs: '45%' },
                     backgroundColor: 'secondary.main',
                     color: 'primary.contrastColor',
                   }}
@@ -359,7 +360,7 @@ const ReportChild = () => {
                 <Button
                   onClick={handleReportChild}
                   sx={{
-                    width: '50%',
+                    width: { lg: '50%', xs: '45%' },
                     backgroundColor: 'secondary.main',
                     color: 'primary.contrastColor',
                   }}

@@ -175,10 +175,11 @@ const updateComplaint = async (req, res) => {
   }
 };
 
+
 const assignScheme = async (req, res) => {
   const body = req?.body;
   const schemeName = body?.scheme;
-  const { id: childId } = req?.params;
+  const {  id: childId  } = req?.params;
 
   const childData = await foundChild.findById(childId).exec();
   if (!childData) {
@@ -195,5 +196,5 @@ module.exports = {
   getAllComplaints,
   getComplaintById,
   updateComplaint,
-  assignScheme
+  assignScheme,
 };

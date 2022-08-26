@@ -1,16 +1,12 @@
 import { Box, Button, Container, Typography } from '@mui/material'
-import mainPic from '../assets/images/narendra.png'
+
 import React from 'react'
 import DonateButton from './DonateButton'
 import { useNavigate } from 'react-router-dom'
-import child from '../assets/images/child.svg'
-
+import mainPic from '../assets/images/main.jpg'
 
 const HeroSection = () => {
   const navigate = useNavigate()
-
-
- 
 
   return (
     <Box
@@ -56,7 +52,7 @@ const HeroSection = () => {
       <Container
         sx={{
           position: 'relative',
-          color: 'common.white',
+          color: 'common.black',
           width: { sm: '100%', xs: '100%' },
           height: { sm: '100%', xs: '100vh' },
           display: 'flex',
@@ -93,7 +89,8 @@ const HeroSection = () => {
             >
               <Typography variant="h1">PENCIL</Typography>
               <Typography variant="h4">
-                A Ministry of Labour and Employment Initiative
+                A Ministry of Labour and 
+                Employment Initiative
               </Typography>
             </Box>
           </Box>
