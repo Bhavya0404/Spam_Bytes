@@ -23,12 +23,10 @@ const Footer = () => {
     <Box
       sx={{
         width: "100%",
-        height: "250px",
+        height: { xs: "auto", md: "250px" },
         display: "flex",
         flexDirection: { xs: "column", sm: "row" },
         justifyContent: "space-around",
-        
-        
 
         bgcolor: "secondary.main",
       }}
@@ -71,7 +69,11 @@ const Footer = () => {
         >
           <Typography
             variant="subtitle2"
-            sx={{ color: "primary.main", height: { md: "50px", xs: "300px" } }}
+            sx={{
+              color: "common.white",
+              height: { md: "50px", xs: "300px" },
+              textAlign: { xs: "center", md: "initial" },
+            }}
           >
             Platform for Effective Enforcement for No Child Labour
           </Typography>
@@ -109,7 +111,6 @@ const Footer = () => {
             />
           </a>
 
-
           <a href="https://wcd.nic.in/">
             <Box
               component="img"
@@ -121,7 +122,6 @@ const Footer = () => {
             />
           </a>
 
-
           <a href="https://labour.gov.in/">
             <Box
               component="img"
@@ -132,7 +132,6 @@ const Footer = () => {
               src={link8}
             />
           </a>
-
 
           <a href="https://www.epfindia.gov.in/site_en/index.php">
             <Box
@@ -155,12 +154,6 @@ const Footer = () => {
               src={link6}
             />
           </a>
-
-           
-
-
-          
-         
         </Box>
         <Box
           sx={{
@@ -217,7 +210,7 @@ const Footer = () => {
               src={link4}
             />
           </a>
-          
+
           <a href="https://labour.gov.in/">
             <Box
               component="img"
@@ -228,7 +221,6 @@ const Footer = () => {
               src={link5}
             />
           </a>
-          
         </Box>
       </Box>
     </Box>

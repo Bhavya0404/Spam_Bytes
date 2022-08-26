@@ -16,7 +16,7 @@ import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-import logo from '../assets/images/logoblue.png'
+import logo from '../assets/images/logo.png'
 
 const drawerWidth = 300
 const navItems = ['Districts', 'Policy', 'Acts', 'NCLP', 'Guildlines']
@@ -36,6 +36,10 @@ function DrawerAppBar(props) {
       <Divider variant="middle" />
       <List sx={{ display: 'flex', flexDirection: 'column' }}>
         {navItems.map((item) => (
+          <Box
+          sx={{
+            marginLeft:"30%"
+          }}>
           <ListItem
             key={item}
             disablePadding
@@ -45,11 +49,49 @@ function DrawerAppBar(props) {
               sx={{ textAlign: 'center', textDecoration: 'none' }}
             >
               <Link to={`/${item}`}>
-                <ListItemText sx={{ textDecoration: 'none' }} primary={item} />
+                <ListItemText  primary={item} />
               </Link>
             </ListItemButton>
-          </ListItem>
+          </ListItem></Box>
         ))}
+
+        <Box
+        sx={{
+          marginLeft:"30%"
+        }}>
+        <ListItem
+            key={'Login'}
+            disablePadding
+            sx={{ textDecoration: 'none', justifyContent: 'center' }}
+          >
+            <ListItemButton
+              sx={{ textAlign: 'center', textDecoration: 'none' }}
+            >
+              <Link to={`/Login`}>
+                <ListItemText primary={'Login'} />
+              </Link>
+            </ListItemButton>
+          </ListItem></Box>
+
+          <Box
+          sx={{
+            marginLeft:"30%"
+          }}>
+          <ListItem
+            key={'Signup'}
+            disablePadding
+            sx={{ textDecoration: 'none', justifyContent: 'center' }}
+          >
+            <ListItemButton
+              sx={{ textAlign: 'center', textDecoration: 'none' }}
+            >
+              <Link to={`/Signup`}>
+                <ListItemText sx={{ textDecoration: 'none' }} primary={'Signup'} />
+              </Link>
+            </ListItemButton>
+          </ListItem></Box>
+
+          
       </List>
     </Box>
   )

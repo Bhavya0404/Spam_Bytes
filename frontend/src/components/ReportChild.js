@@ -1,7 +1,7 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import {
   Accordion,
   AccordionDetails,
@@ -9,90 +9,90 @@ import {
   Button,
   Divider,
   Icon,
-} from '@mui/material'
-import Container from '@mui/material/Container'
-import Paper from '@mui/material/Paper'
-import { Typography, Autocomplete } from '@mui/material'
-import Navbar from '../components/Navbar'
-import { toast } from 'react-hot-toast'
-import { Link } from 'react-router-dom'
-import reportedImg from '../assets/images/report.svg'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import data from '../assets/dropdown.json'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import App from './voicenote'
+} from "@mui/material";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
+import { Typography, Autocomplete } from "@mui/material";
+import Navbar from "../components/Navbar";
+import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
+import reportedImg from "../assets/images/report.svg";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import data from "../assets/dropdown.json";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import App from "./voicenote";
 
 const ReportChild = () => {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [img, setImg] = useState('')
-  const [address, setAddress] = useState('')
-  const [state, setState] = useState('')
-  const [district, setDistrict] = useState('')
-  const [email, setEmail] = useState('')
-  const [pNo, setPnO] = useState('')
-  const [districts, setDistricts] = useState([])
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [img, setImg] = useState("");
+  const [address, setAddress] = useState("");
+  const [state, setState] = useState("");
+  const [district, setDistrict] = useState("");
+  const [email, setEmail] = useState("");
+  const [pNo, setPnO] = useState("");
+  const [districts, setDistricts] = useState([]);
 
-  const [canSubmit, setCanSubmit] = useState(true)
-  const [loggedIn, setLoggedIn] = useState({})
-  const [open, setOpen] = useState(true)
+  const [canSubmit, setCanSubmit] = useState(true);
+  const [loggedIn, setLoggedIn] = useState({});
+  const [open, setOpen] = useState(true);
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
         const headers = {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        }
-        const resp = await axios.get('http://localhost:5000/auth/chkAuth', {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+        const resp = await axios.get("http://localhost:5000/auth/chkAuth", {
           headers,
-        })
-        setLoggedIn(resp.data)
+        });
+        setLoggedIn(resp.data);
       } catch (err) {
-        setLoggedIn({})
+        setLoggedIn({});
       }
-    })()
-  }, [])
+    })();
+  }, []);
 
   useEffect(() => {
-    setDistrict('')
-    setDistricts(data.find((t) => t.name === state)?.districts)
-  }, [state])
+    setDistrict("");
+    setDistricts(data.find((t) => t.name === state)?.districts);
+  }, [state]);
 
   const handleUpload = (e) => {
-    setCanSubmit(false)
-    const val = e.target.files[0]
+    setCanSubmit(false);
+    const val = e.target.files[0];
     const promise = new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(val)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = () => reject(reader.error)
-    })
+      const reader = new FileReader();
+      reader.readAsDataURL(val);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(reader.error);
+    });
     promise
       .then((res) => {
-        toast.success('Image Uploaded')
-        setImg(res)
-        setCanSubmit(true)
+        toast.success("Image Uploaded");
+        setImg(res);
+        setCanSubmit(true);
       })
       .catch((err) => {
-        console.error(err)
-        toast.error(err)
-        setCanSubmit(true)
-      })
-  }
+        console.error(err);
+        toast.error(err);
+        setCanSubmit(true);
+      });
+  };
 
   useEffect(() => {
-    if ('geolocation' in navigator) {
-      console.log('Geolocation Available')
+    if ("geolocation" in navigator) {
+      console.log("Geolocation Available");
     } else {
-      toast.error('Geolocation not available, allow it in your browser')
+      toast.error("Geolocation not available, allow it in your browser");
     }
-  }, [])
+  }, []);
 
   const handleReportChild = async () => {
-    const notification = toast.loading('Submitting Report...')
+    const notification = toast.loading("Submitting Report...");
     const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-      'Access-Control-Allow-Origin': '*',
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Access-Control-Allow-Origin": "*",
+    };
 
     navigator.geolocation.getCurrentPosition(async (pos) => {
       let data = {
@@ -104,133 +104,133 @@ const ReportChild = () => {
         district,
         lat: pos.coords.latitude,
         lng: pos.coords.longitude,
-      }
+      };
 
       if (!loggedIn?.loggedIn) {
-        data = { ...data, isAnon: true, email, phoneNumber: pNo }
+        data = { ...data, isAnon: true, email, phoneNumber: pNo };
       } else {
-        data = { ...data, isAnon: false }
+        data = { ...data, isAnon: false };
       }
 
       try {
         const resp = await axios.post(
-          'http://localhost:5000/pencil/report',
+          "http://localhost:5000/pencil/report",
           data,
-          { headers },
-        )
+          { headers }
+        );
         if (resp.status === 201) {
           toast.success(
-            'Your complaint ID is : ' +
+            "Your complaint ID is : " +
               resp?.data?.newFoundChild?._id +
-              '  ' +
+              "  " +
               name +
-              '. You may track your reported child using this ID',
-            { id: notification },
-          )
+              ". You may track your reported child using this ID",
+            { id: notification }
+          );
         } else {
-          toast.error('Error', { id: notification })
-          console.error(resp)
+          toast.error("Error", { id: notification });
+          console.error(resp);
         }
       } catch (err) {
         toast.error(
           err?.response?.data?.message?.details[0]?.message || err?.message,
           {
             id: notification,
-          },
-        )
-        console.error(err)
+          }
+        );
+        console.error(err);
       } finally {
-        setName('')
-        setAddress('')
-        setDescription('')
-        setImg('')
-        setState('')
-        setDistrict('')
-        setEmail('')
-        setPnO('')
+        setName("");
+        setAddress("");
+        setDescription("");
+        setImg("");
+        setState("");
+        setDistrict("");
+        setEmail("");
+        setPnO("");
       }
-    })
-  }
+    });
+  };
 
   return (
     <Box>
       <Navbar />
       <Box
         sx={{
-          width: '100%',
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#E3ECF3',
+          width: "100%",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#E3ECF3",
         }}
       >
         <Box
           sx={{
-            width: '80%',
-            height: { lg: '80%', xs: 'auto' },
-            marginTop: '100px',
-            display: 'flex',
+            width: "80%",
+            height: { lg: "90%", xs: "auto" },
+            marginTop: "100px",
+            display: "flex",
           }}
         >
           {/* for lg */}
 
           <Box
             sx={{
-              width: { lg: '40%' },
-              height: '100%',
-              backgroundColor: 'secondary.main',
-              display: { lg: 'flex', xs: 'none' },
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: '20px 0 0 20px',
+              width: { lg: "40%" },
+              height: "100%",
+              backgroundColor: "secondary.main",
+              display: { lg: "flex", xs: "none" },
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "20px 0 0 20px",
             }}
           >
             <Box
               component="img"
               src={reportedImg}
-              sx={{ width: '70%', height: 'auto' }}
+              sx={{ width: "70%", height: "auto" }}
             />
           </Box>
           <Box
             sx={{
-              width: { lg: '60%', xs: '100%' },
-              height: { lg: '100%', xs: 'auto' },
-              backgroundColor: 'secondary.light',
-              borderRadius: '0 20px 20px 0',
+              width: { lg: "60%", xs: "100%" },
+              height: { lg: "100%", xs: "auto" },
+              backgroundColor: "secondary.light",
+              borderRadius: "0 20px 20px 0",
             }}
           >
             <Container
               sx={{
-                padding: '5%',
-                width: { xs: '100%', md: '80%' },
-                height: { lg: '100%', xs: '100vh' },
-                display: 'flex',
-                flexDirection: 'column',
+                padding: "5%",
+                width: { xs: "100%", md: "80%" },
+                height: { lg: "100%", xs: "100vh" },
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Box
                 sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'center',
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
                 }}
               >
                 <Box>
-                  <Box sx={{ minHeight: '10%' }}>
+                  <Box sx={{ minHeight: "10%" }}>
                     <Typography variant="h3">Report Child</Typography>
                   </Box>
                   <Box
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      height: { lg: '5%', xs: '10%', sm: '7%' },
+                      display: "flex",
+                      justifyContent: "space-between",
+                      height: { lg: "5%", xs: "10%", sm: "7%" },
                     }}
                   >
-                    <Typography variant="body2" color={'secondry.main'}>
-                      You are reporting{' '}
+                    <Typography variant="body2" color={"secondry.main"}>
+                      You are reporting{" "}
                       {loggedIn?.loggedIn ? (
                         <Typography
                           component="span"
@@ -249,7 +249,7 @@ const ReportChild = () => {
                         >
                           Anonymously
                         </Typography>
-                      )}{' '}
+                      )}{" "}
                     </Typography>
 
                     {!loggedIn?.loggedIn ? (
@@ -267,23 +267,24 @@ const ReportChild = () => {
                     )}
                   </Box>
                 </Box>
-                <Box sx={{ height: '100%', marginTop: '3%', width: '70%' }}>
+                <Box sx={{ height: "100%", marginTop: "3%", width: "70%" }}>
                   <Box
                     sx={{
-                      height: '10%',
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
+                      height: "10%",
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
+                    
                     <Button
                       variant="contained"
                       sx={{
-                        position: 'relative',
-                        width: { lg: '50%', xs: '45%' },
-                        backgroundColor: 'secondary.main',
-                        color: 'primary.contrastColor',
+                        position: "relative",
+                        width: { lg: "50%", xs: "45%" },
+                        backgroundColor: "secondary.main",
+                        color: "primary.contrastColor",
                       }}
                       component="label"
                       type="file"
@@ -294,6 +295,8 @@ const ReportChild = () => {
                       <input hidden accept="image/*" multiple type="file" />
                     </Button>
                   </Box>
+                  <Typography variant="h3" sx = {{textAlign: "center"}}>OR</Typography>
+                  <App />
 
                   <Box>
                     {!loggedIn?.loggedIn && (
@@ -310,9 +313,9 @@ const ReportChild = () => {
                       </>
                     )}
                   </Box>
-                  <Box sx={{ width: '100%', height: '10%', marginTop: '3%' }}>
-                    <Box sx={{ width: '100%', display: 'flex' }}>
-                      <Accordion sx={{ width: '100%' }}>
+                  <Box sx={{ width: "100%", height: "10%", marginTop: "3%" }}>
+                    <Box sx={{ width: "100%", display: "flex" }}>
+                      <Accordion sx={{ width: "100%" }}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1a-content"
@@ -325,11 +328,11 @@ const ReportChild = () => {
                         <AccordionDetails>
                           <Box
                             sx={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              justifyContent: 'space-evenly',
-                              height: { lg: '70%' },
-                              gap: '10px',
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "space-evenly",
+                              height: { lg: "70%" },
+                              gap: "10px",
                             }}
                           >
                             <TextField
@@ -367,7 +370,7 @@ const ReportChild = () => {
                               )}
                               value={state}
                               onChange={(_, dt) => {
-                                setState(dt)
+                                setState(dt);
                               }}
                             />
 
@@ -381,7 +384,7 @@ const ReportChild = () => {
                                 )}
                                 value={district}
                                 onChange={(_, dt) => {
-                                  setDistrict(dt)
+                                  setDistrict(dt);
                                 }}
                               />
                             )}
@@ -390,25 +393,24 @@ const ReportChild = () => {
                       </Accordion>
                     </Box>
                   </Box>
-                                <App/>
                 </Box>
                 <Box
                   sx={{
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: { lg: 'row', xs: 'row' },
-                    height: { xs: '5%' },
-                    width: '100%',
-                    justifyContent: 'space-evenly',
+                    position: "relative",
+                    display: "flex",
+                    flexDirection: { lg: "row", xs: "row" },
+                    height: { xs: "5%" },
+                    width: "100%",
+                    justifyContent: "space-evenly",
                   }}
                 >
                   <Button
                     onClick={handleReportChild}
                     sx={{
-                      position: 'relative',
-                      width: { lg: '40%', xs: '45%' },
-                      backgroundColor: 'secondary.main',
-                      color: 'primary.contrastColor',
+                      position: "relative",
+                      width: { lg: "40%", xs: "45%" },
+                      backgroundColor: "secondary.main",
+                      color: "primary.contrastColor",
                     }}
                     disabled={!canSubmit}
                     variant="contained"
@@ -422,7 +424,7 @@ const ReportChild = () => {
         </Box>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default ReportChild
+export default ReportChild;
