@@ -61,6 +61,7 @@ function DrawerAppBar(props) {
     <Box
       sx={{
         display: 'flex',
+        marginBottom: '90px',
         flexDirection: 'column',
         textDecoration: 'none',
       }}
@@ -70,7 +71,6 @@ function DrawerAppBar(props) {
         sx={{
           width: '100%',
           height: 'auto',
-          position: 'absolute',
           backgroundColor: 'primary.main',
         }}
       >

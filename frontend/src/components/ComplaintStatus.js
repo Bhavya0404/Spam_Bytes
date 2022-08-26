@@ -15,7 +15,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import { useSelector } from "react-redux";
 import { selectFoundChild } from "../features/foundchild/FoundChildSlice";
-
+import Navbar from "../components/Navbar"
 
 const steps = [
   { status: "Reported" },
@@ -57,7 +57,10 @@ const ComplaintStatus = ({ heading, createBtn }) => {
     return status;
   };
   return (
-    <Card sx={{ flex: 1 }}>
+    <div>
+      <Navbar />
+
+      <Card sx={{ flex: 1, mt: "25px" }}>
       
         <CardContent>
           <Box
@@ -197,6 +200,7 @@ const ComplaintStatus = ({ heading, createBtn }) => {
         </CardContent>
     
     </Card>
+    </div>
   );
 };
 
