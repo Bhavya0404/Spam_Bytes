@@ -1,45 +1,60 @@
-import { Box, Button, Container, Typography } from '@mui/material'
-import mainPic from '../assets/images/narendra.png'
-import React from 'react'
-import DonateButton from './DonateButton'
-import { useNavigate } from 'react-router-dom'
-import child from '../assets/images/child.svg'
+import { Box, Button, Container, Typography } from "@mui/material";
+import mainPic from "../assets/images/narendra.png";
+import React from "react";
+import DonateButton from "./DonateButton";
+import { useNavigate } from "react-router-dom";
+import child from "../assets/images/child.svg";
+import { Carousel } from "react-bootstrap";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const HeroSection = () => {
-  const navigate = useNavigate()
-
-
- 
+  const navigate = useNavigate();
 
   return (
     <Box
       sx={{
-        width: { xs: '100%' },
-        height: { sm: '100vh', xs: '100vh' },
-        display: 'flex',
-        overflow: 'hidden',
+        width: { xs: "100%" },
+        height: { sm: "100vh", xs: "100vh" },
+        display: "flex",
+        overflow: "hidden",
       }}
     >
       <Box
         sx={{
-          width: '100%',
-          height: { lg: '100vh', xs: '100vh' },
-          position: 'absolute',
-          display: 'flex',
-          justifyContent: 'center',
+          width: "100%",
+          height: { lg: "100vh", xs: "100vh" },
+          position: "absolute",
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Box
-          component="img"
-          sx={{
-            width: '100%',
-            height: { lg: '100%', xs: '100vh' },
-            position: 'absolute',
-            zIndex: '-2',
-          }}
-          src={mainPic}
-        />
+        <Carousel fade={true} pause={false}>
+          <Carousel.Item interval={2000}>
+            <img className="d-block w-100" src={mainPic} alt="First slide" />
+            <Carousel.Caption>
+              <h3>First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img className="d-block w-100" src={mainPic} alt="Third slide" />
+            <Carousel.Caption>
+              <h3>Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item interval={2000}>
+            <img className="d-block w-100" src={mainPic} alt="Third slide" />
+            <Carousel.Caption>
+              <h3>Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
 
         {/* <Box
           sx={{
@@ -55,40 +70,40 @@ const HeroSection = () => {
 
       <Container
         sx={{
-          position: 'relative',
-          color: 'common.white',
-          width: { sm: '100%', xs: '100%' },
-          height: { sm: '100%', xs: '100vh' },
-          display: 'flex',
-          alignItems: 'center',
+          position: "relative",
+          color: "common.white",
+          width: { sm: "100%", xs: "100%" },
+          height: { sm: "100%", xs: "100vh" },
+          display: "flex",
+          alignItems: "center",
           margin: { xs: 0 },
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            height: '100%',
-            width: '80%',
-            justifyContent: 'space-evenly',
-            display: 'flex',
-            flexDirection: 'column',
+            display: "flex",
+            height: "100%",
+            width: "80%",
+            justifyContent: "space-evenly",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <Box
             sx={{
-              height: { md: '50%', xs: '60%' },
-              width: { lg: '150%', md: '60%', sm: '100%', xs: '100%' },
-              marginTop: '40%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              bgcolor: 'secondry.main',
-              borderRadius: '50px',
+              height: { md: "50%", xs: "60%" },
+              width: { lg: "150%", md: "60%", sm: "100%", xs: "100%" },
+              marginTop: "40%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              bgcolor: "secondry.main",
+              borderRadius: "50px",
             }}
           >
             <Box
               sx={{
-                marginLeft: '10%',
+                marginLeft: "10%",
               }}
             >
               <Typography variant="h1">PENCIL</Typography>
@@ -99,20 +114,20 @@ const HeroSection = () => {
           </Box>
           <Box
             sx={{
-              height: { md: '10%', xs: '100px' },
-              width: { sm: '50%' },
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              bgcolor: 'primary.main',
-              borderRadius: '10px',
-              marginLeft: '15%',
+              height: { md: "10%", xs: "100px" },
+              width: { sm: "50%" },
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              bgcolor: "primary.main",
+              borderRadius: "10px",
+              marginLeft: "15%",
             }}
           >
-            <Button onClick={() => navigate('/reportchild')}>
+            <Button onClick={() => navigate("/reportchild")}>
               <Typography
                 variant="subtitle1"
-                sx={{ textTransform: 'capitalize', color: 'common.white' }}
+                sx={{ textTransform: "capitalize", color: "common.white" }}
               >
                 Register a Complaint
               </Typography>
@@ -120,21 +135,21 @@ const HeroSection = () => {
           </Box>
           <Box
             sx={{
-              height: { md: '10%', xs: '100px' },
-              width: { sm: '50%' },
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              bgcolor: 'primary.main',
-              borderRadius: '10px',
-              marginLeft: '15%',
-              marginTop: '5%'
+              height: { md: "10%", xs: "100px" },
+              width: { sm: "50%" },
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              bgcolor: "primary.main",
+              borderRadius: "10px",
+              marginLeft: "15%",
+              marginTop: "5%",
             }}
           >
-            <Button onClick={() => navigate('/ComplaintStatus')}>
+            <Button onClick={() => navigate("/ComplaintStatus")}>
               <Typography
                 variant="subtitle1"
-                sx={{ textTransform: 'capitalize', color: 'common.white' }}
+                sx={{ textTransform: "capitalize", color: "common.white" }}
               >
                 Track Complaint
               </Typography>
@@ -142,25 +157,25 @@ const HeroSection = () => {
           </Box>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              width: '100%',
-              height: '40%',
-              justifyContent: 'space-evenly',
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              height: "40%",
+              justifyContent: "space-evenly",
             }}
           ></Box>
         </Box>
       </Container>
       <Box
         sx={{
-          width: '100%',
-          height: '100%',
+          width: "100%",
+          height: "100%",
 
-          display: { xs: 'none', lg: 'flex' },
+          display: { xs: "none", lg: "flex" },
         }}
       ></Box>
     </Box>
-  )
-}
+  );
+};
 
-export default HeroSection
+export default HeroSection;
