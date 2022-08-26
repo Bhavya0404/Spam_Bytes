@@ -186,6 +186,7 @@ const ReportChild = () => {
               width: { lg: '60%', xs: '100%' },
               height: { lg: '100%', xs: 'auto' },
               backgroundColor: 'secondary.light',
+              borderRadius: '0 20px 20px 0',
             }}
           >
             <Container
@@ -197,12 +198,14 @@ const ReportChild = () => {
                 flexDirection: 'column',
               }}
             >
-              <Typography variant="h3">Report Child</Typography>
+              <Box sx={{ minHeight: '10%' }}>
+                <Typography variant="h3">Report Child</Typography>
+              </Box>
               <Box
                 sx={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  height: { lg: '5%', sm: '10%' },
+                  height: { lg: '5%', xs: '10%', sm: '7%' },
                 }}
               >
                 <Typography variant="body2" color={'secondry.main'}>
@@ -220,7 +223,7 @@ const ReportChild = () => {
                     <Typography
                       component="span"
                       variant="h6"
-                      color="primary"
+                      color="primary.light"
                       sx={{ fontWeight: 600 }}
                     >
                       Anonymously
@@ -330,13 +333,17 @@ const ReportChild = () => {
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  height: { xs: '20%' },
+                  height: { xs: '15%' },
                   justifyContent: 'space-evenly',
                 }}
               >
                 <Button
                   variant="contained"
-                  sx={{ width: '50%' }}
+                  sx={{
+                    width: '50%',
+                    backgroundColor: 'secondary.main',
+                    color: 'primary.contrastColor',
+                  }}
                   component="label"
                   type="file"
                   value={img}
@@ -347,9 +354,12 @@ const ReportChild = () => {
                 </Button>
                 <Button
                   onClick={handleReportChild}
-                  size="large"
+                  sx={{
+                    width: '50%',
+                    backgroundColor: 'secondary.main',
+                    color: 'primary.contrastColor',
+                  }}
                   disabled={!canSubmit}
-                  sx={{ backgroundColor: 'black', width: '70%' }}
                   variant="contained"
                 >
                   Submit

@@ -58,7 +58,7 @@ function App() {
       },
       secondary: {
         main: '#457B9D',
-        light: 'rgba(69, 123, 157, 0.2)',
+        light: '#fff',
         dark: '#c8b6ff',
         contrastText: '#E3ECF3',
       },

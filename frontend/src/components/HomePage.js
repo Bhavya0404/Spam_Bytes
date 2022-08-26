@@ -30,7 +30,7 @@ const HomePage = () => {
         <Statistics />
         <AboutUs />
         <HowDoWeFunction />
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </div>
   )
