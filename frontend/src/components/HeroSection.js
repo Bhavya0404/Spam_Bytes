@@ -3,11 +3,16 @@ import mainPic from "../assets/images/narendra.png";
 import React from "react";
 import DonateButton from "./DonateButton";
 import { useNavigate } from "react-router-dom";
-import child from "../assets/images/child.svg";
+
 import { Carousel } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import mainPic1 from "../assets/images/main1.jpg";
+import mainPic2 from "../assets/images/main2.jpg";
+import mainPic3 from "../assets/images/main3.jpg";
+
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -28,47 +33,27 @@ const HeroSection = () => {
           position: "absolute",
           display: "flex",
           justifyContent: "center",
+          zIndex: '0',
         }}
       >
         <Carousel fade={true} pause={false}>
           <Carousel.Item interval={2000}>
-            <img className="d-block w-100" src={mainPic} alt="First slide" />
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
+            <img className="d-block w-100" src={mainPic1} alt="First slide" height={'725px'}/>
+            
           </Carousel.Item>
           <Carousel.Item interval={2000}>
-            <img className="d-block w-100" src={mainPic} alt="Third slide" />
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
+            <img className="d-block w-100" src={mainPic2} alt="Third slide" height={'725px'} />
+            
           </Carousel.Item>
           <Carousel.Item interval={2000}>
-            <img className="d-block w-100" src={mainPic} alt="Third slide" />
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
+            <img className="d-block w-100" src={mainPic3} alt="Third slide" height={'725px'} />
+        
           </Carousel.Item>
         </Carousel>
+        </Box>
+        
 
-        {/* <Box
-          sx={{
-            width: '100%',
-            height: { lg: '100%', xs: '100vh' },
-            backgroundColor: 'black',
-            opacity: '60%',
-            position: 'absolute',
-            zIndex: '-1',
-          }}
-        /> */}
-      </Box>
-
-      <Container
+      <Box
         sx={{
           position: "relative",
           color: "common.white",
@@ -165,7 +150,7 @@ const HeroSection = () => {
             }}
           ></Box>
         </Box>
-      </Container>
+      </Box>
       <Box
         sx={{
           width: "100%",
