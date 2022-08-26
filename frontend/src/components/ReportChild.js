@@ -168,7 +168,7 @@ const ReportChild = () => {
         <Box
           sx={{
             width: '80%',
-            height: { lg: '80%', xs: 'auto' },
+            height: { lg: '90%', xs: 'auto' },
             marginTop: '100px',
             display: 'flex',
           }}
