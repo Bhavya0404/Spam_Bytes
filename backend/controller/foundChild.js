@@ -7,7 +7,7 @@ const getfoundChildData = async (req, res) => {
     const foundChildData = await data.find().populate('reportedBy', { password: 0 })
     res.status(200).json(foundChildData)
   } catch (error) {
-    res.status(400).error({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 

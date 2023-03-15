@@ -155,6 +155,25 @@ const registerAdmin = async (req, res) => {
   }
 };
 
+// const addNodal = async (req, res) => {
+//   const user = req?.user;
+//   const uData = await userModel.findById(user?._id);
+  
+//   const state = req?.body?.state;
+//   const district = req?.body?.district;
+//   const officeLocation = [req?.body?.officeLocationLat, req?.body.officeLocationLng];
+
+//   const newNodal = new nodalOfficer({
+//     user: uData._id,
+//     state,
+//     district,
+//     officeLocation
+//   })
+
+//   await newNodal.save();
+//   return res.status(201).json(newNodal);
+// }
+
 const registerUser = async (req, res) => {
   const body = req.body;
 
@@ -234,4 +253,5 @@ module.exports = {
   registerAdmin,
   registerUser,
   login,
+  // addNodal
 };

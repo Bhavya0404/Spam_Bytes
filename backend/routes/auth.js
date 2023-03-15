@@ -9,6 +9,7 @@ const {
   registerUser,
   login,
   modifyProfile,
+  // addNodal
 } = require("../controller/auth");
 const userSchema = require("../model/userSchema");
 
@@ -29,5 +30,8 @@ router.get("/chkAuth", isAuthenticated, async (req, res) => {
   const user = await userSchema.findById(req?.user?._id).exec();
   return res.status(200).send({ loggedIn: req?.user ? true : false, user });
 });
+
+
+// router.post("/createnodal", isAuthenticated, isAdmin, addNodal);
 
 module.exports = router;
