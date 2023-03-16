@@ -55,23 +55,23 @@ const reportChild = async (req, res) => {
 
   const newFoundChild = new foundChild(data);
   await newFoundChild.save();
-  // const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  // const authToken = process.env.TWILIO_AUTH_TOKEN;
-  // const client = require('twilio')(accountSid, authToken);
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const client = require('twilio')(accountSid, authToken);
 
-  // logger.info("New Child Reported");
-  // client.calls
-  //   .create({
-  //     twiml: `Child Reported at Location ${newFoundChild?.lat} and ${newFoundChild?.lng}`,
-  //     to: '+917289912763',
-  //     from: '+12184504609'
-  //   }, function (err, call) {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       console.log(call.sid);
-  //     }
-  //   })
+  logger.info("New Child Reported");
+  client.calls
+    .create({
+      twiml: `Child Reported at Location ${newFoundChild?.lat} and ${newFoundChild?.lng}`,
+      to: '+917289912763',
+      from: '+12184504609'
+    }, function (err, call) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(call.sid);
+      }
+    })
   const user = await nodalOfficer.findOne({ district }).exec();
   if (user) {
     const email = user.email;
