@@ -1,6 +1,6 @@
 const Joi = require("joi");
 const schema = Joi.object().keys({
-  name: Joi.string().min(4).max(40),
+  name: Joi.string().min(4).max(40).allow("", null),
   description: Joi.string().allow("", null),
   img: Joi.string(),
   address: Joi.string().allow("", null),

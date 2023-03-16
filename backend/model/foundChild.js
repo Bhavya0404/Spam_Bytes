@@ -5,6 +5,7 @@ const foundchild = mongoose.Schema(
     name: {
       type: String,
       default: "N/A",
+      required: false
     },
     description: String,
     img: String,
