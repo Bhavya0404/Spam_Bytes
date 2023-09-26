@@ -27,7 +27,7 @@ HTML, CSS, JavaScript, React.js, Node.js, Express.js, MongoDB, Redux, Razorpay, 
 ## Screenshots
 
 #### HomePage
-![image](https://github.com/Bhavya0404/Spam_Bytes/assets/51115215/d9a69636-327c-48f3-adfe-2fb11189ad5b)
+![image](https://github.com/Bhavya0404/Spam_Bytes/assets/51115215/be7933ab-8267-4368-9f7f-0a6b2b64c4cb)
 ![image](https://github.com/Bhavya0404/Spam_Bytes/assets/51115215/5a07f331-224b-401e-b130-fe888deea843)
 ![image](https://github.com/Bhavya0404/Spam_Bytes/assets/51115215/73237989-4be9-4b8d-9357-9995cb11b980)
 ![image](https://github.com/Bhavya0404/Spam_Bytes/assets/51115215/9fc25a09-3f2c-4bc4-98af-8e20d86cdeda)
